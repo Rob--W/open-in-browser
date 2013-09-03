@@ -84,11 +84,6 @@ function bindFormEvents() {
 function exportReturnValue() {
     var choice = document.querySelector('input[name="choice"]:checked').value;
     switch (choice) {
-        case 'default':
-            window.returnValue = {
-                default: true
-            };
-        break;
         case 'openas':
             var mime = $('mime-type').value;
             if (mime === 'original') {

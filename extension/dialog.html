@@ -18,17 +18,14 @@
 <form name="action">
     <div class="what-to-do">What should Chrome do with this file?</div>
     <label>
-        <input name="choice" type="radio" checked autofocus value="default"> <span>Default behavior</span>
-    </label>
-    <label>
-        <input name="choice" type="radio" value="openas"> <span>Open in browser as</span>
+        <input name="choice" type="radio" value="openas" checked autofocus> <span>Open in browser as</span>
         <div class="mime-container">
             <select id="mime-type" class="mime-type">
                 <option value="text/plain">Text</option>
                 <option value="text/html">Web page</option>
                 <option value="text/xml">XML</option>
                 <option value="image/png">Image</option>
-                <option value="original">Server sent MIME</option>
+                <option value="original" selected>Server sent MIME</option>
                 <option value="other">Other</option>
             </select>
             <input id="mime-custom" class="mime-custom" type="text" hidden pattern=" *[A-Za-z-]+/.+" title="Enter a valid MIME-type.">

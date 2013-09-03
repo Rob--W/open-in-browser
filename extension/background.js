@@ -45,12 +45,10 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
      */
     var result = window.showModalDialog(dialogURL, dialogArguments);
     if (result) {
-        if (result.default) {
-            return;
-        }
         if (result.mime) {
             setHeader(details.responseHeaders, 'Content-Type', result.mime);
             setHeader(details.responseHeaders, 'X-Content-Type-Options', 'nosniff');
+            setHeader(details.responseHeaders, 'Content-Disposition', 'inline');
         }
         if (result.save) {
             setHeader(details.responseHeaders, 'Content-Disposition',
