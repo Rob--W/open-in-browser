@@ -1,0 +1,85 @@
+/**
+ * (c) 2013 Rob Wu <gwnRob@gmail.com>
+ */
+* {
+    box-sizing: border-box;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    line-height: 1.4em;
+}
+body {
+    padding: 15px 5px 5px 15px;
+    font-size: 16px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+
+.metadata-block {
+    padding-left: 15px;
+}
+.no-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#filename {
+    font-weight: bold;
+}
+
+
+
+#url {
+    white-space: nowrap;
+}
+#url-protocol.https {
+    color: green;
+}
+#url-protocol,
+#url-remainder {
+    color: #999;
+}
+
+
+
+.what-to-do {
+    margin: 0.5em 0 0.3em;
+    font-weight: bold;
+}
+
+
+
+label {
+    display: block;
+}
+
+
+.mime-container {
+    display: inline-block;
+    vertical-align: middle;
+}
+.mime-type,
+.mime-custom {
+    display: block;
+    width: 100%;
+    min-width: 100px;
+}
+.mime-custom[hidden] {
+    display: none;
+}
+
+
+
+.button-container {
+    margin-top: 0.5em;
+    text-align: center;
+}
+.btn-ok, .btn-cancel {
+    text-align: center;
+    display: inline-block;
+    padding: 3px;
+    width: 45%;
+    max-width: 150px;
+}
