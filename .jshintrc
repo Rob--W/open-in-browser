@@ -1,0 +1,9 @@
+{
+    "globalstrict": true,
+    "unused": true,
+    "maxlen": 100,
+    "browser": true,
+    "globals": {
+        "chrome": false
+    }
+}
