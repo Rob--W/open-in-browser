@@ -24,6 +24,9 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.row {
+    margin: 0.5em 0;
+}
 
 #filename {
     font-weight: bold;
@@ -45,7 +48,6 @@ body {
 
 
 .what-to-do {
-    margin: 0.5em 0 0.3em;
     font-weight: bold;
 }
 
@@ -73,7 +75,6 @@ label {
 
 
 .button-container {
-    margin-top: 0.5em;
     text-align: center;
 }
 .btn-ok, .btn-cancel {

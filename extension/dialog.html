@@ -16,25 +16,27 @@
     <div class="no-overflow"><span title="Server-sent Content type (MIME)">Content type:</span> <span id="server-sent-mime"></span></div>
 </div>
 <form name="action">
-    <div class="what-to-do">What should Chrome do with this file?</div>
-    <label>
-        <input name="choice" type="radio" value="openas" checked autofocus> <span>Open in browser as</span>
-        <div class="mime-container">
-            <select id="mime-type" class="mime-type">
-                <option value="text/plain">Text</option>
-                <option value="text/html">Web page</option>
-                <option value="text/xml">XML</option>
-                <option value="image/png">Image</option>
-                <option value="original" selected>Server sent MIME</option>
-                <option value="other">Other</option>
-            </select>
-            <input id="mime-custom" class="mime-custom" type="text" hidden pattern=" *[A-Za-z-]+/.+" title="Enter a valid MIME-type.">
-        </div>
-    </label>
-    <label>
-        <input name="choice" type="radio" value="save"> <span>Save File</span>
-    </label>
-    <div class="button-container">
+    <div class="row what-to-do">What should Chrome do with this file?</div>
+    <div class="row">
+        <label>
+            <input name="choice" type="radio" value="openas" checked autofocus> <span>Open in browser as</span>
+            <div class="mime-container">
+                <select id="mime-type" class="mime-type">
+                    <option value="text/plain">Text</option>
+                    <option value="text/html">Web page</option>
+                    <option value="text/xml">XML</option>
+                    <option value="image/png">Image</option>
+                    <option value="original" selected>Server sent MIME</option>
+                    <option value="other">Other</option>
+                </select>
+                <input id="mime-custom" class="mime-custom" type="text" hidden pattern=" *[A-Za-z-]+/.+" title="Enter a valid MIME-type.">
+            </div>
+        </label>
+        <label>
+            <input name="choice" type="radio" value="save"> <span>Save File</span>
+        </label>
+    </div>
+    <div class="row button-container">
         <button id="confirm" class="btn-ok">Ok</button>
         <button id="cancel" class="btn-cancel">Cancel</button>
     </div>
