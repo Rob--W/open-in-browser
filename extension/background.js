@@ -11,6 +11,9 @@ var r_contentDispositionFilename = /[; ]filename(\*?)=(["'])(.+)\1/;
  * Preferences
  */
 var prefs = {
+    // User-defined MIME-mappings
+    // mime-mappings := { "MIME-type": "save" or "MIME/type", ... }
+    'mime-mappings': {},
     // Whether to add the "X-Content-Type-Options: nosniff" header to text/plain requests
     'text-nosniff': true
 };
@@ -29,13 +32,14 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
         return;
     }
     var contentType = getHeader(details.responseHeaders, 'content-type') || '';
+    var mimeType = contentType.split(';', 1)[0].trim().toLowerCase();
     var contentDisposition = getHeader(details.responseHeaders, 'content-disposition');
 
     if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
-        if (!shouldInterceptRequest(contentType)) {
+        if (!shouldInterceptRequest(mimeType)) {
             if (prefs['text-nosniff']) {
-                if (!contentType || contentType.substring(0, 10).toLowerCase() === 'text/plain') {
+                if (!mimeType || mimeType === 'text/plain') {
                     setHeader(details.responseHeaders, 'X-Content-Type-Options', 'nosniff');
                     return {
                         responseHeaders: details.responseHeaders
@@ -56,17 +60,29 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
         filename = getFilenameFromURL(details.url);
     }
 
-    var dialogArguments = {
-        url: details.url,
-        filename: filename,
-        contentType: contentType
-    };
+    var desiredAction = prefs['mime-mappings'][contentType];
     /**
      * @var {Object} result
      * @prop {string} result.mime The desired MIME-type (empty to preserve existing MIME-type)
      * @prop {boolean} result.save Whether to trigger a "Save As" dialog.
+     * @prop {boolean} result.remember Whether to persist the choice for future documents with
+     *                                  the same MIME-type.
      */
-    var result = window.showModalDialog(dialogURL, dialogArguments);
+    var result;
+    if (desiredAction) {
+        if (desiredAction === 'save') {
+            result = { save: true };
+        } else {
+            result = { mime: desiredAction };
+        }
+    } else {
+        var dialogArguments = {
+            url: details.url,
+            filename: filename,
+            contentType: contentType
+        };
+        result = window.showModalDialog(dialogURL, dialogArguments);
+    }
     if (result) {
         if (result.mime) {
             setHeader(details.responseHeaders, 'Content-Type', result.mime);
@@ -76,6 +92,10 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
         if (result.save) {
             setHeader(details.responseHeaders, 'Content-Disposition',
                     'attachment; filename*=UTF-8\'\'' + encodeURIComponent(filename));
+        }
+        if (result.rememberChoice) {
+            prefs['mime-mappings'][contentType] = result.save ? 'save' : result.mime;
+            localStorage.setItem('mime-mappings', JSON.stringify(prefs['mime-mappings']));
         }
         return {
             responseHeaders: details.responseHeaders
@@ -219,7 +239,6 @@ var MIME_TYPES_TEXT_SPECIAL_CASE = [
  * @return {boolean} Whether to intercept the request and show the prompt.
  */
 function shouldInterceptRequest(mimeType) {
-    mimeType = mimeType.split(';', 1)[0].trim().toLowerCase();
     if (!mimeType) {
         // Mime-type not specified. For now, do nothing.
         return false;

@@ -33,7 +33,7 @@ function handleDetails(url, filename, contentType) {
 function resizeDialog() {
     // TODO: What about the window's size when the interface is localized?
     var WIDTH = 500;
-    var HEIGHT = 300;
+    var HEIGHT = 330;
     window.resizeTo(WIDTH, HEIGHT);
     window.moveTo(
         Math.floor((screen.availWidth - WIDTH) / 2),
@@ -83,6 +83,7 @@ function bindFormEvents() {
  */
 function exportReturnValue() {
     var choice = document.querySelector('input[name="choice"]:checked').value;
+    var rememberChoice = $('remember').checked;
     switch (choice) {
         case 'openas':
             var mime = $('mime-type').value;
@@ -92,12 +93,14 @@ function exportReturnValue() {
                 mime = $('mime-custom').value.trim();
             }
             window.returnValue = {
-                mime: mime
+                mime: mime,
+                rememberChoice: rememberChoice
             };
         break;
         case 'save':
             window.returnValue = {
-                save: true
+                save: true,
+                rememberChoice: rememberChoice
             };
         break;
     }

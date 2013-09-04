@@ -12,6 +12,12 @@ body {
     font-size: 16px;
     margin: 2em;
 }
+h2 {
+    font-size: 1.3em;
+    margin: 0.6em 0;
+    border-top: 1px dashed #888;
+    padding-top: 0.2em;
+}
 .row {
     margin: 5px 0;
 }
@@ -29,6 +35,13 @@ footer {
     
     font-size: 1rem;
     text-align: center;
+}
+table {
+    border-collapse: collapse;
+}
+.restored-to-default {
+    text-decoration: line-through;
+    color: #999;
 }
 </style>
 </head>
@@ -48,6 +61,21 @@ handler for the given document.</p>
         plain text. An annoying consequence is that when text files contain binary characters, it will be downloaded instead of displayed.<br>
         Turn this option on to always view text files in the browser.
     </div>
+</div>
+
+<h2>Your saved MIME actions</h2>
+Each of your preferred actions will be shown below. You can set a preferred action by ticking "Do this automatically for files like this from now on." in the "Open in Browser" dialog.
+<div class="row">
+    <table id="mime-mappings">
+        <thead>
+            <tr>
+                <th>Server sent MIME</th>
+                <th>Your desired action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </div>
 
 <footer>
