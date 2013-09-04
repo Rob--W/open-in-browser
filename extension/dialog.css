@@ -36,6 +36,19 @@ body {
 
 
 
+.url-container {
+    height: 1.4em; /* same as line-height */
+    position: relative;
+}
+.url-container:hover #url {
+    background-color: #DDD;
+    white-space: pre;
+    word-wrap: break-word;
+}
+.url-container:hover #url-protocol,
+.url-container:hover #url-remainder {
+    color: #000;
+}
 #url {
     white-space: nowrap;
 }
