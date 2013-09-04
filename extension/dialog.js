@@ -50,7 +50,7 @@ function bindDialogEvents() {
 function resizeDialog() {
     // TODO: What about the window's size when the interface is localized?
     var WIDTH = 500;
-    var HEIGHT = 330;
+    var HEIGHT = 350;
     window.resizeTo(WIDTH, HEIGHT);
     window.moveTo(
         Math.floor((screen.availWidth - WIDTH) / 2),

@@ -82,6 +82,7 @@ label {
     display: block;
     width: 100%;
     min-width: 100px;
+    font-size: 16px;
 }
 .mime-custom[hidden] {
     display: none;
