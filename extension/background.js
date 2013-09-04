@@ -7,6 +7,21 @@ var dialogURL = chrome.extension.getURL('dialog.html');
 var r_contentDispositionAttachment = /^\s*attachment/;
 var r_contentDispositionFilename = /[; ]filename(\*?)=(["'])(.+)\1/;
 
+/**
+ * Preferences
+ */
+var prefs = {
+    // Whether to add the "X-Content-Type-Options: nosniff" header to text/plain requests
+    'text-nosniff': true
+};
+Object.keys(prefs).forEach(function(key) {
+    if (localStorage.hasOwnProperty(key)) prefs[key] = JSON.parse(localStorage.getItem(key));
+});
+
+window.addEventListener('storage', function(event) {
+    if (prefs.hasOwnProperty(event.key)) prefs[event.key] = JSON.parse(event.newValue);
+});
+
 
 chrome.webRequest.onHeadersReceived.addListener(function(details) {
     if (details.statusLine.substring(9, 12) !== '200') { // E.g. HTTP/0.9 200 OK
@@ -19,6 +34,14 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
     if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
         if (!shouldInterceptRequest(contentType)) {
+            if (prefs['text-nosniff']) {
+                if (!contentType || contentType.substring(0, 10).toLowerCase() === 'text/plain') {
+                    setHeader(details.responseHeaders, 'X-Content-Type-Options', 'nosniff');
+                    return {
+                        responseHeaders: details.responseHeaders
+                    };
+                }
+            }
             // Uncertain whether MIME-type triggers download. Exit now, to be on the safe side.
             return;
         }

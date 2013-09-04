@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+ (c) 2013 Rob Wu <gwnRob@gmail.com>
+ -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>Open in Browser</title>
+<style>
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 16px;
+    margin: 2em;
+}
+.row {
+    margin: 5px 0;
+}
+.pref {
+    display: block;
+    font-weight: bold;
+}
+.pref + div {
+    padding-left: 25px;
+}
+footer {
+    margin-top: 1rem;
+    border-top: 1px solid #CCC;
+    padding: 1rem 0;
+    
+    font-size: 1rem;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+<p><b>Open in Browser</b> offers the choice to display a file directly in the browser or to download and save the file.
+This dialog is only activated if the server has marked a file as downloadable, or if Chrome has no default content
+handler for the given document.</p>
+
+<h2>Preferences</h2>
+<div class="row">
+    <label class="pref">
+        <input type="checkbox" id="pref-text-nosniff" checked>
+        Disable Content sniffing for <code>text/plain</code> types.
+    </label>
+    <div>
+        Some servers incorrectly serve pages as text. Chromium deals with this issue by checking whether the page is really
+        plain text. An annoying consequence is that when text files contain binary characters, it will be downloaded instead of displayed.<br>
+        Turn this option on to always view text files in the browser.
+    </div>
+</div>
+
+<footer>
+    &copy; 2013 Rob Wu &lt;gwnRob@gmail.com&gt;
+    &bull; <a href="https://github.com/Rob--W/open-in-browser">Source code on Github</a>
+    &bull; <a href="https://chrome.google.com/webstore/detail/open-in-browser/hfhhoeiddaknkoaocfbimbbodiganeib">Chrome Web Store listing</a>
+</footer>
+<script src="options.js"></script>
+</body>
+</html>
