@@ -18,6 +18,7 @@ body {
 
 
 .metadata-block {
+    margin: 0.3em 0 0.7em;
     padding-left: 15px;
 }
 .no-overflow {
@@ -25,7 +26,7 @@ body {
     text-overflow: ellipsis;
 }
 .row {
-    margin: 0.5em 0;
+    margin: 0.3em 0;
 }
 
 #filename {
@@ -47,7 +48,7 @@ body {
 
 
 
-.what-to-do {
+legend {
     font-weight: bold;
 }
 
