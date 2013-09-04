@@ -28,8 +28,25 @@ function handleDetails(url, filename, contentType) {
 
     bindFormEvents();
 
+    bindDialogEvents();
+
     resizeDialog();
 }
+
+function bindDialogEvents() {
+    window.addEventListener('keydown', function(e) {
+        if (e.keyIdentifier === 'F5' || e.ctrlKey && e.keyCode === 82/*R*/) {
+            e.preventDefault();
+        }
+    });
+    window.oncontextmenu = function(e) {
+        if (!e.target || e.target.type !== 'text') {
+            // Allow right-click on <input type=text> for copy-paste.
+            e.preventDefault();
+        }
+    };
+}
+
 function resizeDialog() {
     // TODO: What about the window's size when the interface is localized?
     var WIDTH = 500;
