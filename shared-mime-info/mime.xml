@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Addition of MIME types that are not in any of the default MIME databases.
+ -->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/x-chrome-extension">
+		<comment>Chromium Extension</comment>
+		<glob pattern="*.crx"/>
+		<sub-class-of type="application/zip"/>
+	</mime-type>
+	<mime-type type="application/x-navigator-extension">
+		<comment>Opera Extension</comment>
+		<glob pattern="*.nex"/>
+		<icon name="opera-extension"/>
+		<sub-class-of type="application/zip"/>
+	</mime-type>
+	<mime-type type="application/x-opera-extension">
+		<comment>Opera Extension</comment>
+		<glob pattern="*.oex"/>
+		<icon name="opera-extension"/>
+		<sub-class-of type="application/zip"/>
+	</mime-type>
+</mime-info>
