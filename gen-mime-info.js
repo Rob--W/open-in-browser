@@ -125,6 +125,7 @@ function afterProcessingAllInputFiles() {
     '}',
     ];
     mimeMetadata = mimeMetadata.join('\n') + '\n';
+    metadata.allMimeTypes.sort();
     metadata.nonGenericIcons = iconNames;
     metadata.supportedLocales = Object.keys(i18n);
     mimeMetadata += 'var mimeMetadata = ' + JSON.stringify(metadata, null, '\t') + ';\n';
@@ -135,6 +136,7 @@ var metadata = {
     mimeToIcon: {},
     extensionToMime: {},
     aliases: {},
+    allMimeTypes: [],
 };
 var i18n = {};
 
@@ -183,6 +185,11 @@ function xml2mime(xmlFilename, /*function*/ done) {
                 console.warn('MIME type not found at index ' + i + '!');
                 continue;
             }
+
+            if (metadata.allMimeTypes.indexOf(mimeType) === -1) {
+                metadata.allMimeTypes.push(mimeType);
+            }
+
             var icon = getIcon(item, i);
             if (icon) {
                 metadata.mimeToIcon[mimeType] = icon;

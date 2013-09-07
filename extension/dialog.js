@@ -2,6 +2,7 @@
  * (c) 2013 Rob Wu <gwnRob@gmail.com>
  */
 /* globals dialogArguments, console,
+            mimeMetadata,
             mime_fromFilename,
             mime_getFriendlyName,
             mime_getIcon
@@ -95,12 +96,21 @@ function renderURL(/*string*/ url) {
 }
 
 function bindFormEvents() {
+    var populateDatalist = function() {
+        populateDatalist = null;
+        var options = document.createDocumentFragment();
+        for (var i = 0; i < mimeMetadata.allMimeTypes.length; ++i) {
+            options.appendChild(new Option('', mimeMetadata.allMimeTypes[i]));
+        }
+        $('mime-custom-completion').appendChild(options);
+    };
     $('mime-type').onchange = function() {
         var isCustom = this.value === 'other';
         var mimeCustom = $('mime-custom');
         mimeCustom.hidden = !isCustom;
         mimeCustom.required = isCustom;
         if (isCustom) {
+            if (populateDatalist) populateDatalist();
             mimeCustom.focus();
         }
     };

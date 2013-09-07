@@ -32,7 +32,7 @@
                     <option value="original" selected>Server sent MIME</option>
                     <option value="other">Other</option>
                 </select>
-                <input id="mime-custom" class="mime-custom" type="text" hidden pattern=" *[A-Za-z-]+/.+" title="Enter a valid MIME-type." spellcheck="false">
+                <input id="mime-custom" class="mime-custom" type="text" hidden pattern=" *[A-Za-z-]+/.+" title="Enter a valid MIME-type." spellcheck="false" list="mime-custom-completion">
             </div>
         </label>
         <label>
@@ -50,6 +50,8 @@
     </div>
 </fieldset>
 </form>
+<datalist id="mime-custom-completion">
+</datalist>
 <script src="mime-metadata.js"></script>
 <script src="dialog.js"></script>
 </body>
