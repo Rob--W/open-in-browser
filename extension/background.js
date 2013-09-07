@@ -82,7 +82,11 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             contentType: contentType,
             mimeType: mimeType
         };
-        result = window.showModalDialog(dialogURL, dialogArguments);
+        result = window.showModalDialog(
+                dialogURL + '?' + encodeURIComponent(JSON.stringify(dialogArguments)),
+                dialogArguments);
+        if (!result) result = window.dialogResult;
+        window.dialogResult = null;
     }
     if (result) {
         if (result.mime) {

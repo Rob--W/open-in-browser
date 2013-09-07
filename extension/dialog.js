@@ -11,13 +11,11 @@
 var $ = document.getElementById.bind(document);
 
 if (!window.dialogArguments) {
-    // Testing purposes only
-    window.dialogArguments = {
-        url: 'https://example.com/path/to/long/paaaaaaaaaaaaaaaath%20soace%20foo%20file.zip',
-        filename: 'just a test.zip',
-        contentType: 'application/octet-stream; whatever=something',
-        mimeType: 'application/octet-stream'
-    };
+    // After refreshing the page, dialogArguments gets lost.
+    // Refreshing is disabled by disabling the context menu, Ctrl + F5 and Ctrl + R,
+    // but one can still press F12 to open the developer tools and refresh the page
+    // from that place.
+    window.dialogArguments = JSON.parse(decodeURIComponent(window.location.search.slice(1)));
 }
 handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.mimeType);
 
@@ -154,5 +152,6 @@ function exportReturnValue() {
             };
         break;
     }
+    if (window.opener && !window.opener.closed) window.opener.dialogResult = window.returnValue;
     console.log('Choice: ' + choice, window.returnValue);
 }
