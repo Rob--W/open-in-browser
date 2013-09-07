@@ -49,6 +49,11 @@ body {
     background-color: #DDD;
     white-space: pre;
     word-wrap: break-word;
+    position: relative;
+    top: -5px;
+    left: -5px;
+    padding: 5px;
+    box-shadow: 1px 1px 7px #000;
 }
 .url-container:hover #url-protocol,
 .url-container:hover #url-remainder {
