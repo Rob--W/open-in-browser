@@ -18,10 +18,15 @@ body {
 }
 
 
-.metadata-block {
+#metadata-block {
     margin: 0.3em 0 0.7em;
-    padding-left: 15px;
+    padding-left: 40px;
+    background-image: url('icons/unknown.png');
+    background-position: left center;
+    background-repeat: no-repeat;
 }
+
+
 .no-overflow {
     overflow: hidden;
     text-overflow: ellipsis;

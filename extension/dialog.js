@@ -1,7 +1,11 @@
 /**
  * (c) 2013 Rob Wu <gwnRob@gmail.com>
  */
-/* globals dialogArguments, console */
+/* globals dialogArguments, console,
+            mime_fromFilename,
+            mime_getFriendlyName,
+            mime_getIcon
+ */
 'use strict';
 var $ = document.getElementById.bind(document);
 
@@ -10,19 +14,16 @@ if (!window.dialogArguments) {
     window.dialogArguments = {
         url: 'https://example.com/path/to/long/paaaaaaaaaaaaaaaath%20soace%20foo%20file.zip',
         filename: 'just a test.zip',
-        contentType: 'application/octet-stream'
+        contentType: 'application/octet-stream; whatever=something',
+        mimeType: 'application/octet-stream'
     };
 }
-handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.contentType);
+handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.mimeType);
 
-function handleDetails(url, filename, contentType) {
+function handleDetails(url, filename, mimeType) {
     document.title = 'Opening ' + filename;
-    $('filename').textContent = filename;
-    $('filename').title = filename;
 
-    var mimeType = contentType.split(';', 1)[0].trim();
-    $('server-sent-mime').textContent = mimeType;
-    $('server-sent-mime').title = mimeType;
+    renderMetadata(filename, mimeType);
 
     renderURL(url);
 
@@ -56,6 +57,28 @@ function resizeDialog() {
         Math.floor((screen.availWidth - WIDTH) / 2),
         Math.floor((screen.availHeight - HEIGHT) / 2)
     );
+}
+
+function renderMetadata(/*string*/ filename, /*string*/ mimeType) {
+    $('filename').textContent = filename;
+    $('filename').title = filename;
+
+    var mimeTypeFromFilename = mime_fromFilename(filename);
+    var iconUrl = mime_getIcon(mimeType);
+    var friendlyMimeType = mime_getFriendlyName(mimeType);
+    if (mimeType === 'application/octet-stream' || mimeType === 'text/plain') {
+        // These types are subject to MIME-sniffing. And they're also commonly misused.
+        iconUrl = mime_getIcon(mimeTypeFromFilename) || iconUrl;
+        friendlyMimeType = mime_getFriendlyName(mimeTypeFromFilename) || friendlyMimeType;
+    }
+
+    $('content-type').textContent = friendlyMimeType || mimeType;
+    $('content-type').title = 'Server-sent MIME: ' + mimeType + '\n' +
+                              'Based on file extension: ' + mimeTypeFromFilename;
+
+    if (iconUrl) {
+        $('metadata-block').style.backgroundImage = 'url("' + iconUrl + '")';
+    }
 }
 
 

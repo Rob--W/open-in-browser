@@ -79,7 +79,8 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
         var dialogArguments = {
             url: details.url,
             filename: filename,
-            contentType: contentType
+            contentType: contentType,
+            mimeType: mimeType
         };
         result = window.showModalDialog(dialogURL, dialogArguments);
     }
