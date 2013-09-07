@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+
+	<!-- Non standard: Common practice -->
+	<mime-type type="application/x-pem-file">
+		<comment>Openssl PEM format</comment>
+		<acronym>PEM</acronym>
+		<sub-class-of type="text/plain"/>
+		<glob weight="50" pattern="*.pem"/>
+	</mime-type>
+
+	<!--  Defined in: http://www.ietf.org/rfc/rfc2585.txt -->
+	<mime-type type="application/pkix-cert">
+		<comment>X.509 Certificate</comment>
+		<glob weight="75" pattern="*.cer"/>
+
+		<!-- Non standard: Common practice -->
+		<glob weight="55" pattern="*.crt"/>
+		<glob weight="55" pattern="*.cert"/>
+
+		<!-- Non standard: Common practice -->
+		<alias type="application/x-x509-ca-cert"/>
+		<alias type="application/x-x509-user-cert"/>
+	</mime-type>
+
+	<!-- Non standard: OpenSSL PEM format -->
+	<mime-type type="application/pkix-cert+pem">
+		<comment>X.509 Certificate in PEM format</comment>
+		<sub-class-of type="application/x-pem-file"/>
+		<magic priority="75">
+			<match type="string" value="-----BEGIN CERTIFICATE-----" offset="0"/>
+		</magic>
+	</mime-type>
+
+	<!-- Defined in: http://www.ietf.org/rfc/rfc2585.txt -->
+	<mime-type type="application/pkix-crl">
+		<comment>Certificate Revocation List</comment>
+		<acronym>CRL</acronym>
+		<expanded-acronym>Certificate Revocation List</expanded-acronym>
+		<glob weight="75" pattern="*.crl"/>
+	</mime-type>
+
+	<!-- Non standard: OpenSSL PEM format -->
+	<mime-type type="application/pkix-crl+pem">
+		<comment>Certificate Revocation List in PEM format</comment>
+		<sub-class-of type="application/x-pem-file"/>
+		<magic priority="75">
+			<match type="string" value="-----BEGIN X509 CRL-----" offset="0"/>
+		</magic>
+	</mime-type>
+
+	<!-- Non standard: Common practice -->
+	<mime-type type="application/x-pkcs12">
+		<comment>PKCS#12 Personal Key and Certificates</comment>
+		<acronym>PKCS#12</acronym>
+		<glob weight="75" pattern="*.p12"/>
+
+		<!-- Non standard: Microsoft practice -->
+		<glob weight="55" pattern="*.pfx"/>
+
+		<!-- Non standard: Rare practice, unclear this actually got into a spec -->
+		<alias type="application/pkcs12"/>
+	</mime-type>
+
+	<!-- Non standard: OpenSSL PEM format -->
+	<mime-type type="application/pkcs12+pem">
+		<comment>PKCS#12 Personal Key and Certificates in PEM format</comment>
+		<sub-class-of type="application/x-pem-file"/>
+		<magic priority="75">
+			<match type="string" value="-----BEGIN PKCS12-----" offset="0"/>
+		</magic>
+	</mime-type>
+
+	<!-- Defined in: http://www.ietf.org/rfc/rfc5958.txt -->
+	<mime-type type="application/pkcs8">
+		<comment>PKCS#8 Personal Key</comment>
+		<acronym>PKCS#8</acronym>
+		<glob weight="75" pattern="*.p8"/>
+
+		<!-- Non standard: Gnome keyring practice -->
+		<glob weight="55" pattern="*.pkcs8"/>
+	</mime-type>
+
+	<!-- Non standard: OpenSSL PEM format -->
+	<mime-type type="application/pkcs8+pem">
+		<comment>PKCS#8 Personal Key in PEM format</comment>
+		<sub-class-of type="application/x-pem-file"/>
+		<magic priority="75">
+			<match type="string" value="-----BEGIN PRIVATE KEY-----" offset="0"/>
+			<match type="string" value="-----BEGIN ENCRYPTED PRIVATE KEY-----" offset="0"/>
+		</magic>
+	</mime-type>
+
+	<!-- Defined in: http://www.ietf.org/rfc/rfc2311.txt -->
+	<mime-type type="application/pkcs7-mime">
+		<comment>PKCS#7 Message and Certificates</comment>
+		<acronym>PKCS#7</acronym>
+		<glob pattern="*.p7c"/>
+		<glob pattern="*.p7m"/>
+
+		<!-- Not standard: Microsoft practice -->
+		<glob pattern="*.spc"/>
+		<glob pattern="*.p7b"/>
+
+		<!-- Non standard: Microsoft practice -->
+		<alias type="application/x-pkcs7-certificates"/>
+	</mime-type>
+
+	<!-- Non standard: OpenSSL PEM format -->
+	<mime-type type="application/pkcs7-mime+pem">
+		<comment>PKCS#7 Message and Certificates in PEM format</comment>
+		<sub-class-of type="application/x-pem-file"/>
+		<magic priority="75">
+			<match type="string" value="-----BEGIN PKCS7-----" offset="0"/>
+		</magic>
+	</mime-type>
+
+	<!-- Defined in http://www.ietf.org/rfc/rfc2311.txt -->
+	<mime-type type="application/pkcs7-signature">
+		<comment>PKCS#7 Signature</comment>
+		<acronym>PKCS#7</acronym>
+		<glob pattern="*.p7s"/>
+	</mime-type>
+
+	<!-- Defined in http://www.ietf.org/rfc/rfc2311.txt -->
+	<mime-type type="application/pkcs10">
+		<comment>PKCS#10 Certificate Request</comment>
+		<acronym>PKCS#10</acronym>
+		<glob pattern="*.p10"/>
+		<glob pattern="*.csr"/>
+	</mime-type>
+
+	<!-- Non standard: OpenSSL PEM format -->
+	<mime-type type="application/pkcs10+pem">
+		<comment>PKCS#10 Certificate Request in PEM format</comment>
+		<sub-class-of type="application/x-pem-file"/>
+		<magic priority="75">
+			<match type="string" value="-----BEGIN CERTIFICATE REQUEST-----" offset="0"/>
+			<match type="string" value="-----BEGIN NEW CERTIFICATE REQUEST-----" offset="0"/>
+		</magic>
+	</mime-type>
+
+	<!-- Non standard: SPKAC DER format -->
+	<mime-type type="application/x-spkac">
+		<comment>SPKAC Certificate Request</comment>
+		<glob pattern="*.spkac"/>
+	</mime-type>
+
+	<!-- Non standard: SPKAC DER format -->
+	<mime-type type="application/x-spkac+base64">
+		<comment>SPKAC Certificate Request in OpenSSL format</comment>
+		<sub-class-of type="text/plain"/>
+		<magic priority="75">
+			<match type="string" value="SPKAC=" offset="0"/>
+		</magic>
+	</mime-type>
+
+	<!-- Non standard: OpenSSL PEM format -->
+	<mime-type type="application/x-pem-key">
+		<comment>Private Key in PEM format</comment>
+		<sub-class-of type="application/x-pem-file"/>
+		<magic priority="75">
+			<match type="string" value="-----BEGIN RSA PRIVATE KEY-----" offset="0"/>
+			<match type="string" value="-----BEGIN DSA PRIVATE KEY-----" offset="0"/>
+		</magic>
+	</mime-type>
+</mime-info>
