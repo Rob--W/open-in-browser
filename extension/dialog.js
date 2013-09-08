@@ -30,7 +30,7 @@ function handleDetails(url, filename, mimeType) {
 
     bindDialogEvents();
 
-    resizeDialog();
+    resizeDialog(/*moveDialog=*/ true);
 }
 
 function bindDialogEvents() {
@@ -57,15 +57,28 @@ function bindDialogEvents() {
     };
 }
 
-function resizeDialog() {
-    // TODO: What about the window's size when the interface is localized?
+function resizeDialog(/*boolean*/ moveDialog) {
     var WIDTH = 500;
-    var HEIGHT = 350;
+    var innerHeight = window.innerHeight;
+    if (innerHeight === 0) { // innerHeight = 0 shortly after page load.
+        setTimeout(resizeDialog, 20, moveDialog);
+        return;
+    }
+    var verticalDialogPadding = window.outerHeight - innerHeight;
+
+    var dialogMain = $('dialog-main');
+    dialogMain.style.minWidth = WIDTH + 'px';
+    var HEIGHT = dialogMain.scrollHeight + verticalDialogPadding;
+    dialogMain.style.minWidth = '';
+
     window.resizeTo(WIDTH, HEIGHT);
-    window.moveTo(
-        Math.floor((screen.availWidth - WIDTH) / 2),
-        Math.floor((screen.availHeight - HEIGHT) / 2)
-    );
+
+    if (moveDialog === true) {
+        window.moveTo(
+            Math.floor((screen.availWidth - WIDTH) / 2),
+            Math.floor((screen.availHeight - HEIGHT) / 2)
+        );
+    }
 }
 
 function renderMetadata(/*string*/ filename, /*string*/ mimeType) {
@@ -114,8 +127,11 @@ function bindFormEvents() {
     $('mime-type').onchange = function() {
         var isCustom = this.value === 'other';
         var mimeCustom = $('mime-custom');
-        mimeCustom.hidden = !isCustom;
-        mimeCustom.required = isCustom;
+        if (mimeCustom.hidden === isCustom) {
+            mimeCustom.hidden = !isCustom;
+            mimeCustom.required = isCustom;
+            resizeDialog();
+        }
         if (isCustom) {
             if (populateDatalist) populateDatalist();
             mimeCustom.focus();

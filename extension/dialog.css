@@ -7,15 +7,16 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
     line-height: 1.4em;
 }
 body {
-    padding: 15px 5px 5px 15px;
     font-size: 16px;
     font-family: 'Segoe UI', 'Lucida Grande', 'Ubuntu', sans-serif;
     background-color: ButtonFace;
     color: ButtonText;
+}
+#dialog-main {
+    padding: 15px 5px 5px 15px;
 }
 
 
