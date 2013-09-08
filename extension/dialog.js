@@ -35,10 +35,20 @@ function handleDetails(url, filename, mimeType) {
 
 function bindDialogEvents() {
     window.addEventListener('keydown', function(e) {
-        if (e.keyIdentifier === 'F5' || e.ctrlKey && e.keyCode === 82/*R*/) {
+        if (e.altKey || e.altGraphKey || e.metaKey) {
+            return;
+        }
+        if (e.keyIdentifier === 'F5' || e.keyCode === 82/*R*/ && e.ctrlKey) {
+            // F5 / Ctrl + R / Ctrl + Shift + R
             e.preventDefault();
         }
-    });
+        if (e.keyCode === 27/*Esc*/ && !e.ctrlKey && !e.shiftKey) {
+            // Esc
+            e.preventDefault();
+            window.returnValue = undefined;
+            window.close();
+        }
+    }, true);
     window.oncontextmenu = function(e) {
         if (!e.target || e.target.type !== 'text') {
             // Allow right-click on <input type=text> for copy-paste.
