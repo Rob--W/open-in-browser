@@ -84,7 +84,6 @@ function renderMetadata(/*string*/ filename, /*string*/ mimeType) {
 function renderURL(/*string*/ url) {
     var a = document.createElement('a');
     a.href = url;
-    $('url').title = url;
     $('url-protocol').textContent = a.protocol + '//';
     if (a.protocol === 'https:') {
         $('url-protocol').classList.add('https');

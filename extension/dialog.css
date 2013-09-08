@@ -14,7 +14,8 @@ body {
     padding: 15px 5px 5px 15px;
     font-size: 16px;
     font-family: 'Segoe UI', 'Lucida Grande', 'Ubuntu', sans-serif;
-    background-color: #DDD;
+    background-color: ButtonFace;
+    color: ButtonText;
 }
 
 
@@ -46,7 +47,8 @@ body {
     position: relative;
 }
 .url-container:hover #url {
-    background-color: #DDD;
+    background-color: InfoBackground;
+    color: InfoText;
     white-space: pre;
     word-wrap: break-word;
     position: relative;
@@ -57,7 +59,7 @@ body {
 }
 .url-container:hover #url-protocol,
 .url-container:hover #url-remainder {
-    color: #000;
+    color: InfoText;
 }
 #url {
     white-space: nowrap;
@@ -67,7 +69,7 @@ body {
 }
 #url-protocol,
 #url-remainder {
-    color: #999;
+    color: ButtonShadow;
 }
 
 
