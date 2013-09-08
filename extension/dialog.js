@@ -15,7 +15,7 @@ if (!window.dialogArguments) {
     // Refreshing is disabled by disabling the context menu, Ctrl + F5 and Ctrl + R,
     // but one can still press F12 to open the developer tools and refresh the page
     // from that place.
-    window.dialogArguments = JSON.parse(decodeURIComponent(window.location.search.slice(1)));
+    window.dialogArguments = JSON.parse(decodeURIComponent(window.location.hash.slice(1)));
 }
 handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.mimeType);
 

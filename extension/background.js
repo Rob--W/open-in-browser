@@ -82,11 +82,32 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             contentType: contentType,
             mimeType: mimeType
         };
+        var dialogURLPrefix = dialogURL + '?' + details.requestId;
+        var isAborted = false; // Close dialog if user aborts request
+        var onErrorOccurred = function(errorDetails) {
+            if (errorDetails.requestId === details.requestId) {
+                chrome.tabs.query({
+                    url: dialogURLPrefix + '*'
+                }, function(tabs) {
+                    if (tabs && tabs.length) {
+                        isAborted = true;
+                        chrome.tabs.remove(tabs[0].id);
+                    }
+                });
+            }
+        };
+        chrome.webRequest.onErrorOccurred.addListener(onErrorOccurred, {
+            urls: ['*://*/*'],
+            types: [details.type],
+            tabId: details.tabId
+        });
         result = window.showModalDialog(
-                dialogURL + '?' + encodeURIComponent(JSON.stringify(dialogArguments)),
+                dialogURLPrefix + '#' + encodeURIComponent(JSON.stringify(dialogArguments)),
                 dialogArguments);
+        chrome.webRequest.onErrorOccurred.removeListener(onErrorOccurred);
         if (!result) result = window.dialogResult;
         window.dialogResult = null;
+        if (isAborted) return;
     }
     if (result) {
         if (result.mime) {
