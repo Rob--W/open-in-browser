@@ -35,14 +35,15 @@ function handleDetails(url, filename, mimeType) {
 
 function bindDialogEvents() {
     window.addEventListener('keydown', function(e) {
-        if (e.altKey || e.altGraphKey || e.metaKey) {
+        if (e.altKey || e.altGraphKey) {
             return;
         }
-        if (e.keyIdentifier === 'F5' || e.keyCode === 82/*R*/ && e.ctrlKey) {
-            // F5 / Ctrl + R / Ctrl + Shift + R
+        var ctrlKey = e.ctrlKey || e.metaKey;
+        if (e.keyIdentifier === 'F5' || e.keyCode === 82/*R*/ && ctrlKey) {
+            // F5 / Ctrl + F5 / Ctrl + R / Ctrl + Shift + R
             e.preventDefault();
         }
-        if (e.keyCode === 27/*Esc*/ && !e.ctrlKey && !e.shiftKey) {
+        if (e.keyCode === 27/*Esc*/ && !ctrlKey && !e.shiftKey) {
             // Esc
             e.preventDefault();
             window.returnValue = undefined;
