@@ -64,7 +64,13 @@ function resizeDialog(/*boolean*/ moveDialog) {
         setTimeout(resizeDialog, 20, moveDialog);
         return;
     }
-    var verticalDialogPadding = window.outerHeight - innerHeight;
+    var outerHeight = window.outerHeight;
+    var verticalDialogPadding = outerHeight - innerHeight;
+    if (verticalDialogPadding <= 0) { // Value of outerHeight is ****ing unreliable.
+        verticalDialogPadding = 40;   // Chrome on Linux = 27, Chrome on OS X = 22.
+        console.log('Detected a non-positive height of the window chrome. This is impossible. ' +
+                    'Using verticalDialogPadding = ' + verticalDialogPadding + ' as fallback.');
+    }
 
     var dialogMain = $('dialog-main');
     dialogMain.style.minWidth = WIDTH + 'px';
