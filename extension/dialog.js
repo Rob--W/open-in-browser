@@ -58,11 +58,13 @@ function bindDialogEvents() {
     };
 }
 
+var deferredResizeDialog;
 function resizeDialog(/*boolean*/ moveDialog) {
+    clearTimeout(deferredResizeDialog);
     var WIDTH = 500;
     var innerHeight = window.innerHeight;
     if (innerHeight === 0) { // innerHeight = 0 shortly after page load.
-        setTimeout(resizeDialog, 20, moveDialog);
+        deferredResizeDialog = setTimeout(resizeDialog, 20, moveDialog);
         return;
     }
     var outerHeight = window.outerHeight;
@@ -71,6 +73,9 @@ function resizeDialog(/*boolean*/ moveDialog) {
         verticalDialogPadding = 40;   // Chrome on Linux = 27, Chrome on OS X = 22.
         console.log('Detected a non-positive height of the window chrome. This is impossible. ' +
                     'Using verticalDialogPadding = ' + verticalDialogPadding + ' as fallback.');
+    } else {
+        // If verticalDialogPadding is reliable, assume that outerWidth is also reliable.
+        WIDTH = Math.max(WIDTH, window.outerWidth);
     }
 
     var dialogMain = $('dialog-main');
