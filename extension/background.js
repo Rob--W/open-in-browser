@@ -5,7 +5,7 @@
 
 var dialogURL = chrome.extension.getURL('dialog.html');
 var r_contentDispositionAttachment = /^\s*attachment/;
-var r_contentDispositionFilename = /[; ]filename(\*?)=(["'])(.+)\1/;
+var r_contentDispositionFilename = /[; ]filename(\*?)=(["']?)(.+)\2/;
 
 /**
  * Preferences
@@ -290,7 +290,7 @@ function shouldInterceptRequest(mimeType) {
 function getFilenameFromContentDispositionHeader(contentDisposition) {
     contentDisposition = r_contentDispositionFilename.exec(contentDisposition);
     if (contentDisposition) {
-        var filename = contentDisposition[2];
+        var filename = contentDisposition[3];
         if (contentDisposition[1]) { // "*" in "filename*=" (RFC 5987)
             filename = filename.replace(/^[^']+'[^']*'/, '');
         }
