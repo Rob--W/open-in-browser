@@ -1,6 +1,7 @@
 /**
  * (c) 2013 Rob Wu <gwnRob@gmail.com>
  */
+/* globals mime_fromFilename */
 'use strict';
 
 var dialogURL = chrome.extension.getURL('dialog.html');
@@ -59,8 +60,14 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
     if (!filename) {
         filename = getFilenameFromURL(details.url);
     }
+    var guessedMimeType = mimeType;
+    if (mimeType === 'application/octet-stream' || mimeType === 'text/plain') {
+        // application/octet-stream is commonly used for anything, "to trigger a download"
+        // text/plain is subject to Chrome's MIME-sniffer
+        guessedMimeType = mime_fromFilename(filename) || mimeType;
+    }
 
-    var desiredAction = prefs['mime-mappings'][contentType];
+    var desiredAction = prefs['mime-mappings'][guessedMimeType];
     /**
      * @var {Object} result
      * @prop {string} result.mime The desired MIME-type (empty to preserve existing MIME-type)
@@ -80,6 +87,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             url: details.url,
             filename: filename,
             contentType: contentType,
+            guessedMimeType: guessedMimeType,
             mimeType: mimeType
         };
         var dialogURLPrefix = dialogURL + '?' + details.requestId;
@@ -120,7 +128,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
                     'attachment; filename*=UTF-8\'\'' + encodeURIComponent(filename));
         }
         if (result.rememberChoice) {
-            prefs['mime-mappings'][contentType] = result.save ? 'save' : result.mime;
+            prefs['mime-mappings'][guessedMimeType] = result.save ? 'save' : result.mime;
             localStorage.setItem('mime-mappings', JSON.stringify(prefs['mime-mappings']));
         }
         return {

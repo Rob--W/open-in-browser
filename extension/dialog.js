@@ -3,10 +3,8 @@
  */
 /* globals dialogArguments, console,
             mimeMetadata,
-            mime_fromFilename,
             mime_getFriendlyName,
-            mime_getIcon,
-            mime_getMime
+            mime_getIcon
  */
 'use strict';
 var $ = document.getElementById.bind(document);
@@ -18,12 +16,13 @@ if (!window.dialogArguments) {
     // from that place.
     window.dialogArguments = JSON.parse(decodeURIComponent(window.location.hash.slice(1)));
 }
-handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.mimeType);
+handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.guessedMimeType,
+        dialogArguments.mimeType);
 
-function handleDetails(url, filename, mimeType) {
+function handleDetails(url, filename, guessedMimeType, mimeType) {
     document.title = 'Opening ' + filename;
 
-    renderMetadata(filename, mimeType);
+    renderMetadata(filename, guessedMimeType, mimeType);
 
     renderURL(url);
 
@@ -94,30 +93,27 @@ function resizeDialog(/*boolean*/ moveDialog) {
     }
 }
 
-function renderMetadata(/*string*/ filename, /*string*/ mimeType) {
+function renderMetadata(/*string*/ filename, /*string*/ guessedMimeType, /*string*/ mimeType) {
     $('filename').textContent = filename;
     $('filename').title = filename;
 
-    var mimeTypeFromFilename = mime_fromFilename(filename);
-    var iconUrl = mime_getIcon(mimeType);
-    var friendlyMimeType = mime_getFriendlyName(mimeType);
-    var mostSignificantMimeType = mimeType;
-    if (mimeType === 'application/octet-stream' || mimeType === 'text/plain') {
-        // These types are subject to MIME-sniffing. And they're also commonly misused.
-        iconUrl = mime_getIcon(mimeTypeFromFilename) || iconUrl;
-        friendlyMimeType = mime_getFriendlyName(mimeTypeFromFilename) || friendlyMimeType;
-        mostSignificantMimeType = mimeTypeFromFilename;
+    $('content-type').textContent = 
+        mime_getFriendlyName(guessedMimeType) ||
+        mime_getFriendlyName(mimeType) ||
+        guessedMimeType;
+
+    var mimeTooltip = 'Server-sent MIME: ' + mimeType;
+    if (guessedMimeType !== mimeType) {
+        mimeTooltip += '\nBased on file extension: ' + guessedMimeType;
     }
+    $('content-type').title = mimeTooltip;
 
-    $('content-type').textContent = friendlyMimeType || mimeType;
-    $('content-type').title = 'Server-sent MIME: ' + mimeType + '\n' +
-                              'Based on file extension: ' + mimeTypeFromFilename;
-
+    var iconUrl = mime_getIcon(guessedMimeType) || mime_getIcon(mimeType);
     if (iconUrl) {
         $('metadata-block').style.backgroundImage = 'url("' + iconUrl + '")';
     }
 
-    var suggestedMimeAction = getSuggestedMimeAction(mostSignificantMimeType);
+    var suggestedMimeAction = getSuggestedMimeAction(guessedMimeType);
     if (suggestedMimeAction) {
         $('mime-type').value = suggestedMimeAction;
         if ($('mime-type').selectedIndex === -1) {
@@ -130,7 +126,6 @@ function renderMetadata(/*string*/ filename, /*string*/ mimeType) {
 }
 
 function getSuggestedMimeAction(/*string*/ mimeType) {
-    mimeType = mime_getMime(mimeType);
     // The mime-to-icon mapping is quite accurate, so re-use the information.
     var iconType = mimeMetadata.mimeToIcon[mimeType] || (mimeType.split('/', 1)[0] + '-x-generic');
 
