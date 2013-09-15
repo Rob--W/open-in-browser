@@ -5,7 +5,8 @@
             mimeMetadata,
             mime_fromFilename,
             mime_getFriendlyName,
-            mime_getIcon
+            mime_getIcon,
+            mime_getMime
  */
 'use strict';
 var $ = document.getElementById.bind(document);
@@ -100,10 +101,12 @@ function renderMetadata(/*string*/ filename, /*string*/ mimeType) {
     var mimeTypeFromFilename = mime_fromFilename(filename);
     var iconUrl = mime_getIcon(mimeType);
     var friendlyMimeType = mime_getFriendlyName(mimeType);
+    var mostSignificantMimeType = mimeType;
     if (mimeType === 'application/octet-stream' || mimeType === 'text/plain') {
         // These types are subject to MIME-sniffing. And they're also commonly misused.
         iconUrl = mime_getIcon(mimeTypeFromFilename) || iconUrl;
         friendlyMimeType = mime_getFriendlyName(mimeTypeFromFilename) || friendlyMimeType;
+        mostSignificantMimeType = mimeTypeFromFilename;
     }
 
     $('content-type').textContent = friendlyMimeType || mimeType;
@@ -113,8 +116,45 @@ function renderMetadata(/*string*/ filename, /*string*/ mimeType) {
     if (iconUrl) {
         $('metadata-block').style.backgroundImage = 'url("' + iconUrl + '")';
     }
+
+    var suggestedMimeAction = getSuggestedMimeAction(mostSignificantMimeType);
+    if (suggestedMimeAction) {
+        $('mime-type').value = suggestedMimeAction;
+        if ($('mime-type').selectedIndex === -1) {
+            // TODO: Add more options? Implement "Open with <web app>?" Think about it!
+            // For now, just fall back to the original option.
+            $('mime-type').value = 'original';
+        }
+    }
+    
 }
 
+function getSuggestedMimeAction(/*string*/ mimeType) {
+    mimeType = mime_getMime(mimeType);
+    // The mime-to-icon mapping is quite accurate, so re-use the information.
+    var iconType = mimeMetadata.mimeToIcon[mimeType] || (mimeType.split('/', 1)[0] + '-x-generic');
+
+    switch (iconType) {
+    case 'text-html':
+        if (mimeType.lastIndexOf('+xml') !== -1) {
+            if (mimeType.lastIndexOf('image/svg', 0) === 0)
+                return 'original';
+            if (mimeType !== 'application/xhtml+xml')
+                return 'text/xml';
+        }
+        return 'text/html';
+    case 'text-x-generic':
+    case 'text-x-generic-template':
+    case 'text-x-script':
+        return 'text/plain';
+    case 'image-x-generic':
+        return 'image/png';
+    default:
+        if (mimeType.lastIndexOf('+xml') !== -1)
+            return 'text/xml';
+        return 'original'; // Open as server-sent MIME = most likely download
+    }
+}
 
 function renderURL(/*string*/ url) {
     var a = document.createElement('a');
