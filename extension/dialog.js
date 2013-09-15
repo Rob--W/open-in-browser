@@ -97,10 +97,7 @@ function renderMetadata(/*string*/ filename, /*string*/ guessedMimeType, /*strin
     $('filename').textContent = filename;
     $('filename').title = filename;
 
-    $('content-type').textContent = 
-        mime_getFriendlyName(guessedMimeType) ||
-        mime_getFriendlyName(mimeType) ||
-        guessedMimeType;
+    $('content-type').textContent = mime_getFriendlyName(guessedMimeType) || guessedMimeType;
 
     var mimeTooltip = 'Server-sent MIME: ' + mimeType;
     if (guessedMimeType !== mimeType) {
