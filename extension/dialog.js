@@ -90,6 +90,7 @@ function resizeDialog(/*boolean*/ moveDialog) {
             Math.floor((screen.availWidth - WIDTH) / 2),
             Math.floor((screen.availHeight - HEIGHT) / 2)
         );
+        setTimeout(resizeDialog, 0, false);
     }
 }
 
