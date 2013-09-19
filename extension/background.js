@@ -1,31 +1,14 @@
 /**
  * (c) 2013 Rob Wu <gwnRob@gmail.com>
  */
-/* globals mime_fromFilename */
+/* globals mime_fromFilename, Prefs, MimeActions */
 'use strict';
 
 var dialogURL = chrome.extension.getURL('dialog.html');
 var r_contentDispositionAttachment = /^\s*attachment/;
 var r_contentDispositionFilename = /[; ]filename(\*?)=(["']?)(.+)\2/;
 
-/**
- * Preferences
- */
-var prefs = {
-    // User-defined MIME-mappings
-    // mime-mappings := { "MIME-type": "save" or "MIME/type", ... }
-    'mime-mappings': {},
-    // Whether to add the "X-Content-Type-Options: nosniff" header to text/plain requests
-    'text-nosniff': true
-};
-Object.keys(prefs).forEach(function(key) {
-    if (localStorage.hasOwnProperty(key)) prefs[key] = JSON.parse(localStorage.getItem(key));
-});
-
-window.addEventListener('storage', function(event) {
-    if (prefs.hasOwnProperty(event.key)) prefs[event.key] = JSON.parse(event.newValue);
-});
-
+Prefs.init();
 
 chrome.webRequest.onHeadersReceived.addListener(function(details) {
     if (details.statusLine.substring(9, 12) !== '200') { // E.g. HTTP/0.9 200 OK
@@ -39,7 +22,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
     if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
         if (!shouldInterceptRequest(mimeType)) {
-            if (prefs['text-nosniff']) {
+            if (Prefs.get('text-nosniff')) {
                 if (!mimeType || mimeType === 'text/plain') {
                     setHeader(details.responseHeaders, 'X-Content-Type-Options', 'nosniff');
                     return {
@@ -67,22 +50,8 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
         guessedMimeType = mime_fromFilename(filename) || mimeType;
     }
 
-    var desiredAction = prefs['mime-mappings'][guessedMimeType];
-    /**
-     * @var {Object} result
-     * @prop {string} result.mime The desired MIME-type (empty to preserve existing MIME-type)
-     * @prop {boolean} result.save Whether to trigger a "Save As" dialog.
-     * @prop {boolean} result.remember Whether to persist the choice for future documents with
-     *                                  the same MIME-type.
-     */
-    var result;
-    if (desiredAction) {
-        if (desiredAction === 'save') {
-            result = { save: true };
-        } else {
-            result = { mime: desiredAction };
-        }
-    } else {
+    var desiredAction = Prefs.getMimeAction(guessedMimeType);
+    if (!desiredAction.action) {
         var dialogArguments = {
             url: details.url,
             filename: filename,
@@ -109,27 +78,26 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             types: [details.type],
             tabId: details.tabId
         });
-        result = window.showModalDialog(
+        desiredAction = window.showModalDialog(
                 dialogURLPrefix + '#' + encodeURIComponent(JSON.stringify(dialogArguments)),
                 dialogArguments);
         chrome.webRequest.onErrorOccurred.removeListener(onErrorOccurred);
-        if (!result) result = window.dialogResult;
+        if (!desiredAction) desiredAction = window.dialogResult;
         window.dialogResult = null;
         if (isAborted) return;
     }
-    if (result) {
-        if (result.mime) {
-            setHeader(details.responseHeaders, 'Content-Type', result.mime);
+    if (desiredAction) {
+        if (desiredAction.mime) {
+            setHeader(details.responseHeaders, 'Content-Type', desiredAction.mime);
             setHeader(details.responseHeaders, 'X-Content-Type-Options', 'nosniff');
             setHeader(details.responseHeaders, 'Content-Disposition', 'inline');
         }
-        if (result.save) {
+        if (desiredAction.action === MimeActions.DOWNLOAD) {
             setHeader(details.responseHeaders, 'Content-Disposition',
                     'attachment; filename*=UTF-8\'\'' + encodeURIComponent(filename));
         }
-        if (result.rememberChoice) {
-            prefs['mime-mappings'][guessedMimeType] = result.save ? 'save' : result.mime;
-            localStorage.setItem('mime-mappings', JSON.stringify(prefs['mime-mappings']));
+        if (desiredAction.rememberChoice) {
+            Prefs.setMimeAction(guessedMimeType, desiredAction);
         }
         return {
             responseHeaders: details.responseHeaders

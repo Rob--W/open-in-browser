@@ -1,12 +1,15 @@
+/* globals Prefs, MimeActions */
 'use strict';
+Prefs.init();
 var $ = document.getElementById.bind(document);
 
 function bindBooleanPref(prefName) {
     var checkbox = $('pref-' + prefName);
-    checkbox.checked = localStorage.getItem(prefName) === 'true';
+    checkbox.checked = Prefs.get(prefName) === true;
     checkbox.onchange = function() {
-        localStorage.setItem(prefName, this.checked ? 'true' : 'false');
+        Prefs.set(prefName, this.checked);
     };
+    // NOTE: This assumes that preferences are synchronized through DOM Storage
     window.addEventListener('storage', function(event) {
         if (event.key === prefName) checkbox.checked = event.newValue === 'true';
     });
@@ -14,12 +17,11 @@ function bindBooleanPref(prefName) {
 
 function renderMimeMappings() {
     var table = $('mime-mappings');
-    var mimeMappings = localStorage.getItem('mime-mappings');
-    if (!mimeMappings || mimeMappings === '{}') {
+    var mimeKeys = Object.keys(Prefs.get('mime-mappings'));
+    if (mimeKeys.length === 0) {
         table.hidden = true;
         return;
     }
-    mimeMappings = JSON.parse(mimeMappings);
 
     var tbody = document.createElement('tbody');
     var button =  document.createElement('input');
@@ -27,16 +29,26 @@ function renderMimeMappings() {
     button.title = 'Click to restore the default handler for this type. Click again to undo.';
     button.value = 'Restore default';
 
-    Object.keys(mimeMappings).sort().forEach(function(originalMimeType) {
+    mimeKeys.sort().forEach(function(originalMimeType) {
         var row = tbody.insertRow(-1);
         row.insertCell(0).textContent = originalMimeType;
 
-        var action = mimeMappings[originalMimeType];
+        var mimeAction = Prefs.getMimeAction(originalMimeType);
         var actionMessage;
-        if (action === 'save') {
+        var mimeType = mimeAction.mime;
+        if (mimeType) {
+            if (mimeAction.action === MimeActions.OIB_GENERIC) {
+                mimeType = mimeType === 'text/plain' ? 'Text' :
+                           mimeType === 'text/html' ? 'Web page' :
+                           mimeType === 'text/xml' ? 'XML document' :
+                           mimeType === 'image/png' ? 'Image' :
+                           mimeType;
+            }
+            actionMessage = 'Open in browser as ' + mimeType;
+        } else if (mimeAction.action === MimeActions.OIB_SERVER_SENT) {
+            actionMessage = 'Open in browser with server-sent MIME';
+        } else if (mimeAction.action === MimeActions.DOWNLOAD) {
             actionMessage = 'Save file';
-        } else {
-            actionMessage = 'Open in browser as ' + action;
         }
         row.insertCell(1).textContent = actionMessage;
 
@@ -45,12 +57,11 @@ function renderMimeMappings() {
             var isRemoved = row.classList.contains('restored-to-default');
             if (isRemoved) {
                 this.value = 'Undo reset';
-                mimeMappings[originalMimeType] = undefined;
+                Prefs.removeMimeAction(originalMimeType);
             } else {
                 this.value = 'Restore default';
-                mimeMappings[originalMimeType] = action;
+                Prefs.setMimeAction(originalMimeType, mimeAction);
             }
-            localStorage.setItem('mime-mappings', JSON.stringify(mimeMappings));
         };
     });
     table.removeChild(table.tBodies[0]);

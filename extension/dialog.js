@@ -4,7 +4,8 @@
 /* globals dialogArguments, console,
             mimeMetadata,
             mime_getFriendlyName,
-            mime_getIcon
+            mime_getIcon,
+            MimeActions
  */
 'use strict';
 var $ = document.getElementById.bind(document);
@@ -202,22 +203,31 @@ function bindFormEvents() {
 function exportReturnValue() {
     var choice = document.querySelector('input[name="choice"]:checked').value;
     var rememberChoice = $('remember').checked;
+    // NOTE: Keep format of returnValue in sync with the format of Prefs.getMimeAction
+    // rememberChoice is only used by the background page, used to determine whether
+    // the choice needs to be persisted through a preference.
     switch (choice) {
         case 'openas':
+            var action;
             var mime = $('mime-type').value;
             if (mime === 'original') {
+                action = MimeActions.OIB_SERVER_SENT;
                 mime = dialogArguments.contentType;
             } else if (mime === 'other') {
+                action = MimeActions.OIB_MIME;
                 mime = $('mime-custom').value.trim();
+            } else {
+                action = MimeActions.OIB_GENERIC;
             }
             window.returnValue = {
+                action: action,
                 mime: mime,
                 rememberChoice: rememberChoice
             };
         break;
         case 'save':
             window.returnValue = {
-                save: true,
+                action: MimeActions.DOWNLOAD,
                 rememberChoice: rememberChoice
             };
         break;
