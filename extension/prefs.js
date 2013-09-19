@@ -27,6 +27,8 @@ var prefs = {
     'text-nosniff': true,
     // Whether to use the file extension for detecting type when mime=application/octet-stream
     'octet-sniff-mime': true,
+    // Whether to add a contextmenu entry to each link and page
+    'contextmenu': true,
 };
 var prefHandlers = {};
 function init() {

@@ -10,7 +10,16 @@ var r_contentDispositionFilename = /[; ]filename(\*?)=(["']?)(.+)\2/;
 
 Prefs.init();
 
+/**
+ * @var {set} All keys of this set are tabIds. When a tabId is present, the dialog will be
+ *              shown for the first main/subframe request within this tab.
+ */
+var overriddenTabIds = {};
+
 chrome.webRequest.onHeadersReceived.addListener(function(details) {
+    var hasOverriddenMimeAction = overriddenTabIds.hasOwnProperty(details.tabId);
+    delete overriddenTabIds[details.tabId];
+
     if (details.statusLine.substring(9, 12) !== '200') { // E.g. HTTP/0.9 200 OK
         // Ignore all non-OK HTTP response
         return;
@@ -19,7 +28,8 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
     var mimeType = contentType.split(';', 1)[0].trim().toLowerCase();
     var contentDisposition = getHeader(details.responseHeaders, 'content-disposition');
 
-    if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
+    if (!hasOverriddenMimeAction &&
+        (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition))) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
         if (!shouldInterceptRequest(mimeType)) {
             if (Prefs.get('text-nosniff')) {
@@ -52,7 +62,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
     }
 
     var desiredAction = Prefs.getMimeAction(guessedMimeType);
-    if (!desiredAction.action) {
+    if (!desiredAction.action || hasOverriddenMimeAction) {
         var dialogArguments = {
             url: details.url,
             filename: filename,
@@ -111,6 +121,51 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
     urls: ['*://*/*'],
     types: ['main_frame', 'sub_frame']
 }, ['blocking', 'responseHeaders']);
+
+chrome.webRequest.onErrorOccurred.addListener(function(details) {
+    delete overriddenTabIds[details.tabId];
+}, {
+    urls: ['*://*/*'],
+    types: ['main_frame', 'sub_frame']
+});
+
+
+Prefs.setPrefHandler('contextmenu', function(useContextMenu) {
+    chrome.contextMenus.removeAll(function() {
+        if (useContextMenu) {
+            createContextMenu();
+        }
+    });
+});
+
+function createContextMenu() {
+    chrome.contextMenus.create({
+        title: 'Open in Browser',
+        contexts: ['page'],
+        documentUrlPatterns: ['*://*/*'],
+        onclick: onContextMenu
+    });
+    chrome.contextMenus.create({
+        title: 'Open in Browser',
+        contexts: ['link'],
+        targetUrlPatterns: ['*://*/*'],
+        onclick: onContextMenu
+    });
+    function onContextMenu(info, tab) {
+        var url = info.linkUrl || info.frameUrl || info.pageUrl;
+        chrome.tabs.create({
+            url: 'about:blank',
+            windowId: tab.windowId,
+            index: tab.index + 1,
+            openerTabId: tab.id
+        }, function(newTab) {
+            overriddenTabIds[newTab.id] = true;
+            chrome.tabs.update(newTab.id, {
+                url: url
+            });
+        });
+    }
+}
 
 /**
  * Get the value of a header from the list of headers for a given name.
