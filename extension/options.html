@@ -28,11 +28,30 @@ h2 {
     margin: 5px 0;
 }
 .pref {
+    position: relative;
     display: block;
     font-weight: bold;
 }
-.pref + div {
+.pref > .explanation {
+    position: absolute;
+    border: 1px solid #EEE;
+    border-radius: 2px;
+    box-shadow: 1px 1px 5px #000;
+
+    padding: 0.5em;
     padding-left: 25px;
+    font-weight: normal;
+    color: InfoText;
+    background-color: InfoBackground;
+    display: none;
+}
+.pref input:focus ~ .explanation,
+.pref:hover > .explanation {
+    display: block;
+    z-index: 1;
+}
+.pref:hover > .explanation {
+    z-index: 2;
 }
 footer {
     margin-top: 1rem;
@@ -62,22 +81,22 @@ handler for the given document.</p>
     <label class="pref">
         <input type="checkbox" id="pref-text-nosniff" checked>
         Disable Content sniffing for <code>text/plain</code> types.
+        <div class="explanation">
+            Some servers incorrectly serve pages as text. Chromium deals with this issue by checking whether the page is really
+            plain text. An annoying consequence is that when text files contain binary characters, it will be downloaded instead of displayed.<br>
+            Turn this option on to always view text files in the browser.
+        </div>
     </label>
-    <div>
-        Some servers incorrectly serve pages as text. Chromium deals with this issue by checking whether the page is really
-        plain text. An annoying consequence is that when text files contain binary characters, it will be downloaded instead of displayed.<br>
-        Turn this option on to always view text files in the browser.
-    </div>
 </div>
 <div class="row">
     <label class="pref">
         <input type="checkbox" id="pref-octet-sniff-mime" checked>
         Derive MIME from file extension for <code>application/octet-stream</code> types.
+        <div class="explanation">
+            Many servers send the generic "application/octet-stream" MIME instead of the actual MIME-type for downloadable files.<br>
+            Enable this option if you want to rely on the file extension when this generic MIME-type is received from the server.
+        </div>
     </label>
-    <div>
-        Many servers send the generic "application/octet-stream" MIME instead of the actual MIME-type for downloadable files.
-        Enable this option if you want to rely on the file extension when this generic MIME-type is received from the server.
-    </div>
 </div>
 
 <h2>Your saved MIME actions</h2>
