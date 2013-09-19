@@ -80,7 +80,7 @@ handler for the given document.</p>
 <div class="row">
     <label class="pref">
         <input type="checkbox" id="pref-text-nosniff" checked>
-        Disable Content sniffing for <code>text/plain</code> types.
+        Disable Content sniffing for <code>text/plain</code>
         <div class="explanation">
             Some servers incorrectly serve pages as text. Chromium deals with this issue by checking whether the page is really
             plain text. An annoying consequence is that when text files contain binary characters, it will be downloaded instead of displayed.<br>
@@ -91,7 +91,7 @@ handler for the given document.</p>
 <div class="row">
     <label class="pref">
         <input type="checkbox" id="pref-octet-sniff-mime" checked>
-        Derive MIME from file extension for <code>application/octet-stream</code> types.
+        Get MIME from file extension for <code>application/octet-stream</code>
         <div class="explanation">
             Many servers send the generic "application/octet-stream" MIME instead of the actual MIME-type for downloadable files.<br>
             Enable this option if you want to rely on the file extension when this generic MIME-type is received from the server.
