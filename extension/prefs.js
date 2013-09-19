@@ -10,6 +10,7 @@
  */
 var Prefs = {
     init: init,
+    setPrefHandler: setPrefHandler,
     get: getPref,
     set: setPref,
     getMimeAction: getMimeAction,
@@ -27,6 +28,7 @@ var prefs = {
     // Whether to use the file extension for detecting type when mime=application/octet-stream
     'octet-sniff-mime': true,
 };
+var prefHandlers = {};
 function init() {
     Object.keys(prefs).forEach(function(key) {
         if (localStorage.hasOwnProperty(key)) prefs[key] = JSON.parse(localStorage.getItem(key));
@@ -36,8 +38,27 @@ function init() {
     init.hasRun = true;
     // Add storage event listener only once
     window.addEventListener('storage', function(event) {
-        if (prefs.hasOwnProperty(event.key)) prefs[event.key] = JSON.parse(event.newValue);
+        if (prefs.hasOwnProperty(event.key)) {
+            prefs[event.key] = JSON.parse(event.newValue);
+            var prefHandler = prefHandlers[event.key];
+            if (prefHandler) {
+                prefHandler(prefs[event.key]);
+            }
+        }
     });
+}
+
+/**
+ * Assign a new preference handler.
+ * @param {string} prefName
+ * @param {function} This function will be called immediately, and on subsequent external changes.
+ */
+function setPrefHandler(prefName, prefHandler) {
+    if (!prefs.hasOwnProperty(prefName)) {
+        console.warn('Tried to define preference handler for unknown preference: ' + prefName);
+    }
+    prefHandlers[prefName] = prefHandler;
+    prefHandler(prefs[prefName]);
 }
 
 /**

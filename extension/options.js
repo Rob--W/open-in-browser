@@ -5,19 +5,17 @@ var $ = document.getElementById.bind(document);
 
 function bindBooleanPref(prefName) {
     var checkbox = $('pref-' + prefName);
-    checkbox.checked = Prefs.get(prefName) === true;
     checkbox.onchange = function() {
         Prefs.set(prefName, this.checked);
     };
-    // NOTE: This assumes that preferences are synchronized through DOM Storage
-    window.addEventListener('storage', function(event) {
-        if (event.key === prefName) checkbox.checked = event.newValue === 'true';
+    Prefs.setPrefHandler(prefName, function(isEnabled) {
+        checkbox.checked = isEnabled;
     });
 }
 
-function renderMimeMappings() {
+function renderMimeMappings(mimeMappings) {
     var table = $('mime-mappings');
-    var mimeKeys = Object.keys(Prefs.get('mime-mappings'));
+    var mimeKeys = Object.keys(mimeMappings);
     if (mimeKeys.length === 0) {
         table.hidden = true;
         return;
@@ -73,7 +71,4 @@ bindBooleanPref('text-nosniff');
 
 bindBooleanPref('octet-sniff-mime');
 
-renderMimeMappings();
-window.addEventListener('storage', function(event) {
-    if (event.key === 'mime-mappings') renderMimeMappings();
-});
+Prefs.setPrefHandler('mime-mappings', renderMimeMappings);
