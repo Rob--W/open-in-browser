@@ -23,7 +23,9 @@ var prefs = {
     // mime-mappings := { "MIME-type": "<MIME action>", ... } See MimeActions
     'mime-mappings': {},
     // Whether to add the "X-Content-Type-Options: nosniff" header to text/plain requests
-    'text-nosniff': true
+    'text-nosniff': true,
+    // Whether to use the file extension for detecting type when mime=application/octet-stream
+    'octet-sniff-mime': true,
 };
 function init() {
     Object.keys(prefs).forEach(function(key) {

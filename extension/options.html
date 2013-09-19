@@ -69,6 +69,16 @@ handler for the given document.</p>
         Turn this option on to always view text files in the browser.
     </div>
 </div>
+<div class="row">
+    <label class="pref">
+        <input type="checkbox" id="pref-octet-sniff-mime" checked>
+        Derive MIME from file extension for <code>application/octet-stream</code> types.
+    </label>
+    <div>
+        Many servers send the generic "application/octet-stream" MIME instead of the actual MIME-type for downloadable files.
+        Enable this option if you want to rely on the file extension when this generic MIME-type is received from the server.
+    </div>
+</div>
 
 <h2>Your saved MIME actions</h2>
 Each of your preferred actions will be shown below. You can set a preferred action by ticking "Do this automatically for files like this from now on." in the "Open in Browser" dialog.

@@ -44,7 +44,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
         filename = getFilenameFromURL(details.url);
     }
     var guessedMimeType = mimeType;
-    if (mimeType === 'application/octet-stream' ||
+    if (mimeType === 'application/octet-stream' && Prefs.get('octet-sniff-mime') ||
         mimeType === 'text/plain' && !Prefs.get('text-nosniff')) {
         // application/octet-stream is commonly used for anything, "to trigger a download"
         // text/plain is subject to Chrome's MIME-sniffer

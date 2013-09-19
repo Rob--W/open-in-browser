@@ -71,6 +71,8 @@ function renderMimeMappings() {
 
 bindBooleanPref('text-nosniff');
 
+bindBooleanPref('octet-sniff-mime');
+
 renderMimeMappings();
 window.addEventListener('storage', function(event) {
     if (event.key === 'mime-mappings') renderMimeMappings();
