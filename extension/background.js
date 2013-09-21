@@ -140,7 +140,15 @@ Prefs.setPrefHandler('contextmenu', function(useContextMenu) {
 
 function createContextMenu() {
     chrome.contextMenus.create({
-        title: 'Open in Browser',
+        id: 'newTab',
+        title: 'Re-open in new tab',
+        contexts: ['page'],
+        documentUrlPatterns: ['*://*/*'],
+        onclick: onContextMenu
+    });
+    chrome.contextMenus.create({
+        id: 'tryFrame',
+        title: 'Re-open in current frame',
         contexts: ['page'],
         documentUrlPatterns: ['*://*/*'],
         onclick: onContextMenu
@@ -156,25 +164,23 @@ function createContextMenu() {
         if (info.linkUrl) { // Link
             createTab();
         } else { // Main or subframe
+            if (info.menuItemId === 'newTab') {
+                createTab();
+                return;
+            }
+            if (!info.frameUrl) { // Main frame
+                updateTab(tab.id);
+                return;
+            }
+            // Sub frame
             chrome.webNavigation.getAllFrames({
                 tabId: tab.id
             }, function(details) {
-                // Only select frames that had a navigation error
-                // If no such frame can be found, open a new tab.
-                details = details.filter(function(detail) { return detail.errorOccurred; });
-                if (!info.frameUrl) {
-                    // Main frame.
-                    details = details.filter(function(detail) { return detail.frameId === 0; });
-                    if (details.length === 1) {
-                        updateTab(details[0].id);
-                    } else {
-                        createTab();
-                    }
-                    return;
-                }
-                // Sub frame
-                details = details.filter(function(detail) { return detail.url === url; });
+                details = details.filter(function(detail) {
+                    return detail.url === url && details.frameId !== 0;
+                });
                 if (details.length === 1) {
+                    overriddenTabIds[tab.id] = true;
                     chrome.tabs.executeScriptInFrame({
                         tabId: tab.id,
                         frameId: details[0].frameId,
