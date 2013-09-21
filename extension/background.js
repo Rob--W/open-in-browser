@@ -172,27 +172,54 @@ function createContextMenu() {
                 updateTab(tab.id);
                 return;
             }
-            // Sub frame
-            chrome.webNavigation.getAllFrames({
-                tabId: tab.id
-            }, function(details) {
-                details = details.filter(function(detail) {
-                    return detail.url === url && details.frameId !== 0;
-                });
-                if (details.length === 1) {
+            chrome.tabs.executeScript({
+                code: 'var _hasFocus = document.hasFocus ? document.hasFocus() : null;' +
+                      'if (window === top) hasFocus = false;' + // Main frame already handled
+                      'var _url = location.href;' +
+                      'var _id = Math.random();' +
+                      '({hasFocus: _hasFocus, url: _url, id: _id});',
+                allFrames: true
+            }, function(results) {
+                if (!results) { // Failed to insert content script, for some reason.
+                    createTab();
+                    return;
+                }
+                var frames = results.filter(function(res) { return res.url === url; });
+                if (frames.length === 0) { // Did not find frame for the given URL
+                    createTab();
+                    return;
+                }
+                var focusedFrames = frames.filter(function(res) { return res.hasFocus; });
+                if (focusedFrames.length === 0) {
+                    // XHTML documents have no hasFocus() method, so check the null results.
+                    focusedFrames = frames.filter(function(res) { return res.hasFocus === null; });
+                }
+                if (focusedFrames.length === 0) {
+                    // Failed to detect focused frame. Take any frame whose URL matches.
+                    focusedFrames = frames;
+                }
+                if (focusedFrames.length === 1) {
+                    var frame = focusedFrames[0];
                     overriddenTabIds[tab.id] = true;
-                    chrome.tabs.executeScriptInFrame({
-                        tabId: tab.id,
-                        frameId: details[0].frameId,
-                        code: 'location.href = ' + JSON.stringify(url) + ';'
+                    chrome.tabs.executeScript({
+                        code: 'if (window._id === ' + frame.id + ') {' +
+                              '    location.href = window._url;' +
+                              '    true;' + // Return value to indicate success
+                              '}',
+                        allFrames: true
                     }, function(results) {
-                        if (!results) {
+                        if (!results || results.indexOf(true) === -1) {
+                            // No results found, or frame has somehow disappeared.
+                            delete overriddenTabIds[tab.id];
                             createTab();
                         }
                     });
                 } else {
+                    // Did not find any frames, or found more than one frame.
+                    // Stay safe, and open a new tab.
                     createTab();
                 }
+
             });
         }
         function createTab() {
