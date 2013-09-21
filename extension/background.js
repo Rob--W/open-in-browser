@@ -153,17 +153,58 @@ function createContextMenu() {
     });
     function onContextMenu(info, tab) {
         var url = info.linkUrl || info.frameUrl || info.pageUrl;
-        chrome.tabs.create({
-            url: 'about:blank',
-            windowId: tab.windowId,
-            index: tab.index + 1,
-            openerTabId: tab.id
-        }, function(newTab) {
-            overriddenTabIds[newTab.id] = true;
-            chrome.tabs.update(newTab.id, {
+        if (info.linkUrl) { // Link
+            createTab();
+        } else { // Main or subframe
+            chrome.webNavigation.getAllFrames({
+                tabId: tab.id
+            }, function(details) {
+                // Only select frames that had a navigation error
+                // If no such frame can be found, open a new tab.
+                details = details.filter(function(detail) { return detail.errorOccurred; });
+                if (!info.frameUrl) {
+                    // Main frame.
+                    details = details.filter(function(detail) { return detail.frameId === 0; });
+                    if (details.length === 1) {
+                        updateTab(details[0].id);
+                    } else {
+                        createTab();
+                    }
+                    return;
+                }
+                // Sub frame
+                details = details.filter(function(detail) { return detail.url === url; });
+                if (details.length === 1) {
+                    chrome.tabs.executeScriptInFrame({
+                        tabId: tab.id,
+                        frameId: details[0].frameId,
+                        code: 'location.href = ' + JSON.stringify(url) + ';'
+                    }, function(results) {
+                        if (!results) {
+                            createTab();
+                        }
+                    });
+                } else {
+                    createTab();
+                }
+            });
+        }
+        function createTab() {
+            chrome.tabs.create({
+                url: 'about:blank',
+                windowId: tab.windowId,
+                index: tab.index + 1,
+                openerTabId: tab.id
+            }, function(newTab) {
+                updateTab(newTab.id);
+            });
+        }
+        function updateTab(tabId) {
+            overriddenTabIds[tabId] = true;
+            chrome.tabs.update(tabId, {
                 url: url
             });
-        });
+        }
     }
 }
 
