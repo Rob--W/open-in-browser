@@ -8,6 +8,7 @@ html, body {
     margin: 0;
     padding: 0;
     line-height: 1.4em;
+    direction: __MSG_@@bidi_dir__;
 }
 body {
     font-size: 16px;
@@ -22,9 +23,10 @@ body {
 
 #metadata-block {
     margin: 0.3em 0 0.7em;
-    padding-left: 40px;
+    /* ltr=left, rtl=right*/
+    padding-__MSG_@@bidi_start_edge__: 40px;
     background-image: url('icons/unknown.png');
-    background-position: left center;
+    background-position: __MSG_@@bidi_start_edge__ center;
     background-repeat: no-repeat;
 }
 
@@ -32,6 +34,9 @@ body {
 .no-overflow {
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.no-overflow:empty {
+    padding-left: 1px; /* force minimal occupation of vertical space*/
 }
 .row {
     margin: 0.3em 0;
@@ -57,7 +62,8 @@ body {
     background-color: InfoBackground;
     color: InfoText;
     margin-top: -5px;
-    margin-left: -5px;
+    /* ltr=left, rtl=right */
+    margin-__MSG_@@bidi_start_edge__: -5px;
     padding: 5px;
     box-shadow: 1px 1px 7px #000;
 }
@@ -74,14 +80,9 @@ body {
     -webkit-flex: 1;
     flex: 1;
     direction: ltr;
-}
-html[dir="ltr"] #url {
-    padding-left: 5px;
-    text-align: left;
-}
-html[dir="rtl"] #url {
-    padding-right: 5px;
-    text-align: right;
+    /* ltr=left, rtl=right*/
+    padding-__MSG_@@bidi_start_edge__: 5px;
+    text-align: __MSG_@@bidi_start_edge__;
 }
 
 #url-protocol.https {
@@ -135,11 +136,9 @@ label {
 }
 
 
-html[dir="ltr"] .options-link-wrapper {
-    text-align: right;
-}
-html[dir="rtl"] .options-link-wrapper {
-    text-align: left;
+.options-link-wrapper {
+    /*ltr=right, rtl=left*/
+    text-align: __MSG_@@bidi_end_edge__;
 }
 .options-link-wrapper a {
     color: blue;
