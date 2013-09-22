@@ -135,8 +135,11 @@ label {
 }
 
 
-.options-link-wrapper {
+html[dir="ltr"] .options-link-wrapper {
     text-align: right;
+}
+html[dir="rtl"] .options-link-wrapper {
+    text-align: left;
 }
 .options-link-wrapper a {
     color: blue;

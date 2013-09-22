@@ -6,25 +6,26 @@
 <head>
 <meta charset="utf-8">
 <title>Opening ...</title>
+<meta name="google" content="notranslate">
 <link rel="stylesheet" type="text/css" href="dialog.css">
 </head>
 <body>
 
 <div id="dialog-main">
-<div>You have chosen to open:</div>
+<div data-i18n="intro2">You have chosen to open:</div>
 <div id="metadata-block">
     <div id="filename" class="no-overflow"></div>
-    <div class="no-overflow"><span>which is:</span> <span id="content-type"></span></div>
+    <div class="no-overflow"><span data-i18n="whichIs">which is:</span> <span id="content-type"></span></div>
     <div class="url-container">
         <div class="url-wrapper">
-            <div>from:</div>
+            <div data-i18n="from">from:</div>
             <div id="url" class="no-overflow"><span id="url-protocol"></span><span id="url-host"></span><span id="url-remainder"></span></div>
         </div>
     </div>
 </div>
 <form name="action">
 <fieldset>
-    <legend>What should Chrome do with this file?</legend>
+    <legend data-i18n="actionQuestion">What should Chrome do with this file?</legend>
     <div class="row">
         <label>
             <input name="choice" type="radio" value="openas" checked autofocus> <span>Open in browser as</span>
@@ -35,34 +36,37 @@
                     <option value="text/xml">XML</option>
                     <option value="image/png">Image</option>
                     <option value="original" selected>Server sent MIME</option>
-                    <option value="other">Other</option>
+                    <option value="other" data-i18n="other">Other</option>
                 </select>
-                <input id="mime-custom" class="mime-custom" type="text" hidden pattern=" *[A-Za-z-]+/.+" title="Enter a valid MIME-type." spellcheck="false" list="mime-custom-completion">
+                <input id="mime-custom" class="mime-custom" type="text" hidden pattern=" *[A-Za-z-]+/.+"
+                    spellcheck="false" list="mime-custom-completion"
+                    title="Enter a valid MIME-type."> <!-- TODO: data-i18n="title=validmime"> -->
             </div>
         </label>
         <label>
-            <input name="choice" type="radio" value="save"> <span>Save File</span>
+            <input name="choice" type="radio" value="save"> <span data-i18n="saveFile">Save File</span>
         </label>
     </div>
     <div class="row">
         <label>
-            <input type="checkbox" id="remember"> <span>Do this automatically for files like this from now on.</span>
+            <input type="checkbox" id="remember"> <span data-i18n="rememberChoice">Do this automatically for files like this from now on.</span>
         </label>
     </div>
     <div class="row button-container">
-        <button id="confirm" class="btn-ok">Ok</button>
-        <button id="cancel" class="btn-cancel">Cancel</button>
+        <button id="confirm" class="btn-ok" data-i18n="button_accept">Ok</button>
+        <button id="cancel" class="btn-cancel" data-i18n="button_cancel">Cancel</button>
     </div>
 </fieldset>
 </form>
 <div class="options-link-wrapper">
-    <a href="options.html" target="_blank">Edit preferences</a>
+    <a href="options.html" target="_blank" data-i18n="preferences">Preferences</a>
 </div>
 </div>
 
 <datalist id="mime-custom-completion">
 </datalist>
 
+<script src="i18n.js"></script>
 <script src="mime-metadata.js"></script>
 <script src="prefs.js"></script>
 <script src="dialog.js"></script>

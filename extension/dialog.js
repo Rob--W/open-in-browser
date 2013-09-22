@@ -21,7 +21,7 @@ handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.gue
         dialogArguments.mimeType);
 
 function handleDetails(url, filename, guessedMimeType, mimeType) {
-    document.title = 'Opening ' + filename;
+    document.title = chrome.i18n.getMessage('opening_title', filename);
 
     renderMetadata(filename, guessedMimeType, mimeType);
 
