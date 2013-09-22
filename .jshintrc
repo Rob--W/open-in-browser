@@ -1,6 +1,7 @@
 {
     "globalstrict": true,
     "unused": true,
+    "undef": true,
     "maxlen": 100,
     "browser": true,
     "globals": {
