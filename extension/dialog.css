@@ -46,17 +46,24 @@ body {
 .url-container {
     height: 1.4em; /* same as line-height */
     position: relative;
+    display: inline-block;
+    max-width: 100%;
 }
-.url-container:hover #url {
+.url-wrapper {
+    display: -webkit-flex;
+    display: flex;
+}
+.url-container:hover .url-wrapper {
     background-color: InfoBackground;
     color: InfoText;
-    white-space: pre;
-    word-wrap: break-word;
-    position: relative;
-    top: -5px;
-    left: -5px;
+    margin-top: -5px;
+    margin-left: -5px;
     padding: 5px;
     box-shadow: 1px 1px 7px #000;
+}
+.url-container:hover #url {
+    white-space: pre;
+    word-wrap: break-word;
 }
 .url-container:hover #url-protocol,
 .url-container:hover #url-remainder {
@@ -64,7 +71,19 @@ body {
 }
 #url {
     white-space: nowrap;
+    -webkit-flex: 1;
+    flex: 1;
+    direction: ltr;
 }
+html[dir="ltr"] #url {
+    padding-left: 5px;
+    text-align: left;
+}
+html[dir="rtl"] #url {
+    padding-right: 5px;
+    text-align: right;
+}
+
 #url-protocol.https {
     color: green;
 }

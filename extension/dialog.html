@@ -2,7 +2,7 @@
 <!--
  (c) 2013 Rob Wu <gwnRob@gmail.com>
 -->
-<html>
+<html dir="ltr">
 <head>
 <meta charset="utf-8">
 <title>Opening ...</title>
@@ -16,7 +16,10 @@
     <div id="filename" class="no-overflow"></div>
     <div class="no-overflow"><span>which is:</span> <span id="content-type"></span></div>
     <div class="url-container">
-        <div id="url" class="no-overflow">from <span id="url-protocol"></span><span id="url-host"></span><span id="url-remainder"></span></div>
+        <div class="url-wrapper">
+            <div>from:</div>
+            <div id="url" class="no-overflow"><span id="url-protocol"></span><span id="url-host"></span><span id="url-remainder"></span></div>
+        </div>
     </div>
 </div>
 <form name="action">
