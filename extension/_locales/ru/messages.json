@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Вы собираетесь открыть:"
+	},
+	"from": {
+		"message": "из"
+	},
+	"actionQuestion": {
+		"message": "Как Chrome следует обработать этот файл?"
+	},
+	"other": {
+		"message": "Выбрать…"
+	},
+	"saveFile": {
+		"message": "Сохранить файл"
+	},
+	"rememberChoice": {
+		"message": "Выполнять автоматически для всех файлов данного типа."
+	},
+	"whichIs": {
+		"message": "являющийся:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Отмена"
+	},
+	"opening_title": {
+		"message": "Открытие «$1»"
+	},
+	"preferences": {
+		"message": "Настройки"
+	}
+}

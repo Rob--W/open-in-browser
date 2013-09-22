@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Bạn đã chọn mở"
+	},
+	"from": {
+		"message": "từ:"
+	},
+	"actionQuestion": {
+		"message": "Chrome nên làm gì với tập tin này?"
+	},
+	"other": {
+		"message": "Khác…"
+	},
+	"saveFile": {
+		"message": "Lưu Tập Tin"
+	},
+	"rememberChoice": {
+		"message": "Tự động xử lí tương tự đối với các tập tin kiểu này kể từ bây giờ trở đi."
+	},
+	"whichIs": {
+		"message": "là một:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Hủy bỏ"
+	},
+	"opening_title": {
+		"message": "Đang mở $1"
+	},
+	"preferences": {
+		"message": "Tùy chỉnh"
+	}
+}

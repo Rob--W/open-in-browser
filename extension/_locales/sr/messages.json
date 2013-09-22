@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Изабрали сте да отворите"
+	},
+	"from": {
+		"message": "шаље:"
+	},
+	"actionQuestion": {
+		"message": "Како да Chrome обради ову датотеку?"
+	},
+	"other": {
+		"message": "Друго…"
+	},
+	"saveFile": {
+		"message": "Сними датотеку"
+	},
+	"rememberChoice": {
+		"message": "Користи овај избор за све датотеке овог типа."
+	},
+	"whichIs": {
+		"message": "врста:"
+	},
+	"button_accept": {
+		"message": "У реду"
+	},
+	"button_cancel": {
+		"message": "Откажи"
+	},
+	"opening_title": {
+		"message": "Отварање $1"
+	},
+	"preferences": {
+		"message": "Поставке"
+	}
+}

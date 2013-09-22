@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Heu triat obrir:"
+	},
+	"from": {
+		"message": "des de:"
+	},
+	"actionQuestion": {
+		"message": "Què hauria de fer el Chrome amb aquest fitxer?"
+	},
+	"other": {
+		"message": "Altres…"
+	},
+	"saveFile": {
+		"message": "Desa el fitxer"
+	},
+	"rememberChoice": {
+		"message": "Fes-ho automàticament per a fitxers com aquests a partir d'ara."
+	},
+	"whichIs": {
+		"message": "que és:"
+	},
+	"button_accept": {
+		"message": "D'acord"
+	},
+	"button_cancel": {
+		"message": "Cancel·la"
+	},
+	"opening_title": {
+		"message": "S'està obrint $1"
+	},
+	"preferences": {
+		"message": "Preferències"
+	}
+}

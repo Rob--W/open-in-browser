@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Olet avaamassa tiedostoa:"
+	},
+	"from": {
+		"message": "osoitteesta:"
+	},
+	"actionQuestion": {
+		"message": "Mitä tiedostolle tehdään?"
+	},
+	"other": {
+		"message": "Muu…"
+	},
+	"saveFile": {
+		"message": "Tallenna tiedosto"
+	},
+	"rememberChoice": {
+		"message": "Tee näin oletuksena tämän tyyppisille tiedostoille."
+	},
+	"whichIs": {
+		"message": "Tiedosto on tyyppiä:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Peruuta"
+	},
+	"opening_title": {
+		"message": "Avataan tiedostoa $1"
+	},
+	"preferences": {
+		"message": "Asetukset"
+	}
+}

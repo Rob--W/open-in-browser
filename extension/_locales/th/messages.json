@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "คุณเลือกเปิด"
+	},
+	"from": {
+		"message": "จาก :"
+	},
+	"actionQuestion": {
+		"message": "Chrome ควรทำอะไรกับแฟ้มนี้"
+	},
+	"other": {
+		"message": "อื่น ๆ…"
+	},
+	"saveFile": {
+		"message": "บันทึกแฟ้ม"
+	},
+	"rememberChoice": {
+		"message": "จำค่าที่เลือกสำหรับแฟ้มชนิดนี้"
+	},
+	"whichIs": {
+		"message": "ซึ่งเป็น :"
+	},
+	"button_accept": {
+		"message": "ตกลง"
+	},
+	"button_cancel": {
+		"message": "ยกเลิก"
+	},
+	"opening_title": {
+		"message": "กำลังเปิด $1"
+	},
+	"preferences": {
+		"message": "ปรับแต่ง"
+	}
+}

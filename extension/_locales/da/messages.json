@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Du har valgt at åbne:"
+	},
+	"from": {
+		"message": "fra:"
+	},
+	"actionQuestion": {
+		"message": "Hvad skal Chrome gøre med denne fil ?"
+	},
+	"other": {
+		"message": "Anden…"
+	},
+	"saveFile": {
+		"message": "Gem fil"
+	},
+	"rememberChoice": {
+		"message": "Gør dette automatisk med filer som denne fremover."
+	},
+	"whichIs": {
+		"message": "som er:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Annuller"
+	},
+	"opening_title": {
+		"message": "Åbner $1"
+	},
+	"preferences": {
+		"message": "Præferencer"
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "您选择了打开："
+	},
+	"from": {
+		"message": "来源："
+	},
+	"actionQuestion": {
+		"message": "您想要 Chrome 如何处理此文件？"
+	},
+	"other": {
+		"message": "其他…"
+	},
+	"saveFile": {
+		"message": "保存文件"
+	},
+	"rememberChoice": {
+		"message": "以后自动采用相同的动作处理此类文件。"
+	},
+	"whichIs": {
+		"message": "哪个是："
+	},
+	"button_accept": {
+		"message": "确定"
+	},
+	"button_cancel": {
+		"message": "取消"
+	},
+	"opening_title": {
+		"message": "正在打开 $1"
+	},
+	"preferences": {
+		"message": "首选项"
+	}
+}

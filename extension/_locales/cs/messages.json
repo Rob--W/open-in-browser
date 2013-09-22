@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Zvolili jste otevírat:"
+	},
+	"from": {
+		"message": "z:"
+	},
+	"actionQuestion": {
+		"message": "Co má aplikace Chrome udělat s tímto souborem?"
+	},
+	"other": {
+		"message": "Jiná…"
+	},
+	"saveFile": {
+		"message": "Uložit soubor"
+	},
+	"rememberChoice": {
+		"message": "Provádět od teď automaticky s podobnými soubory."
+	},
+	"whichIs": {
+		"message": "což je:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Zrušit"
+	},
+	"opening_title": {
+		"message": "Otevírání $1"
+	},
+	"preferences": {
+		"message": "Předvolby"
+	}
+}

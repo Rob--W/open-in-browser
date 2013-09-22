@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Avamiseks on valitud:"
+	},
+	"from": {
+		"message": "asukoht:"
+	},
+	"actionQuestion": {
+		"message": "Mida peaks Chrome selle failiga tegema?"
+	},
+	"other": {
+		"message": "Muu..."
+	},
+	"saveFile": {
+		"message": "Salvestama"
+	},
+	"rememberChoice": {
+		"message": "Valitud toiming jäetakse antud tüüpi failide jaoks meelde"
+	},
+	"whichIs": {
+		"message": "tüüp:"
+	},
+	"button_accept": {
+		"message": "Sobib"
+	},
+	"button_cancel": {
+		"message": "Loobu"
+	},
+	"opening_title": {
+		"message": "Faili $1 avamine"
+	},
+	"preferences": {
+		"message": "Eelistused"
+	}
+}

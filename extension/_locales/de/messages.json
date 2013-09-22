@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Sie möchten folgende Datei öffnen:"
+	},
+	"from": {
+		"message": "Von:"
+	},
+	"actionQuestion": {
+		"message": "Wie soll Chrome mit dieser Datei verfahren?"
+	},
+	"other": {
+		"message": "Andere…"
+	},
+	"saveFile": {
+		"message": "Datei speichern"
+	},
+	"rememberChoice": {
+		"message": "Für Dateien dieses Typs immer diese Aktion ausführen"
+	},
+	"whichIs": {
+		"message": "Vom Typ:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Abbrechen"
+	},
+	"opening_title": {
+		"message": "Öffnen von $1"
+	},
+	"preferences": {
+		"message": "Einstellungen"
+	}
+}

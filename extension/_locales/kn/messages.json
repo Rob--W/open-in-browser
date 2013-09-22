@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "ನೀವು ಇದನ್ನು ತೆರೆಯಲು ಆಯ್ಕೆ ಮಾಡಿದ್ದೀರಿ:"
+	},
+	"from": {
+		"message": "ಇಂದ:"
+	},
+	"actionQuestion": {
+		"message": "Chromeಈ ಕಡತದಿಂದ ಏನು ಮಾಡಬೇಕು?"
+	},
+	"other": {
+		"message": "ಇತರೆ…"
+	},
+	"saveFile": {
+		"message": "ಕಡತವನ್ನು ಉಳಿಸು"
+	},
+	"rememberChoice": {
+		"message": "ಇನ್ನು ಮುಂದೆ ಈ ಬಗೆಯ ಕಡತಗಳಿಗೆ ಹೀಗೆಯೆ ಮಾಡು."
+	},
+	"whichIs": {
+		"message": "ಇದು ಒಂದು:"
+	},
+	"button_accept": {
+		"message": "ಸರಿ"
+	},
+	"button_cancel": {
+		"message": "ರದ್ದು ಮಾಡು"
+	},
+	"opening_title": {
+		"message": "$1 ಅನ್ನು ತೆರೆಯಲಾಗುತ್ತಿದೆ"
+	},
+	"preferences": {
+		"message": "ಆದ್ಯತೆಗಳು"
+	}
+}

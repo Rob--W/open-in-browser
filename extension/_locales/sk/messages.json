@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Vybrali ste akciu otvoriť súbor alebo odkaz:"
+	},
+	"from": {
+		"message": "umiestnený na serveri:"
+	},
+	"actionQuestion": {
+		"message": "Čo má Chrome vykonať s týmto súborom?"
+	},
+	"other": {
+		"message": "Iné…"
+	},
+	"saveFile": {
+		"message": "Uložiť súbor"
+	},
+	"rememberChoice": {
+		"message": "Odteraz to robiť automaticky so všetkými súbormi ako je tento"
+	},
+	"whichIs": {
+		"message": "ktorý je typu:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Zrušiť"
+	},
+	"opening_title": {
+		"message": "Otvára sa $1"
+	},
+	"preferences": {
+		"message": "Možnosti"
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Pasirinkote atverti failą:"
+	},
+	"from": {
+		"message": "iš:"
+	},
+	"actionQuestion": {
+		"message": "Jį:"
+	},
+	"other": {
+		"message": "Kita…"
+	},
+	"saveFile": {
+		"message": "įrašyti į diską"
+	},
+	"rememberChoice": {
+		"message": "Aukščiau parinktą nuostatą taikyti visiems šio tipo failams."
+	},
+	"whichIs": {
+		"message": "tipas:"
+	},
+	"button_accept": {
+		"message": "Gerai"
+	},
+	"button_cancel": {
+		"message": "Atsisakyti"
+	},
+	"opening_title": {
+		"message": "Failo atvėrimas: $1"
+	},
+	"preferences": {
+		"message": "Nuostatos"
+	}
+}

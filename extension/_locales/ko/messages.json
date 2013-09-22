@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "열기 선택:"
+	},
+	"from": {
+		"message": "원본 위치:"
+	},
+	"actionQuestion": {
+		"message": "Chrome가 이 파일을 열거나 컴퓨터에 저장할 수 있습니다:"
+	},
+	"other": {
+		"message": "기타…"
+	},
+	"rememberChoice": {
+		"message": "다시 묻지 않음"
+	},
+	"whichIs": {
+		"message": "파일 유형:"
+	},
+	"saveFile": {
+		"message": "파일 저장"
+	},
+	"button_accept": {
+		"message": "확인"
+	},
+	"button_cancel": {
+		"message": "취소"
+	},
+	"opening_title": {
+		"message": "$1 여는 중…"
+	},
+	"preferences": {
+		"message": "환경 설정"
+	}
+}

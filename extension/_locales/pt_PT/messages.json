@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Escolheu abrir:"
+	},
+	"from": {
+		"message": "de:"
+	},
+	"actionQuestion": {
+		"message": "O que deve o Chrome fazer com este ficheiro?"
+	},
+	"other": {
+		"message": "Outro..."
+	},
+	"saveFile": {
+		"message": "Gravar Ficheiro"
+	},
+	"rememberChoice": {
+		"message": "Repetir isto para ficheiros deste tipo daqui para a frente."
+	},
+	"whichIs": {
+		"message": "que é um:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Cancelar"
+	},
+	"opening_title": {
+		"message": "A abrir $1"
+	},
+	"preferences": {
+		"message": "Preferências"
+	}
+}

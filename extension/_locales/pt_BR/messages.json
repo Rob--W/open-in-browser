@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Você selecionou abrir:"
+	},
+	"from": {
+		"message": "Site:"
+	},
+	"actionQuestion": {
+		"message": "O que o Chrome deve fazer?"
+	},
+	"other": {
+		"message": "Outro aplicativo…"
+	},
+	"saveFile": {
+		"message": "Download"
+	},
+	"rememberChoice": {
+		"message": "Memorizar a decisão para este tipo de arquivo"
+	},
+	"whichIs": {
+		"message": "Tipo:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Cancelar"
+	},
+	"opening_title": {
+		"message": "Abrir “$1”"
+	},
+	"preferences": {
+		"message": "Preferências"
+	}
+}

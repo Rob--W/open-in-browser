@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Избрахте да отворите:"
+	},
+	"from": {
+		"message": "от:"
+	},
+	"actionQuestion": {
+		"message": "Какво да направи Chrome с този файл?"
+	},
+	"other": {
+		"message": "Друго…"
+	},
+	"saveFile": {
+		"message": "Запис на файл"
+	},
+	"rememberChoice": {
+		"message": "Запомняне на операцията за този тип файлове."
+	},
+	"whichIs": {
+		"message": "който е:"
+	},
+	"button_accept": {
+		"message": "Добре"
+	},
+	"button_cancel": {
+		"message": "Отказ"
+	},
+	"opening_title": {
+		"message": "Отваряне на $1"
+	},
+	"preferences": {
+		"message": "Настройки"
+	}
+}

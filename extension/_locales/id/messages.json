@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Anda memutuskan untuk membuka"
+	},
+	"from": {
+		"message": "dari:"
+	},
+	"actionQuestion": {
+		"message": "Apa yang sebaiknya Chrome lakukan dengan berkas ini?"
+	},
+	"other": {
+		"message": "Lainnya…"
+	},
+	"saveFile": {
+		"message": "Simpan Berkas"
+	},
+	"rememberChoice": {
+		"message": "Lakukan secara otomatis untuk berkas seperti ini mulai sekarang."
+	},
+	"whichIs": {
+		"message": "adalah sebuah:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Batal"
+	},
+	"opening_title": {
+		"message": "Membuka $1"
+	},
+	"preferences": {
+		"message": "Pengaturan"
+	}
+}

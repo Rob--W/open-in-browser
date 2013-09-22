@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "İndirmek istediğiniz dosya:"
+	},
+	"from": {
+		"message": "Nereden:"
+	},
+	"actionQuestion": {
+		"message": "Chrome bu dosya ile ne yapsın?"
+	},
+	"other": {
+		"message": "Diğer…"
+	},
+	"saveFile": {
+		"message": "Sabit diske kaydet"
+	},
+	"rememberChoice": {
+		"message": "Bu tür dosyalar indirilirken hep bu işlemi gerçekleştir"
+	},
+	"whichIs": {
+		"message": "Türü:"
+	},
+	"button_accept": {
+		"message": "Tamam"
+	},
+	"button_cancel": {
+		"message": "Vazgeç"
+	},
+	"opening_title": {
+		"message": "$1 açılıyor"
+	},
+	"preferences": {
+		"message": "Tercihler"
+	}
+}

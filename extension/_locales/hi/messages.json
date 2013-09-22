@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "आपने खोलने के लिए चुना है:"
+	},
+	"from": {
+		"message": "से:"
+	},
+	"actionQuestion": {
+		"message": "इस फाइल के साथ Chrome को क्या करना चाहिए?"
+	},
+	"other": {
+		"message": "अन्य…"
+	},
+	"saveFile": {
+		"message": "फाइल सहेजें"
+	},
+	"rememberChoice": {
+		"message": "इस तरह की फाइलों के ऐसा अब से स्वचालित रूप से करें."
+	},
+	"whichIs": {
+		"message": "जो कि है:"
+	},
+	"button_accept": {
+		"message": "ठीक"
+	},
+	"button_cancel": {
+		"message": "रद्द करें"
+	},
+	"opening_title": {
+		"message": "Opening $1"
+	},
+	"preferences": {
+		"message": "वरीयता"
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "திறக்க தேர்வு செய்துள்ளீர்கள்"
+	},
+	"from": {
+		"message": "இதிலிருந்து:"
+	},
+	"actionQuestion": {
+		"message": "Chrome இந்த கோப்பில் என்ன செய்ய வேண்டும்?"
+	},
+	"other": {
+		"message": "மற்றவை..."
+	},
+	"saveFile": {
+		"message": "கோப்பினை சேமி"
+	},
+	"rememberChoice": {
+		"message": "இது போன்ற கோப்புகளுக்கு தானாக இதை செய்யவும்."
+	},
+	"whichIs": {
+		"message": "எது:"
+	},
+	"button_accept": {
+		"message": "சரி"
+	},
+	"button_cancel": {
+		"message": "ரத்து செய்"
+	},
+	"opening_title": {
+		"message": "$1 ஐ திறக்கிறது"
+	},
+	"preferences": {
+		"message": "விருப்பங்கள்"
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Izbrali ste odpiranje:"
+	},
+	"from": {
+		"message": "iz:"
+	},
+	"actionQuestion": {
+		"message": "Kaj naj Chrome stori s to datoteko?"
+	},
+	"other": {
+		"message": "Drugo …"
+	},
+	"saveFile": {
+		"message": "Shrani datoteko"
+	},
+	"rememberChoice": {
+		"message": "Od zdaj naprej naredi to samodejno za tovrstne datoteke."
+	},
+	"whichIs": {
+		"message": "ki je vrste:"
+	},
+	"button_accept": {
+		"message": "V redu"
+	},
+	"button_cancel": {
+		"message": "Prekliči"
+	},
+	"opening_title": {
+		"message": "Odpiranje $1"
+	},
+	"preferences": {
+		"message": "Nastavitve"
+	}
+}

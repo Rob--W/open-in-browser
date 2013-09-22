@@ -1,0 +1,35 @@
+{
+	"from": {
+		"message": "from:"
+	},
+	"actionQuestion": {
+		"message": "Chrome ഈ ഫയല്‍ കൊണ്ട്‌ എന്തു ചെയ്യും?"
+	},
+	"other": {
+		"message": "Other..."
+	},
+	"saveFile": {
+		"message": "Save File"
+	},
+	"rememberChoice": {
+		"message": "ഈ തരത്തില്‍ പെട്ട ഫയലുകള്‍ക്ക്‌ ഇനി മുതല്‍ തനിയെ ഇങ്ങനെ ചെയ്യുക"
+	},
+	"whichIs": {
+		"message": "ഇത് ഒരു:"
+	},
+	"intro2": {
+		"message": "നിങ്ങള്‍ തുറക്കുവാന്‍ തെരഞ്ഞെടുത്തിരിയ്ക്കുന്നു:"
+	},
+	"button_accept": {
+		"message": "ശരി"
+	},
+	"button_cancel": {
+		"message": "റദ്ദാക്കുക"
+	},
+	"opening_title": {
+		"message": "$1 തുറക്കുന്നു"
+	},
+	"preferences": {
+		"message": "മുന്‍ഗണനകള്‍"
+	}
+}

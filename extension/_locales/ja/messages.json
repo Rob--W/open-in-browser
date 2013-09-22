@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "次のファイルを開こうとしています:"
+	},
+	"from": {
+		"message": "ファイルの場所:"
+	},
+	"actionQuestion": {
+		"message": "このファイルをどのように処理するか選んでください"
+	},
+	"other": {
+		"message": "その他..."
+	},
+	"saveFile": {
+		"message": "ファイルを保存する"
+	},
+	"rememberChoice": {
+		"message": "今後この種類のファイルは同様に処理する"
+	},
+	"whichIs": {
+		"message": "ファイルの種類:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "キャンセル"
+	},
+	"opening_title": {
+		"message": "$1 を開く"
+	},
+	"preferences": {
+		"message": "設定"
+	}
+}

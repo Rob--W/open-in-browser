@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "U hebt gekozen om het volgende bestand te openen:"
+	},
+	"from": {
+		"message": "van:"
+	},
+	"actionQuestion": {
+		"message": "Wat moet Chrome met dit bestand doen?"
+	},
+	"other": {
+		"message": "Ander…"
+	},
+	"saveFile": {
+		"message": "Bestand opslaan"
+	},
+	"rememberChoice": {
+		"message": "Dit vanaf nu automatisch doen voor dit type bestanden"
+	},
+	"whichIs": {
+		"message": "Dit is:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Annuleren"
+	},
+	"opening_title": {
+		"message": "$1 openen"
+	},
+	"preferences": {
+		"message": "Voorkeuren"
+	}
+}

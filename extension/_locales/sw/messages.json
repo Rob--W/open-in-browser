@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Umechagua kufungua:"
+	},
+	"from": {
+		"message": "kutoka:"
+	},
+	"actionQuestion": {
+		"message": "Je Chrome inafaa kufanya nini na faili hii?"
+	},
+	"other": {
+		"message": "Nyingine…"
+	},
+	"saveFile": {
+		"message": "Hifadhi Faili"
+	},
+	"rememberChoice": {
+		"message": "Fanya hivi kiotomatiki kwa faili kama hizi kuanzia sasa kuendelea."
+	},
+	"whichIs": {
+		"message": "ambayo ni:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Katiza"
+	},
+	"opening_title": {
+		"message": "Kufungua $1"
+	},
+	"preferences": {
+		"message": "Mapendeleo"
+	}
+}

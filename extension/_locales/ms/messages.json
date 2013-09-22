@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Anda telah memilih untuk buka"
+	},
+	"from": {
+		"message": "daripada:"
+	},
+	"actionQuestion": {
+		"message": "Apa perlu Chrome lakukan dengan fail ini?"
+	},
+	"other": {
+		"message": "Lain-lain..."
+	},
+	"saveFile": {
+		"message": "Simpan ke Cakera"
+	},
+	"rememberChoice": {
+		"message": "Lakukan ini secara automatik untuk fail seperti ini mulai sekarang."
+	},
+	"whichIs": {
+		"message": "yang mana adalah:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Batal"
+	},
+	"opening_title": {
+		"message": "Membuka $1"
+	},
+	"preferences": {
+		"message": "Keutamaan"
+	}
+}

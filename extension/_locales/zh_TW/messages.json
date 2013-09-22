@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "您已決定開啟:"
+	},
+	"from": {
+		"message": "從"
+	},
+	"actionQuestion": {
+		"message": "Chrome 應該如何處理此檔案？"
+	},
+	"other": {
+		"message": "其它…"
+	},
+	"saveFile": {
+		"message": "儲存檔案"
+	},
+	"rememberChoice": {
+		"message": "對此類檔案自動採用此處理方式。"
+	},
+	"whichIs": {
+		"message": "檔案類型:"
+	},
+	"button_accept": {
+		"message": "確定"
+	},
+	"button_cancel": {
+		"message": "取消"
+	},
+	"opening_title": {
+		"message": "開啟中: $1"
+	},
+	"preferences": {
+		"message": "偏好設定"
+	}
+}

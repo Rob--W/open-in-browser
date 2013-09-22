@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Du har valt å opne:"
+	},
+	"from": {
+		"message": "Frå:"
+	},
+	"actionQuestion": {
+		"message": "Kva skal Chrome gjere med denne fila?"
+	},
+	"other": {
+		"message": "Andre …"
+	},
+	"saveFile": {
+		"message": "Lagre fil"
+	},
+	"rememberChoice": {
+		"message": "Gjer dette automatisk frå no av."
+	},
+	"whichIs": {
+		"message": "som er:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Avbryt"
+	},
+	"opening_title": {
+		"message": "Opnar $1"
+	},
+	"preferences": {
+		"message": "Innstillingar"
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Du har valt att öppna:"
+	},
+	"from": {
+		"message": "från:"
+	},
+	"actionQuestion": {
+		"message": "Vad vill du att Chrome gör med denna fil?"
+	},
+	"other": {
+		"message": "Annat program…"
+	},
+	"saveFile": {
+		"message": "Spara fil"
+	},
+	"rememberChoice": {
+		"message": "Gör detta automatiskt för denna filtyp i fortsättningen."
+	},
+	"whichIs": {
+		"message": "som är en fil av typen:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Avbryt"
+	},
+	"opening_title": {
+		"message": "Öppnar $1"
+	},
+	"preferences": {
+		"message": "Inställningar"
+	}
+}

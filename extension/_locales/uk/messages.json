@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Ви обрали відкрити:"
+	},
+	"from": {
+		"message": "з"
+	},
+	"actionQuestion": {
+		"message": "Як Chrome повинен обробити цей файл?"
+	},
+	"other": {
+		"message": "Вибрати…"
+	},
+	"saveFile": {
+		"message": "Зберегти файл"
+	},
+	"rememberChoice": {
+		"message": "Виконувати для всіх таких файлів автоматично."
+	},
+	"whichIs": {
+		"message": "що є"
+	},
+	"button_accept": {
+		"message": "OК"
+	},
+	"button_cancel": {
+		"message": "Скасувати"
+	},
+	"opening_title": {
+		"message": "Відкриття $1"
+	},
+	"preferences": {
+		"message": "Налаштування"
+	}
+}

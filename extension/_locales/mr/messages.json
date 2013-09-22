@@ -1,0 +1,35 @@
+{
+	"from": {
+		"message": "पासून:"
+	},
+	"actionQuestion": {
+		"message": "Chrome नी या फाइलशी काय करावे?"
+	},
+	"other": {
+		"message": "इतर..."
+	},
+	"rememberChoice": {
+		"message": "आतापासून यापुढे असेच ह्या फाइल्सकरीता आपोआप करा."
+	},
+	"whichIs": {
+		"message": "जे:"
+	},
+	"saveFile": {
+		"message": "फाइल संचयीत करा"
+	},
+	"intro2": {
+		"message": "तुम्ही उघडायचे, असे निश्चित केले आहे:"
+	},
+	"button_accept": {
+		"message": "ठिक आहे"
+	},
+	"button_cancel": {
+		"message": "रद्द करा"
+	},
+	"opening_title": {
+		"message": "$1 उघडत आहे"
+	},
+	"preferences": {
+		"message": "प्राधन्यता"
+	}
+}

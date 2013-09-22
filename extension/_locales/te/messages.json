@@ -1,0 +1,35 @@
+{
+	"from": {
+		"message": "నుండి:"
+	},
+	"actionQuestion": {
+		"message": "Chrome ఈ  ఫైల్ తో  ఏమి చేయాలి?"
+	},
+	"other": {
+		"message": "ఇతర..."
+	},
+	"rememberChoice": {
+		"message": "ఇక నుండి  ఇలాంటి  ఫైళ్ళకు దీనిని  స్వయంచాలకంగా   చేయుము."
+	},
+	"whichIs": {
+		"message": "ఏది ఒక:"
+	},
+	"saveFile": {
+		"message": "ఫైల్ భద్రపరచు"
+	},
+	"intro2": {
+		"message": "మీరు  తెరుచుటకు  ఎంపికచేసికొనినారు:"
+	},
+	"button_accept": {
+		"message": "సరే"
+	},
+	"button_cancel": {
+		"message": "రద్దుచేయి"
+	},
+	"opening_title": {
+		"message": "$1ను  తెరుస్తున్నది"
+	},
+	"preferences": {
+		"message": "అభీష్టాలు"
+	}
+}

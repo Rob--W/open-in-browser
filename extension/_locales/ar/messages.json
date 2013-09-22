@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "اخترت فتح:"
+	},
+	"from": {
+		"message": "مِن:"
+	},
+	"actionQuestion": {
+		"message": "ماذا على Chrome أن يفعل بهذا الملفّ؟"
+	},
+	"other": {
+		"message": "أخرى…"
+	},
+	"saveFile": {
+		"message": "احفظ الملف"
+	},
+	"rememberChoice": {
+		"message": "افعل هذا آليا مع الملفات من هذا النوع من الآن فصاعدا."
+	},
+	"whichIs": {
+		"message": "الذي هو:"
+	},
+	"button_accept": {
+		"message": "موافق"
+	},
+	"button_cancel": {
+		"message": "ألغِ"
+	},
+	"opening_title": {
+		"message": "يفتح $1"
+	},
+	"preferences": {
+		"message": "التفضيلات"
+	}
+}

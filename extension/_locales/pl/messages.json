@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Rozpoczęto pobieranie pliku:"
+	},
+	"from": {
+		"message": "Adres:"
+	},
+	"actionQuestion": {
+		"message": "Po zakończeniu pobierania:"
+	},
+	"other": {
+		"message": "Inna aplikacja…"
+	},
+	"saveFile": {
+		"message": "Zapisz plik"
+	},
+	"rememberChoice": {
+		"message": "Zapamiętaj tę decyzję dla wszystkich plików tego typu"
+	},
+	"whichIs": {
+		"message": "Typ pliku:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Anuluj"
+	},
+	"opening_title": {
+		"message": "Otwieranie $1"
+	},
+	"preferences": {
+		"message": "Preferencje"
+	}
+}

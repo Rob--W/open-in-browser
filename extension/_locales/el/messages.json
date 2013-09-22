@@ -1,0 +1,35 @@
+{
+	"saveFile": {
+		"message": "Αποθήκευση αρχείου"
+	},
+	"actionQuestion": {
+		"message": "Τι να κάνει ο Chrome  με αυτό το αρχείο;"
+	},
+	"from": {
+		"message": "από:"
+	},
+	"intro2": {
+		"message": "Επιλέξατε να ανοίξετε"
+	},
+	"other": {
+		"message": "Άλλο..."
+	},
+	"rememberChoice": {
+		"message": "Να γίνεται αυτόματα από εδώ και πέρα για αρχεία αυτού του είδους."
+	},
+	"whichIs": {
+		"message": "που είναι:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Ακύρωση"
+	},
+	"opening_title": {
+		"message": "Άνοιγμα $1"
+	},
+	"preferences": {
+		"message": "Προτιμήσεις"
+	}
+}

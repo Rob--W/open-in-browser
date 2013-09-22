@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Ați ales să deschideți"
+	},
+	"from": {
+		"message": "De la:"
+	},
+	"actionQuestion": {
+		"message": "Ce să facă Chrome cu acest fișier?"
+	},
+	"other": {
+		"message": "Altceva..."
+	},
+	"saveFile": {
+		"message": "Salvează fișierul"
+	},
+	"rememberChoice": {
+		"message": "Fă la fel în mod automat pentru fișiere ca acesta de acum înainte."
+	},
+	"whichIs": {
+		"message": "care este:"
+	},
+	"button_accept": {
+		"message": "Ok"
+	},
+	"button_cancel": {
+		"message": "Renunță"
+	},
+	"opening_title": {
+		"message": "Deschidere $1"
+	},
+	"preferences": {
+		"message": "Preferințe"
+	}
+}

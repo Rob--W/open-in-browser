@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "شما تصمیم به باز کردن این پرونده گرفته‌اید:"
+	},
+	"from": {
+		"message": "از:"
+	},
+	"actionQuestion": {
+		"message": "Chrome با این پرونده چه‌کار کند؟"
+	},
+	"other": {
+		"message": "غیره…"
+	},
+	"saveFile": {
+		"message": "ذخیرهٔ پرونده"
+	},
+	"rememberChoice": {
+		"message": "از این به بعد به طور خودکار برای پرونده‌های مثل این همین کار انجام شود."
+	},
+	"whichIs": {
+		"message": "که پرونده‌ای از این نوع است:"
+	},
+	"button_accept": {
+		"message": "تأیید"
+	},
+	"button_cancel": {
+		"message": "انصراف"
+	},
+	"opening_title": {
+		"message": "در حال باز کردن $1"
+	},
+	"preferences": {
+		"message": "ترجیحات"
+	}
+}

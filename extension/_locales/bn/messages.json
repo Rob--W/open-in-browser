@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "খোলার জন্য আপনি"
+	},
+	"from": {
+		"message": "চিহ্নিত স্থান নির্বাচন করেছেন:"
+	},
+	"actionQuestion": {
+		"message": "Chrome-র দ্বারা এই ফাইলের কি ব্যবস্থা করা হবে?"
+	},
+	"other": {
+		"message": "অন্যান্য..."
+	},
+	"saveFile": {
+		"message": "ফাইল সংরক্ষণ করুন"
+	},
+	"rememberChoice": {
+		"message": "এই প্রকৃতির ফাইলের জন্য ভবিষ্যতে স্বয়ংক্রিয়ভাবে এই কর্মপন্থা গ্রহণ করা হবে।"
+	},
+	"whichIs": {
+		"message": "এটি হল:"
+	},
+	"button_accept": {
+		"message": "ঠিক আছে"
+	},
+	"button_cancel": {
+		"message": "বাতিল"
+	},
+	"opening_title": {
+		"message": "$1 খোলা হচ্ছে"
+	},
+	"preferences": {
+		"message": "পছন্দ"
+	}
+}

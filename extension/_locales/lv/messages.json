@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Jūs esat izvēlējies atvērt:"
+	},
+	"from": {
+		"message": "no:"
+	},
+	"actionQuestion": {
+		"message": "Ko Chrome vajadzētu darīt ar šo failu?"
+	},
+	"other": {
+		"message": "Citu…"
+	},
+	"saveFile": {
+		"message": "Saglabāt failu"
+	},
+	"rememberChoice": {
+		"message": "Nākamreiz automātiski tā rīkoties ar šādiem failiem."
+	},
+	"whichIs": {
+		"message": "kurš ir:"
+	},
+	"button_accept": {
+		"message": "Labi"
+	},
+	"button_cancel": {
+		"message": "Atcelt"
+	},
+	"opening_title": {
+		"message": "Atver $1"
+	},
+	"preferences": {
+		"message": "Iestatījumi"
+	}
+}

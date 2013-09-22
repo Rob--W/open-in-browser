@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "Megnyitotta a következőt:"
+	},
+	"from": {
+		"message": "forrás:"
+	},
+	"actionQuestion": {
+		"message": "Mit tegyen a Chrome ezzel a fájllal?"
+	},
+	"other": {
+		"message": "Másik…"
+	},
+	"saveFile": {
+		"message": "Fájl mentése"
+	},
+	"rememberChoice": {
+		"message": "Mostantól minden hasonló fájllal tegyen ugyanígy."
+	},
+	"whichIs": {
+		"message": "ami egy:"
+	},
+	"button_accept": {
+		"message": "OK"
+	},
+	"button_cancel": {
+		"message": "Mégse"
+	},
+	"opening_title": {
+		"message": "$1 megnyitása"
+	},
+	"preferences": {
+		"message": "Beállítások"
+	}
+}

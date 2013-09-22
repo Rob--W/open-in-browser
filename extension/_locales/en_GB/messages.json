@@ -1,10 +1,4 @@
 {
-	"name": {
-		"message": "Open in Browser"
-	},
-	"description": {
-		"message": "View documents directly in the browser instead of downloading them. Allows you to change the MIME-type as well."
-	},
 	"intro2": {
 		"message": "You have chosen to open:"
 	},

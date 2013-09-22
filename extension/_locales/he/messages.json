@@ -1,0 +1,35 @@
+{
+	"intro2": {
+		"message": "בחרת לפתוח:"
+	},
+	"from": {
+		"message": "מאת:"
+	},
+	"actionQuestion": {
+		"message": "מה על Chrome לעשות עם הקובץ?"
+	},
+	"other": {
+		"message": "אחר..."
+	},
+	"saveFile": {
+		"message": "שמור קובץ"
+	},
+	"rememberChoice": {
+		"message": "בצע זאת באופן אוטומטי לקבצים מסוג זה להבא."
+	},
+	"whichIs": {
+		"message": "שהוא:"
+	},
+	"button_accept": {
+		"message": "אישור"
+	},
+	"button_cancel": {
+		"message": "ביטול"
+	},
+	"opening_title": {
+		"message": "פותח את $1"
+	},
+	"preferences": {
+		"message": "העדפות"
+	}
+}
