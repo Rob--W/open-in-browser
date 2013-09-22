@@ -35,8 +35,9 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.no-overflow:empty {
-    padding-left: 1px; /* force minimal occupation of vertical space*/
+.no-overflow:empty::before {
+    content: "-"; /* force the element to occupy space */
+    visibility: hidden;
 }
 .row {
     margin: 0.3em 0;
