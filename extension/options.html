@@ -30,7 +30,6 @@ h2 {
 .pref {
     position: relative;
     display: block;
-    font-weight: bold;
 }
 .pref > .explanation {
     position: absolute;
@@ -74,8 +73,8 @@ table {
 <body>
 <h1>Open in Browser</h1>
 <p><b>Open in Browser</b> offers the choice to display a file directly in the browser or to download and save the file.
-This dialog is only activated if the server has marked a file as downloadable, or if Chrome has no default content
-handler for the given document.</p>
+This dialog is only activated if the server has marked a file as downloadable, if Chrome has no default content
+handler for the given document, or if you request the dialog from the context menu.</p>
 
 <h2>Preferences</h2>
 <div class="row">
@@ -105,7 +104,7 @@ handler for the given document.</p>
         Enable context menu item
         <div class="explanation">
             Adds "Open in Browser" to the context menu of pages and links.<br>
-            Upon click, the page or link will be opened in a new tab, and the Open in Browser dialog will be shown.<br>
+            This context menu entry allows you to re-open the page in the same frame or new tab, together with an Open in Browser dialog.
         </div>
     </label>
 </div>

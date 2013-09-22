@@ -114,3 +114,12 @@ label {
     width: 45%;
     max-width: 150px;
 }
+
+
+.options-link-wrapper {
+    text-align: right;
+}
+.options-link-wrapper a {
+    color: blue;
+    font-size: smaller;
+}
