@@ -112,6 +112,9 @@ function renderMetadata(/*string*/ filename, /*string*/ guessedMimeType, /*strin
         $('metadata-block').style.backgroundImage = 'url("' + iconUrl + '")';
     }
 
+    if (importReturnValue()) {
+        return;
+    }
     var suggestedMimeAction = getSuggestedMimeAction(guessedMimeType);
     if (suggestedMimeAction) {
         $('mime-type').value = suggestedMimeAction;
@@ -234,4 +237,36 @@ function exportReturnValue() {
     }
     if (window.opener && !window.opener.closed) window.opener.dialogResult = window.returnValue;
     console.log('Choice: ' + choice, window.returnValue);
+}
+
+function importReturnValue() {
+    var returnValue = dialogArguments.desiredAction;
+    if (!returnValue.action) {
+        return false;
+    }
+    // Use saved value
+    var choice;
+    switch (returnValue.action) {
+        case MimeActions.OIB_SERVER_SENT:
+            choice = 'openas';
+            $('mime-type').value = 'original';
+        break;
+        case MimeActions.OIB_MIME:
+            choice = 'openas';
+            $('mime-type').value = 'other';
+            $('mime-custom').value = returnValue.mime;
+            $('mime-custom').hidden = false;
+        break;
+        case MimeActions.OIB_GENERIC:
+            choice = 'openas';
+            $('mime-type').value = returnValue.mime;
+        break;
+        case MimeActions.DOWNLOAD:
+            choice = 'save';
+        break;
+    }
+    var checkbox = document.querySelector('input[name="choice"][value="' + choice + '"]');
+    checkbox.checked = true;
+    checkbox.focus();
+    return true;
 }

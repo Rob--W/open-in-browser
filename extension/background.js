@@ -64,6 +64,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
     var desiredAction = Prefs.getMimeAction(guessedMimeType);
     if (!desiredAction.action || hasOverriddenMimeAction) {
         var dialogArguments = {
+            desiredAction: desiredAction,
             url: details.url,
             filename: filename,
             contentType: contentType,
