@@ -8,6 +8,7 @@
         "scripts": [
             "mime-metadata.js",
             "prefs.js",
+            "open-with.js",
             "background.js"
         ],
         "persistent": true

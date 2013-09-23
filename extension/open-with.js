@@ -7,13 +7,13 @@ window.openWith = openWith;
 
 /**
  * Open With
- * @param config {object} Object that specifies how the URL ought to be opened.
+ * @param openWithIdentifier {string} Identifier of extension/app that ought to handle this request
  * @param details {object} Object from chrome.webRequest.onHeadersReceived
  */
-function openWith(config, details) {
+function openWith(openWithIdentifier, details) {
     // Original URL
     var url = details.url;
-    // TODO: Actually use config to redirect elsewhere.
+    // TODO: Actually use openWithIdentifier to redirect elsewhere.
     var targetUrl = url + '?';
 
     navigateToUrl(details.tabId, details.frameId, targetUrl);

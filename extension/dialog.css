@@ -106,6 +106,9 @@ label {
     display: block;
 }
 
+input, select {
+    font-size: 16px;
+}
 
 .mime-container {
     display: inline-block;
@@ -116,7 +119,6 @@ label {
     display: block;
     width: 100%;
     min-width: 100px;
-    font-size: 16px;
 }
 .mime-custom[hidden] {
     display: none;

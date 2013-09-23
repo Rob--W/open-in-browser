@@ -228,6 +228,13 @@ function exportReturnValue() {
                 rememberChoice: rememberChoice
             };
         break;
+        case 'openwith':
+            window.returnValue = {
+                action: MimeActions.OPENWITH,
+                openWith: $('open-with').value,
+                rememberChoice: rememberChoice
+            };
+        break;
         case 'save':
             window.returnValue = {
                 action: MimeActions.DOWNLOAD,
@@ -260,6 +267,14 @@ function importReturnValue() {
         case MimeActions.OIB_GENERIC:
             choice = 'openas';
             $('mime-type').value = returnValue.mime;
+        break;
+        case MimeActions.OPENWITH:
+            choice = 'openwith';
+            $('open-with').value = returnValue.openWith;
+            if ($('open-with').selectedIndex === -1) {
+                console.warn('Unknown app "' + returnValue.openWith + '". Was it removed?');
+                return false;
+            }
         break;
         case MimeActions.DOWNLOAD:
             choice = 'save';

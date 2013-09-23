@@ -95,7 +95,7 @@ var MimeActions = {
     OIB_MIME         : '0', // Open in browser as <MIME>
     OIB_GENERIC      : '1', // Open in browser as <Text|Web|XML|Image>
     OIB_SERVER_SENT  : '5', // Open in browser as Server-sent MIME //TODO:header vs file ext
-    // TODO: "Open with <some extension> or <some url> ?
+    OPENWITH         : '+', // Open with <some extension> or <some url>
     DOWNLOAD         : '=', // Skip "Open in browser" and always download the file
 };
 // Get desired action
@@ -104,15 +104,25 @@ function getMimeAction(mimeType) {
     var actionType = desiredAction.charAt(0); // "" if not set
     var actionArgs = desiredAction.substr(1);
     switch (actionType) {
-    case MimeActions.DOWNLOAD:
-        return {
-            action: actionType
-        };
-    default: // OIB_*
+    case MimeActions.OIB_MIME:
+    case MimeActions.OIB_GENERIC:
+    case MimeActions.OIB_SERVER_SENT:
         return {
             action: actionType,
             mime: actionArgs
         };
+    case MimeActions.OPENWITH:
+        return {
+            action: actionType,
+            openWith: actionArgs
+        };
+    case MimeActions.DOWNLOAD:
+        return {
+            action: actionType
+        };
+    default:
+        console.warn('Unknown action type "' + actionType + '" for "' + mimeType + '".');
+        return {};
     }
 }
 // Set desired action
@@ -122,7 +132,9 @@ function setMimeAction(mimeType, desiredAction) {
         return;
     }
     var actionType = desiredAction.action;
-    var actionArgs = desiredAction.mime || '';
+    // The following assumes that the desiredAction object is always clean,
+    // i.e. it doesn't contain any significant properties of a different action.
+    var actionArgs = desiredAction.openWith || desiredAction.mime || '';
     prefs['mime-mappings'][mimeType] = actionType + actionArgs;
     save('mime-mappings');
 }
