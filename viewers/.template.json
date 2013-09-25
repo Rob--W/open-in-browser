@@ -1,0 +1,17 @@
+{
+	// One of "web", "extension"
+	"type": "",
+	// Friendly (English) name of viewer
+	"name": "",
+	// Absolute URL to viewer
+	// ${url} is replaced with urlencoded document URL
+	// ${rawurl} is replaced with the original document URL
+	// ${extensionid} is replaced with the extensionID of viewer, if type="extension"
+	"url": "",
+	// List of extension IDs (Chrome / Opera). Must contain at least one element if type="extension"
+	"extensionids": [],
+	// List of MIME-types that the viewer recognizes (wildcards permitted)
+	"mime_types": [
+		""
+	]
+}

@@ -1,0 +1,9 @@
+{
+	"type": "extension",
+	"name": "PDF Viewer (PDF.js)",
+	"url": "chrome-extension://${extensionid}/content/web/viewer.html?file=${url}",
+	"extensionids": ["oemmndcbldboiebfnladdacbdfmadadm", "encfpfilknmenlmjemepncnlbbjlabkc"],
+	"mime_types": [
+		"application/pdf"
+	]
+}

@@ -1,0 +1,9 @@
+{
+	"type": "web",
+	"name": "Google Docs Viewer",
+	"url": "https://docs.google.com/viewer?url=${url}",
+	"mime_types": [
+		"*/*"
+	],
+	"_comment": "See also: https://support.google.com/drive/answer/2423485"
+}

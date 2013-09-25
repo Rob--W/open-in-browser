@@ -1,7 +1,7 @@
 /**
  * (c) 2013 Rob Wu <gwnRob@gmail.com>
  */
-/* globals mime_fromFilename, openWith, Prefs, MimeActions */
+/* globals Prefs, MimeActions, mime_fromFilename, OpenWith */
 'use strict';
 
 var dialogURL = chrome.extension.getURL('dialog.html');
@@ -69,7 +69,8 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             filename: filename,
             contentType: contentType,
             guessedMimeType: guessedMimeType,
-            mimeType: mimeType
+            mimeType: mimeType,
+            openWithOptions: OpenWith.getAvailableViewers([mimeType, guessedMimeType])
         };
         var dialogURLPrefix = dialogURL + '?' + details.requestId;
         var isAborted = false; // Close dialog if user aborts request
@@ -112,7 +113,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             Prefs.setMimeAction(guessedMimeType, desiredAction);
         }
         if (desiredAction.action === MimeActions.OPENWITH) {
-            openWith(desiredAction.openWith, details);
+            OpenWith.openWith(desiredAction.openWith, details);
             return { cancel: true };
         }
         return {

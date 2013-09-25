@@ -18,14 +18,16 @@ if (!window.dialogArguments) {
     window.dialogArguments = JSON.parse(decodeURIComponent(window.location.hash.slice(1)));
 }
 handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.guessedMimeType,
-        dialogArguments.mimeType);
+        dialogArguments.mimeType, dialogArguments.openWithOptions);
 
-function handleDetails(url, filename, guessedMimeType, mimeType) {
+function handleDetails(url, filename, guessedMimeType, mimeType, openWithOptions) {
     document.title = chrome.i18n.getMessage('opening_title', filename);
 
     renderMetadata(filename, guessedMimeType, mimeType);
 
     renderURL(url);
+
+    renderOpenWithOptions(openWithOptions);
 
     bindFormEvents();
 
@@ -164,6 +166,28 @@ function renderURL(/*string*/ url) {
     $('url-remainder').textContent = a.pathname + a.search + a.hash;
 }
 
+function renderOpenWithOptions(openWithOptions) {
+    var openWithOptionsLength = openWithOptions.length;
+    if (openWithOptionsLength === 0) {
+        $('open-with-container').hidden = true;
+        return;
+    }
+    var options = document.createDocumentFragment();
+    for (var i = 0; i < openWithOptionsLength; ++i) {
+        options.appendChild(new Option(openWithOptions[i].label, openWithOptions[i].identifier));
+    }
+    var openWithDropdown = $('open-with');
+    openWithDropdown.appendChild(options);
+
+    if (openWithOptionsLength === 1) {
+        // Just one option. Hide the dropdown and show the viewer's name instead.
+        openWithDropdown.selectedIndex = 0;
+        openWithDropdown.hidden = true;
+        var span = document.createElement('span');
+        span.textContent = openWithOptions[0].label;
+        openWithDropdown.parentNode.insertBefore(span, openWithDropdown);
+    }
+}
 function bindFormEvents() {
     var populateDatalist = function() {
         populateDatalist = null;

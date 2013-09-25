@@ -8,6 +8,7 @@
         "scripts": [
             "mime-metadata.js",
             "prefs.js",
+            "external-viewers.js",
             "open-with.js",
             "background.js"
         ],
@@ -21,7 +22,9 @@
     "options_page": "options.html",
     "permissions": [
         "contextMenus",
+        "management",
         "tabs",
+        "webNavigation",
         "webRequest",
         "webRequestBlocking",
         "<all_urls>"
