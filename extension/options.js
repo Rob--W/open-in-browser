@@ -1,4 +1,4 @@
-/* globals Prefs, MimeActions */
+/* globals Prefs, MimeActions, EXTERNAL_VIEWERS */
 'use strict';
 Prefs.init();
 var $ = document.getElementById.bind(document);
@@ -45,6 +45,8 @@ function renderMimeMappings(mimeMappings) {
             actionMessage = 'Open in browser as ' + mimeType;
         } else if (mimeAction.action === MimeActions.OIB_SERVER_SENT) {
             actionMessage = 'Open in browser with server-sent MIME';
+        } else if (mimeAction.action === MimeActions.OPENWITH) {
+            actionMessage = 'Open with ' + EXTERNAL_VIEWERS[mimeAction.openWith].name;
         } else if (mimeAction.action === MimeActions.DOWNLOAD) {
             actionMessage = 'Save file';
         }
@@ -67,6 +69,52 @@ function renderMimeMappings(mimeMappings) {
     table.hidden = false;
 }
 
+function renderViewerPreferences(externalViewersPref) {
+    var prefItems = document.createDocumentFragment();
+
+    var labelBase = document.createElement('label');
+    labelBase.className = 'pref';
+
+    var checkboxBase = document.createElement('input');
+    checkboxBase.type = 'checkbox';
+
+    Object.keys(EXTERNAL_VIEWERS).forEach(function(identifier) {
+        var viewer = EXTERNAL_VIEWERS[identifier];
+        var pref = externalViewersPref[identifier];
+        var isExtension = viewer.type === 'extension';
+        // Extensions disabled by default, others (web) enabled by default
+        var isEnabled = isExtension ? pref && pref.enabled : !pref || pref.enabled;
+        var label = labelBase.cloneNode();
+        var checkbox = checkboxBase.cloneNode();
+        
+        checkbox.checked = isEnabled;
+        checkbox.onchange = function toggleViewer() {
+            if (isExtension && false) { // TODO: Remove block, because management API is default
+                // Extension. Need access to management API to check whether the extension
+                // is installed!
+                // TODO: Check availability of management API and return if unavailable
+                // TODO: Request management API permission
+                console.log('Extension. To-do: implement use of management API');
+                this.checked = false;
+                return;
+            }
+            if (!pref) pref = externalViewersPref[identifier] = {};
+            pref.enabled = this.checked;
+            Prefs.set('external-viewers', externalViewersPref);
+        };
+
+        var labelText = viewer.name;
+        if (isExtension) {
+            labelText += ' (extension)';
+        }
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(labelText));
+        prefItems.appendChild(label);
+    });
+    $('external-viewers').appendChild(prefItems);
+}
+
 bindBooleanPref('text-nosniff');
 
 bindBooleanPref('octet-sniff-mime');
@@ -74,3 +122,6 @@ bindBooleanPref('octet-sniff-mime');
 bindBooleanPref('contextmenu');
 
 Prefs.setPrefHandler('mime-mappings', renderMimeMappings);
+
+Prefs.setPrefHandler('external-viewers', renderViewerPreferences);
+

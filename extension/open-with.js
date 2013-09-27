@@ -105,7 +105,7 @@ function openWith(openWithIdentifier, details) {
         console.warn('Viewer not found for ID ' + openWithIdentifier);
         return false;
     }
-    var targetUrl = viewer.url.replace(/\$\{([^}]*)\}/, function(full_match, variable) {
+    var targetUrl = viewer.url.replace(/\$\{([^}]*)\}/g, function(full_match, variable) {
         switch (variable) {
         case 'url':
             return encodeURIComponent(url);

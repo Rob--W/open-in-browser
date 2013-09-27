@@ -23,6 +23,11 @@ var prefs = {
     // User-defined MIME-mappings
     // mime-mappings := { "MIME-type": "<MIME action>", ... } See MimeActions
     'mime-mappings': {},
+    'external-viewers': {
+    // Formats: (see open-with.js)
+    //    'google_docs': { "enabled": true },
+    //    'pdfjs': { "enabled": true, "extensionid": ''...' },
+    },
     // Whether to add the "X-Content-Type-Options: nosniff" header to text/plain requests
     'text-nosniff': true,
     // Whether to use the file extension for detecting type when mime=application/octet-stream
