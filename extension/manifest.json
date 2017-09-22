@@ -9,6 +9,7 @@
             "mime-metadata.js",
             "prefs.js",
             "external-viewers.js",
+            "dialogmanager.js",
             "open-with.js",
             "background.js"
         ],

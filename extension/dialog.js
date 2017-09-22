@@ -21,6 +21,8 @@ handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.gue
         dialogArguments.mimeType, dialogArguments.openWithOptions);
 
 function handleDetails(url, filename, guessedMimeType, mimeType, openWithOptions) {
+    // Note: There is so much junk before the title that it is often unreadable,
+    // at least until https://bugzil.la/1296365 is fixed.
     document.title = chrome.i18n.getMessage('opening_title', filename);
 
     renderMetadata(filename, guessedMimeType, mimeType);
@@ -50,7 +52,7 @@ function bindDialogEvents() {
             // Esc
             e.preventDefault();
             window.returnValue = undefined;
-            window.close();
+            closeDialog();
         }
     }, true);
     window.oncontextmenu = function(e) {
@@ -86,14 +88,20 @@ function resizeDialog(/*boolean*/ moveDialog) {
     var HEIGHT = dialogMain.scrollHeight + verticalDialogPadding;
     dialogMain.style.minWidth = '';
 
-    window.resizeTo(WIDTH, HEIGHT);
-
     if (moveDialog === true) {
-        window.moveTo(
-            Math.floor((screen.availWidth - WIDTH) / 2),
-            Math.floor((screen.availHeight - HEIGHT) / 2)
-        );
-        setTimeout(resizeDialog, 0, false);
+        chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {
+            width: WIDTH,
+            height: HEIGHT,
+            left: Math.floor((screen.availWidth - WIDTH) / 2),
+            top: Math.floor((screen.availHeight - HEIGHT) / 2),
+        }, function() {
+            resizeDialog(false);
+        });
+    } else {
+        chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {
+            width: WIDTH,
+            height: HEIGHT,
+        });
     }
 }
 
@@ -214,13 +222,13 @@ function bindFormEvents() {
     document.forms.action.onsubmit = function(event) {
         event.preventDefault();
         exportReturnValue();
-        window.close();
+        closeDialog();
     };
     $('cancel').onclick = function(event) {
         event.preventDefault();
         event.stopPropagation();
         window.returnValue = undefined;
-        window.close();
+        closeDialog();
     };
 }
 
@@ -266,7 +274,6 @@ function exportReturnValue() {
             };
         break;
     }
-    if (window.opener && !window.opener.closed) window.opener.dialogResult = window.returnValue;
     console.log('Choice: ' + choice, window.returnValue);
 }
 
@@ -308,4 +315,15 @@ function importReturnValue() {
     checkbox.checked = true;
     checkbox.focus();
     return true;
+}
+
+function closeDialog() {
+    chrome.runtime.sendMessage({
+        action: 'setReturnValue',
+        returnValue: window.returnValue,
+    }, function() {
+        // The background page closes us. But in case that does not happen,
+        // close anyway.
+        window.close();
+    });
 }

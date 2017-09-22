@@ -1,7 +1,7 @@
 /**
  * (c) 2013 Rob Wu <gwnRob@gmail.com>
  */
-/* globals Prefs, MimeActions, mime_fromFilename, OpenWith */
+/* globals Prefs, MimeActions, mime_fromFilename, ModalDialog, OpenWith */
 'use strict';
 
 var dialogURL = chrome.extension.getURL('dialog.html');
@@ -16,7 +16,7 @@ Prefs.init();
  */
 var overriddenTabIds = {};
 
-chrome.webRequest.onHeadersReceived.addListener(function(details) {
+chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     var hasOverriddenMimeAction = overriddenTabIds.hasOwnProperty(details.tabId);
     delete overriddenTabIds[details.tabId];
 
@@ -72,18 +72,15 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             mimeType: mimeType,
             openWithOptions: OpenWith.getAvailableViewers([mimeType, guessedMimeType])
         };
-        var dialogURLPrefix = dialogURL + '?' + details.requestId;
+        var dialog = new ModalDialog({
+            url: dialogURL + '#' + encodeURIComponent(JSON.stringify(dialogArguments)),
+            incognito: details.incognito,
+        });
         var isAborted = false; // Close dialog if user aborts request
         var onErrorOccurred = function(errorDetails) {
             if (errorDetails.requestId === details.requestId) {
-                chrome.tabs.query({
-                    url: dialogURLPrefix + '*'
-                }, function(tabs) {
-                    if (tabs && tabs.length) {
-                        isAborted = true;
-                        chrome.tabs.remove(tabs[0].id);
-                    }
-                });
+                isAborted = true;
+                dialog.close();
             }
         };
         chrome.webRequest.onErrorOccurred.addListener(onErrorOccurred, {
@@ -91,12 +88,8 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             types: [details.type],
             tabId: details.tabId
         });
-        desiredAction = window.showModalDialog(
-                dialogURLPrefix + '#' + encodeURIComponent(JSON.stringify(dialogArguments)),
-                dialogArguments);
+        desiredAction = await dialog.show();
         chrome.webRequest.onErrorOccurred.removeListener(onErrorOccurred);
-        if (!desiredAction) desiredAction = window.dialogResult;
-        window.dialogResult = null;
         if (isAborted) return;
     }
     if (desiredAction) {
