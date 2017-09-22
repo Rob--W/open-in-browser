@@ -113,15 +113,16 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
             Prefs.setMimeAction(guessedMimeType, desiredAction);
         }
         if (desiredAction.action === MimeActions.OPENWITH) {
-            OpenWith.openWith(desiredAction.openWith, details);
-            return { cancel: true };
+            return OpenWith.openWith(desiredAction.openWith, details);
         }
         return {
             responseHeaders: details.responseHeaders
         };
     } else {
         // Closed dialog or pressed abort
-        return { cancel: true };
+        // jshint scripturl:true
+        return { redirectUrl: 'javascript:' };
+        // jshint scripturl:false
     }
 }, {
     urls: ['*://*/*'],

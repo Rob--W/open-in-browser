@@ -94,7 +94,7 @@ function getAvailableViewers(mimeTypes) {
  * Open With
  * @param openWithIdentifier {string} Identifier of extension/app that ought to handle this request
  * @param details {object} Object from chrome.webRequest.onHeadersReceived
- * @return {boolean} Whether openWithIdentifier was recognized as a valid app identifier.
+ * @return {object|undefined} The return value for chrome.webRequest.onHeadersReceived.
  */
 function openWith(openWithIdentifier, details) {
     // Original URL
@@ -102,7 +102,7 @@ function openWith(openWithIdentifier, details) {
     var viewer = EXTERNAL_VIEWERS[openWithIdentifier];
     if (!viewer) {
         console.warn('Viewer not found for ID ' + openWithIdentifier);
-        return false;
+        return;
     }
     var targetUrl = viewer.url.replace(/\$\{([^}]*)\}/g, function(full_match, variable) {
         switch (variable) {
@@ -122,36 +122,8 @@ function openWith(openWithIdentifier, details) {
         }
     });
 
-    navigateToUrl(details.tabId, details.frameId, targetUrl);
-    return true;
-}
-
-/**
- * Load a new URL in a given frame/tab.
- */
-function navigateToUrl(tabId, frameId, url) {
-    if (frameId === 0) { // Main frame
-        chrome.tabs.update(tabId, {
-            url: url
-        });
-        return;
-    }
-    // Use meta-refresh redirection to blank the frame's content before navigating
-    // to a different page. Otherwise, the user might see "This page is blocked by ...",
-    // which is confusing (use case of this method: Abort a request and redirect to new URL).
-    // Note: This whole method (navigateToUrl) will be obsolete once redirectUrl is implemented
-    // for onHeadersReceived - see https://code.google.com/p/chromium/issues/detail?id=280464
-    var code = 'location.href = \'data:text/html,<meta http-equiv="refresh" content="0;' +
-             url.replace(/"/g, '&quot;') + '">\';';
-    chrome.tabs.executeScript(tabId, {
-        frameId: frameId,
-        code: code
-    }, function(result) {
-        if (!result) { // Did the tab disappear? Is the frame inaccessible?
-            chrome.tabs.create({
-                url: url
-            });
-        }
-    });
+    return {
+        redirectUrl: targetUrl,
+    };
 }
 })();
