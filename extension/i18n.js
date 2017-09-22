@@ -17,13 +17,6 @@
 
 'use strict';
 /* globals chrome, console */
-if (!chrome.i18n) {
-    // chrome.i18n is usually undefined when the page is loaded with showModalDialog
-    chrome.i18n = window.opener && window.opener.chrome && window.opener.chrome.i18n;
-}
-if (!chrome.i18n) {
-    console.warn('chrome.i18n is undefined.');
-} else
 (function doTranslateDocument() {
     var elements = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < elements.length; ++i) {
