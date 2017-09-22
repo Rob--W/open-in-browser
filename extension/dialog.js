@@ -27,6 +27,8 @@ function handleDetails(url, filename, guessedMimeType, mimeType, openWithOptions
 
     bindFormEvents();
 
+    bindPreferenceEvents();
+
     bindDialogEvents();
 
     resizeDialog(/*moveDialog=*/ true);
@@ -228,6 +230,14 @@ function bindFormEvents() {
         event.stopPropagation();
         window.returnValue = undefined;
         closeDialog();
+    };
+}
+
+function bindPreferenceEvents() {
+    $('options-link').onclick = function(e) {
+        // Intercept every left/middle click, regardless of key modifiers.
+        chrome.runtime.openOptionsPage();
+        e.preventDefault();
     };
 }
 
