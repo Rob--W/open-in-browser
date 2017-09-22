@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Rob Wu <gwnRob@gmail.com>
+ * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
  *
  * Simple i18n module
  * Finds all data-i18n attributes in the document, and updates the DOM properties.

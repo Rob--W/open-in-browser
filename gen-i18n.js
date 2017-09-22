@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * (c) 2013 Rob Wu <gwnRob@gmail.com>
+ * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
  *
  * Update the translations of _locales/<locale>/messages.json using Mozilla Firefox's
  * translated strings

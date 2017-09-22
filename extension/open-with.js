@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Rob Wu <gwnRob@gmail.com>
+ * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
  */
 'use strict';
 /* globals EXTERNAL_VIEWERS, EXTERNAL_VIEWERS_EXTENSION_IDS, Prefs, console */

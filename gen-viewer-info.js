@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * (c) 2013 Rob Wu <gwnRob@gmail.com>
+ * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
  *
  * Parses all .json files in viewers/ and outputs to extensions/external-viewers.json
  * This information is used by the "Open With" feature of the extension.

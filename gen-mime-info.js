@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * (c) Rob Wu <gwnRob@gmail.com>
+ * (c) Rob Wu <rob@robwu.nl> (https://robwu.nl)
  *
  * Generates i18n strings and MIME-mappings from the shared mime-info database.
  *

@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Rob Wu <gwnRob@gmail.com>
+ * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
  */
 /* globals Prefs, MimeActions, mime_fromFilename, ModalDialog, OpenWith */
 'use strict';
