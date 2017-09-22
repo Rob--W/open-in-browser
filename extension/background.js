@@ -88,8 +88,21 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             types: [details.type],
             tabId: details.tabId
         });
+        // Firefox does not generate a webRequest error when the user aborts the load.
+        // So use webNavigation.onErrorOccurred instead, which seems to emit an error
+        // with errorDetails.error = "Error code 2152398850", aka NS_BINDING_ABORTED.
+        var onNavigationErrorOccurred = function(errorDetails) {
+            if (errorDetails.tabId === details.tabId &&
+                errorDetails.frameId === details.frameId &&
+                errorDetails.url === details.url) {
+                isAborted = true;
+                dialog.close();
+            }
+        };
+        chrome.webNavigation.onErrorOccurred.addListener(onNavigationErrorOccurred);
         desiredAction = await dialog.show();
         chrome.webRequest.onErrorOccurred.removeListener(onErrorOccurred);
+        chrome.webNavigation.onErrorOccurred.removeListener(onNavigationErrorOccurred);
         if (isAborted) return;
     }
     if (desiredAction) {
