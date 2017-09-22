@@ -36,6 +36,11 @@ function handleDetails(url, filename, guessedMimeType, mimeType, openWithOptions
     bindDialogEvents();
 
     resizeDialog(/*moveDialog=*/ true);
+
+    if (!chrome.extension.inIncognitoContext) {
+        // This dialog should not appear in the browser history.
+        chrome.history.deleteUrl({url: location.href});
+    }
 }
 
 function bindDialogEvents() {
