@@ -1,7 +1,7 @@
 /**
  * (c) 2013 Rob Wu <gwnRob@gmail.com>
  */
-/* globals dialogArguments, console,
+/* globals console,
             mimeMetadata,
             mime_getFriendlyName,
             mime_getIcon,
@@ -10,13 +10,7 @@
 'use strict';
 var $ = document.getElementById.bind(document);
 
-if (!window.dialogArguments) {
-    // After refreshing the page, dialogArguments gets lost.
-    // Refreshing is disabled by disabling the context menu, Ctrl + F5 and Ctrl + R,
-    // but one can still press F12 to open the developer tools and refresh the page
-    // from that place.
-    window.dialogArguments = JSON.parse(decodeURIComponent(window.location.hash.slice(1)));
-}
+var dialogArguments = JSON.parse(decodeURIComponent(window.location.hash.slice(1)));
 handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.guessedMimeType,
         dialogArguments.mimeType, dialogArguments.openWithOptions);
 
