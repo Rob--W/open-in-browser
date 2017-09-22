@@ -1,3 +1,7 @@
+'use strict';
+/* exported EXTERNAL_VIEWERS */
+/* exported EXTERNAL_VIEWERS_EXTENSION_IDS */
+
 var EXTERNAL_VIEWERS = {
 	"google_docs": {
 		"type": "web",

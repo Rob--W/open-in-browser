@@ -15,6 +15,7 @@
  *
  */
 
+'use strict';
 /* globals chrome, console */
 if (!chrome.i18n) {
     // chrome.i18n is usually undefined when the page is loaded with showModalDialog
@@ -24,7 +25,6 @@ if (!chrome.i18n) {
     console.warn('chrome.i18n is undefined.');
 } else
 (function doTranslateDocument() {
-    'use strict';
     var elements = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < elements.length; ++i) {
         var element = elements[i];

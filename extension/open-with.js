@@ -1,9 +1,9 @@
 /**
  * (c) 2013 Rob Wu <gwnRob@gmail.com>
  */
+'use strict';
 /* globals EXTERNAL_VIEWERS, EXTERNAL_VIEWERS_EXTENSION_IDS, Prefs, console */
 (function() {
-'use strict';
 window.OpenWith = {
     checkExtensionAvailability: checkExtensionAvailability,
     getAvailableViewers: getAvailableViewers,

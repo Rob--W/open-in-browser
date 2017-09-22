@@ -120,9 +120,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
         };
     } else {
         // Closed dialog or pressed abort
-        // jshint scripturl:true
         return { redirectUrl: 'javascript:' };
-        // jshint scripturl:false
     }
 }, {
     urls: ['*://*/*'],
