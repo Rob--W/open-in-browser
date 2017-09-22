@@ -12,8 +12,7 @@
             "dialogmanager.js",
             "open-with.js",
             "background.js"
-        ],
-        "persistent": true
+        ]
     },
     "icons": {
         "16": "img/icon16.png",
