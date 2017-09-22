@@ -7,7 +7,6 @@
 window.OpenWith = {
     checkExtensionAvailability: checkExtensionAvailability,
     getAvailableViewers: getAvailableViewers,
-    // openWith depends on chrome.tabs.executeScriptInTab.js
     openWith: openWith
 };
 
@@ -144,8 +143,7 @@ function navigateToUrl(tabId, frameId, url) {
     // for onHeadersReceived - see https://code.google.com/p/chromium/issues/detail?id=280464
     var code = 'location.href = \'data:text/html,<meta http-equiv="refresh" content="0;' +
              url.replace(/"/g, '&quot;') + '">\';';
-    // https://github.com/Rob--W/chrome-api/tree/master/chrome.tabs.executeScriptInFrame
-    chrome.tabs.executeScriptInTab(tabId, {
+    chrome.tabs.executeScript(tabId, {
         frameId: frameId,
         code: code
     }, function(result) {
