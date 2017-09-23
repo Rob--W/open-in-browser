@@ -18,6 +18,10 @@
 'use strict';
 /* globals chrome, console */
 (function doTranslateDocument() {
+    // For now, assume Firefox. The extension does not work in Chrome because
+    // of lack of support for async return values in webRequest events.
+    const DEFAULT_BRAND_SHORT_NAME = 'Firefox';
+
     var elements = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < elements.length; ++i) {
         var element = elements[i];
@@ -40,10 +44,37 @@
             }
             var translation = chrome.i18n.getMessage(i18n_id);
             if (translation) {
-                element[domProp] = translation;
+                if (translation.includes('brandShortName')) {
+                    setBrandedTranslation(element, domProp, translation);
+                } else {
+                    element[domProp] = translation;
+                }
             } else {
                 console.warn('i18n: Translation not found for: ' + i18n_id);
             }
+        }
+    }
+
+    var brandShortName;
+    function setBrandedTranslation(element, domProp, translation) {
+        if (brandShortName) {
+            element[domProp] = translation.replace(/brandShortName/g, brandShortName);
+            return;
+        }
+        // Set default, synchronously.
+        element[domProp] = translation.replace(/brandShortName/g, DEFAULT_BRAND_SHORT_NAME);
+
+        // Asynchronously determine whether we are using Firefox Nightly. If so, replace
+        // "Firefox" with "Nightly".
+        if (chrome.runtime.getBrowserInfo) {
+            chrome.runtime.getBrowserInfo(function({name, version}) {
+                if (name === 'Firefox' && /a\d*$/.test(version)) {
+                    brandShortName = 'Nightly';
+                } else {
+                    brandShortName = name;
+                }
+                setBrandedTranslation(element, domProp, translation);
+            });
         }
     }
 })();

@@ -128,8 +128,8 @@ var SOURCES = [{
  * @param json {object} Object to be fed to messages.json
  */
 function POST_TRANSLATE_HOOK(json) {
-    // TODO: What about Opera?
-    replace('actionQuestion', '&brandShortName;', 'Chrome');
+    // extension/i18n.js will replace "brandShortName" with the browser name.
+    replace('actionQuestion', '&brandShortName;', 'brandShortName');
     replace('opening_title', '%S', '$1');
 
     function replace(key, searchTerm, replacer) {
