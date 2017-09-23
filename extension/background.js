@@ -10,16 +10,7 @@ var r_contentDispositionFilename = /[; ]filename(\*?)=(["']?)(.+)\2/;
 
 Prefs.init();
 
-/**
- * @var {set} All keys of this set are tabIds. When a tabId is present, the dialog will be
- *              shown for the first main/subframe request within this tab.
- */
-var overriddenTabIds = {};
-
 chrome.webRequest.onHeadersReceived.addListener(async function(details) {
-    var hasOverriddenMimeAction = overriddenTabIds.hasOwnProperty(details.tabId);
-    delete overriddenTabIds[details.tabId];
-
     if (details.statusLine.substring(9, 12) !== '200') { // E.g. HTTP/0.9 200 OK
         // Ignore all non-OK HTTP response
         return;
@@ -28,8 +19,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     var mimeType = contentType.split(';', 1)[0].trim().toLowerCase();
     var contentDisposition = getHeader(details.responseHeaders, 'content-disposition');
 
-    if (!hasOverriddenMimeAction &&
-        (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition))) {
+    if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
         if (!shouldInterceptRequest(mimeType)) {
             if (Prefs.get('text-nosniff')) {
@@ -64,7 +54,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     }
 
     var desiredAction = Prefs.getMimeAction(guessedMimeType, isSniffingMimeType, mimeType);
-    if (!desiredAction.action || hasOverriddenMimeAction) {
+    if (!desiredAction.action) {
         var dialogArguments = {
             desiredAction: desiredAction,
             url: details.url,
@@ -135,13 +125,6 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     urls: ['*://*/*'],
     types: ['main_frame', 'sub_frame']
 }, ['blocking', 'responseHeaders']);
-
-chrome.webRequest.onErrorOccurred.addListener(function(details) {
-    delete overriddenTabIds[details.tabId];
-}, {
-    urls: ['*://*/*'],
-    types: ['main_frame', 'sub_frame']
-});
 
 /**
  * Get the value of a header from the list of headers for a given name.
