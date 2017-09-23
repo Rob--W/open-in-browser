@@ -43,30 +43,16 @@ process.nextTick(function() {
     }
     var outputJson = JSON.stringify(outputObject, null, '\t');
     var r_mime_types = /^(\s*)"mime_types":(\s*)\[\s*"([\S\s]+?)"\s*\]/mg;
-    var outputData = outputJson.replace(r_mime_types, mimeToRegExp);
-    outputData = 'var EXTERNAL_VIEWERS = ' + outputData + ';\n';
+    var EXTERNAL_VIEWERS = outputJson.replace(r_mime_types, mimeToRegExp);
+    var outputData = `'use strict';
+/* exported EXTERNAL_VIEWERS */
 
-    var relevantExtensionIds = getRelevantExtensionIds(outputObject);
-    relevantExtensionIds = JSON.stringify(relevantExtensionIds, null, '\t');
-    outputData += 'var EXTERNAL_VIEWERS_EXTENSION_IDS = ' + relevantExtensionIds + ';\n';
+var EXTERNAL_VIEWERS = ${EXTERNAL_VIEWERS};
+`;
 
     fs.writeFileSync(outputFileName, outputData);
     console.log('Written to ' + outputFileName);
 });
-
-// Return a list of extension ids for the given set of viewers
-function getRelevantExtensionIds(outputObject) {
-    var relevantExtensionIds = {};
-    Object.keys(outputObject).forEach(function(identifier) {
-        var extensionids = outputObject[identifier].extensionids;
-        if (extensionids) {
-            extensionids.forEach(function(extensionid) {
-                relevantExtensionIds[extensionid] = identifier;
-            });
-        }
-    });
-    return relevantExtensionIds;
-}
 
 // Used by outputJson.replace to expand the mime_types array to a regex.
 function mimeToRegExp(full_match, leadingWhitespace, separatorWhitespace, mimeTypes) {

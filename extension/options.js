@@ -102,32 +102,18 @@ function renderViewerPreferences(externalViewersPref) {
     Object.keys(EXTERNAL_VIEWERS).forEach(function(identifier) {
         var viewer = EXTERNAL_VIEWERS[identifier];
         var pref = externalViewersPref[identifier];
-        var isExtension = viewer.type === 'extension';
-        // Extensions disabled by default, others (web) enabled by default
-        var isEnabled = isExtension ? pref && pref.enabled : !pref || pref.enabled;
+        var isEnabled = !pref || pref.enabled;
         var label = labelBase.cloneNode();
         var checkbox = checkboxBase.cloneNode();
         
         checkbox.checked = isEnabled;
         checkbox.onchange = function toggleViewer() {
-            if (isExtension && false) { // TODO: Remove block, because management API is default
-                // Extension. Need access to management API to check whether the extension
-                // is installed!
-                // TODO: Check availability of management API and return if unavailable
-                // TODO: Request management API permission
-                console.log('Extension. To-do: implement use of management API');
-                this.checked = false;
-                return;
-            }
             if (!pref) pref = externalViewersPref[identifier] = {};
             pref.enabled = this.checked;
             Prefs.set('external-viewers', externalViewersPref);
         };
 
         var labelText = viewer.name;
-        if (isExtension) {
-            labelText += ' (extension)';
-        }
 
         label.appendChild(checkbox);
         label.appendChild(document.createTextNode(labelText));
