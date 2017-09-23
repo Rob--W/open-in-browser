@@ -1,6 +1,9 @@
 # Open in Browser
+
 A browser extension that offers the ability to open files directly in the browser instead of downloading them.
 You can also change the MIME-type if you wish, and choose to remember the preferred action per file-type.
+
+![](https://github.com/Rob--W/open-in-browser/raw/master/design/icon128.png)
 
 
 ## Installation
