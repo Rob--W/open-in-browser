@@ -13,7 +13,6 @@
 /* eslint-env node */
 'use strict';
 
-// npm install mkdirp xml2js
 var fs = require('fs');
 var path = require('path');
 var xml2js = require('xml2js');

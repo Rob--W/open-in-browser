@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/Rob--W/open-in-browser#readme",
   "devDependencies": {
-    "eslint": "^4.7.2"
+    "eslint": "^4.7.2",
+    "mkdirp": "^0.5.1",
+    "request": "^2.82.0",
+    "xml2js": "^0.4.19"
   }
 }

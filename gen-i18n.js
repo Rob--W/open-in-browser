@@ -15,7 +15,6 @@
 /* eslint-env node */
 'use strict';
 
-// npm install request
 var fs = require('fs');
 var path = require('path');
 var request = require('request');
