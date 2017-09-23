@@ -44,13 +44,16 @@ function renderMimeMappingsCommon(mimeMappings, table, isSniffingMimeType) {
         if (isSniffingMimeType) {
             // Since this is just the options page, we don't know the actual server-sent MIME type.
             // It is most likely "application/octet-stream", but let's just use "server-sent MIME".
+            // The exact value does not matter, because all keys in mimeKeys exist in mimeMappings,
+            // so getMimeAction will return that key.
             mimeAction = Prefs.getMimeAction(originalMimeType, true, 'server-sent MIME type');
         } else {
             mimeAction = Prefs.getMimeAction(originalMimeType, false, originalMimeType);
         }
         var actionMessage;
-        var mimeType = mimeAction.mime;
-        if (mimeType) {
+        if (mimeAction.action === MimeActions.OIB_MIME ||
+            mimeAction.action === MimeActions.OIB_GENERIC) {
+            var mimeType = mimeAction.mime;
             if (mimeAction.action === MimeActions.OIB_GENERIC) {
                 mimeType = mimeType === 'text/plain' ? 'Text' :
                            mimeType === 'text/html' ? 'Web page' :
@@ -61,6 +64,8 @@ function renderMimeMappingsCommon(mimeMappings, table, isSniffingMimeType) {
             actionMessage = 'Open in browser as ' + mimeType;
         } else if (mimeAction.action === MimeActions.OIB_SERVER_SENT) {
             actionMessage = 'Open in browser with server-sent MIME';
+        } else if (mimeAction.action === MimeActions.OIB_SERVER_SNIFF) {
+            actionMessage = 'Open in browser with sniffed MIME';
         } else if (mimeAction.action === MimeActions.OPENWITH) {
             actionMessage = 'Open with ' + EXTERNAL_VIEWERS[mimeAction.openWith].name;
         } else if (mimeAction.action === MimeActions.DOWNLOAD) {
