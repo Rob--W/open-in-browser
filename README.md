@@ -32,8 +32,8 @@ because the `webRequest` API does not support non-blocking asynchronous return v
 The main inspiration is https://addons.mozilla.org/en-US/firefox/addon/open-in-browser/
 
 This project was written in 2013, in an attempt to port the functionality of the Open in Browser
-Firefox add-on to Chrome. However, it was never published because the only way to allow the user to
-make a choice is to use the blocking `window.showModalDialog` API. But resulted in a terrible user
+Firefox add-on to Chrome. However, it was never published because the only way to ask the user for
+a decision is to use the blocking `window.showModalDialog` API. But this resulted in a terrible user
 experience because the browser would suspend all requests until the extension had returned.
 
 In 2017, the project was revived, this time to port the functionality to Firefox, where extensions
