@@ -5,6 +5,9 @@ You can also change the MIME-type if you wish, and choose to remember the prefer
 
 ![](https://github.com/Rob--W/open-in-browser/raw/master/design/icon128.png)
 
+## Screenshot
+![Open in browser dialog](https://github.com/Rob--W/open-in-browser/raw/master/screenshots/open-in-browser-dialog.png)
+
 
 ## Installation
 
