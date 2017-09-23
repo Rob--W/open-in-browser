@@ -167,10 +167,11 @@ function setMimeAction(mimeType, isSniffingMimeType, desiredAction) {
     save(mimeMapPrefName);
 }
 // Remove preference for a given MIME-type
-function removeMimeAction(mimeType) {
-    if (prefs['mime-mappings'].hasOwnProperty(mimeType)) {
-        delete prefs['mime-mappings'][mimeType];
-        save('mime-mappings');
+function removeMimeAction(mimeType, isSniffingMimeType) {
+    var mimeMapPrefName = isSniffingMimeType ? 'sniffed-mime-mappings' : 'mime-mappings';
+    if (prefs[mimeMapPrefName].hasOwnProperty(mimeType)) {
+        delete prefs[mimeMapPrefName][mimeType];
+        save(mimeMapPrefName);
     }
 }
 

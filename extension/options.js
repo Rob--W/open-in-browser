@@ -78,7 +78,7 @@ function renderMimeMappingsCommon(mimeMappings, table, isSniffingMimeType) {
             var isRemoved = row.classList.contains('restored-to-default');
             if (isRemoved) {
                 this.value = 'Undo reset';
-                Prefs.removeMimeAction(originalMimeType);
+                Prefs.removeMimeAction(originalMimeType, isSniffingMimeType);
             } else {
                 this.value = 'Restore default';
                 Prefs.setMimeAction(originalMimeType, isSniffingMimeType, mimeAction);
