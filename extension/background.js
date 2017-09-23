@@ -201,7 +201,6 @@ function createContextMenu() {
                 url: 'about:blank',
                 windowId: tab.windowId,
                 index: tab.index + 1,
-                openerTabId: tab.id
             }, function(newTab) {
                 updateTab(newTab.id);
             });
