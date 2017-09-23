@@ -24,7 +24,6 @@
     },
     "permissions": [
         "history",
-        "contextMenus",
         "management",
         "tabs",
         "webNavigation",

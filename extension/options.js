@@ -140,8 +140,6 @@ bindBooleanPref('text-nosniff');
 
 bindBooleanPref('octet-sniff-mime');
 
-bindBooleanPref('contextmenu');
-
 Prefs.setPrefHandler('mime-mappings', renderMimeMappings);
 
 Prefs.setPrefHandler('sniffed-mime-mappings', renderSniffedMimeMappings);

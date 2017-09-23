@@ -74,7 +74,7 @@ table {
 <h1>Open in Browser</h1>
 <p><b>Open in Browser</b> offers the choice to display a file directly in the browser or to download and save the file.
 This dialog is only activated if the server has marked a file as downloadable, if the browser has no default content
-handler for the given document, or if you request the dialog from the context menu.</p>
+handler for the given document.</p>
 
 <h2>Preferences</h2>
 <div class="row">
@@ -95,16 +95,6 @@ handler for the given document, or if you request the dialog from the context me
         <div class="explanation">
             Many servers send the generic "application/octet-stream" MIME instead of the actual MIME-type for downloadable files.<br>
             Enable this option if you want to rely on the file extension when this generic MIME-type is received from the server.
-        </div>
-    </label>
-</div>
-<div class="row">
-    <label class="pref">
-        <input type="checkbox" id="pref-contextmenu" checked>
-        Enable context menu item
-        <div class="explanation">
-            Adds "Open in Browser" to the context menu of pages and links.<br>
-            This context menu entry allows you to re-open the page in the same frame or new tab, together with an Open in Browser dialog.
         </div>
     </label>
 </div>
