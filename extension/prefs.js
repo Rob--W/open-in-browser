@@ -141,7 +141,9 @@ function getMimeAction(mimeType, isSniffingMimeType, serverSentMimeType) {
             action: actionType
         };
     default:
-        console.warn('Unknown action type "' + actionType + '" for "' + mimeType + '".');
+        if (actionType) {
+            console.warn('Unknown action type "' + actionType + '" for "' + mimeType + '".');
+        }
         return {};
     }
 }
