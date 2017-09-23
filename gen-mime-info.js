@@ -10,7 +10,7 @@
  * 3. Run this script. Done!
  */
 
-/* jshint node:true */
+/* eslint-env node */
 'use strict';
 
 // npm install mkdirp xml2js

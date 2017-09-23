@@ -12,7 +12,7 @@
  * - Write to messages.json
  */
 
-/* jshint node:true */
+/* eslint-env node */
 'use strict';
 
 // npm install request

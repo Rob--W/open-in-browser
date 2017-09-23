@@ -11,7 +11,7 @@
  * See also viewers/.template.json
  */
 
-/* jshint node:true */
+/* eslint-env node */
 'use strict';
 
 var fs = require('fs');
