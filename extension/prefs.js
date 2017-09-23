@@ -23,6 +23,8 @@ var prefs = {
     // User-defined MIME-mappings
     // mime-mappings := { "MIME-type": "<MIME action>", ... } See MimeActions
     'mime-mappings': {},
+    // Similar to mime-mappings; used if MIME-sniffing is enabled.
+    'sniffed-mime-mappings': {},
     'external-viewers': {
     // Formats: (see open-with.js)
     //    'google_docs': { "enabled": true },
@@ -99,22 +101,37 @@ function getPref(prefName) {
 var MimeActions = {
     OIB_MIME         : '0', // Open in browser as <MIME>
     OIB_GENERIC      : '1', // Open in browser as <Text|Web|XML|Image>
-    OIB_SERVER_SENT  : '5', // Open in browser as Server-sent MIME //TODO:header vs file ext
+    OIB_SERVER_SENT  : '5', // Open in browser as Server-sent MIME
+    OIB_SERVER_SNIFF : '6', // Open in browser as sniffed MIME
     OPENWITH         : '+', // Open with <some extension> or <some url>
     DOWNLOAD         : '=', // Skip "Open in browser" and always download the file
 };
 // Get desired action
-function getMimeAction(mimeType) {
-    var desiredAction = prefs['mime-mappings'][mimeType] || '';
+function getMimeAction(mimeType, isSniffingMimeType, serverSentMimeType) {
+    // If isSniffingMimeType = false, then mimeType == serverSentMimeType.
+    // Otherwise the two will most likely differ.
+    var desiredAction = prefs['mime-mappings'][serverSentMimeType] || '';
+    if (isSniffingMimeType) {
+        desiredAction = prefs['sniffed-mime-mappings'][mimeType] || desiredAction;
+    }
     var actionType = desiredAction.charAt(0); // "" if not set
     var actionArgs = desiredAction.substr(1);
     switch (actionType) {
     case MimeActions.OIB_MIME:
     case MimeActions.OIB_GENERIC:
-    case MimeActions.OIB_SERVER_SENT:
         return {
             action: actionType,
             mime: actionArgs
+        };
+    case MimeActions.OIB_SERVER_SENT:
+        return {
+            action: actionType,
+            mime: serverSentMimeType,
+        };
+    case MimeActions.OIB_SERVER_SNIFF:
+        return {
+            action: actionType,
+            mime: mimeType,
         };
     case MimeActions.OPENWITH:
         return {
@@ -131,7 +148,7 @@ function getMimeAction(mimeType) {
     }
 }
 // Set desired action
-function setMimeAction(mimeType, desiredAction) {
+function setMimeAction(mimeType, isSniffingMimeType, desiredAction) {
     if (typeof desiredAction !== 'object') {
         console.warn('Desired MIME action not specified.');
         return;
@@ -140,8 +157,14 @@ function setMimeAction(mimeType, desiredAction) {
     // The following assumes that the desiredAction object is always clean,
     // i.e. it doesn't contain any significant properties of a different action.
     var actionArgs = desiredAction.openWith || desiredAction.mime || '';
-    prefs['mime-mappings'][mimeType] = actionType + actionArgs;
-    save('mime-mappings');
+    if (actionType === MimeActions.OIB_SERVER_SENT ||
+        actionType === MimeActions.OIB_SERVER_SNIFF) {
+        // For these actions the MIME is inferred from the request.
+        actionArgs = '';
+    }
+    var mimeMapPrefName = isSniffingMimeType ? 'sniffed-mime-mappings' : 'mime-mappings';
+    prefs[mimeMapPrefName][mimeType] = actionType + actionArgs;
+    save(mimeMapPrefName);
 }
 // Remove preference for a given MIME-type
 function removeMimeAction(mimeType) {

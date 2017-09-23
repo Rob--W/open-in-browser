@@ -54,14 +54,16 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         filename = getFilenameFromURL(details.url);
     }
     var guessedMimeType = mimeType;
+    var isSniffingMimeType = false;
     if (mimeType === 'application/octet-stream' && Prefs.get('octet-sniff-mime') ||
         mimeType === 'text/plain' && !Prefs.get('text-nosniff')) {
         // application/octet-stream is commonly used for anything, "to trigger a download"
         // text/plain is subject to Chrome's MIME-sniffer
         guessedMimeType = mime_fromFilename(filename) || mimeType;
+        isSniffingMimeType = true;
     }
 
-    var desiredAction = Prefs.getMimeAction(guessedMimeType);
+    var desiredAction = Prefs.getMimeAction(guessedMimeType, isSniffingMimeType, mimeType);
     if (!desiredAction.action || hasOverriddenMimeAction) {
         var dialogArguments = {
             desiredAction: desiredAction,
@@ -70,6 +72,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             contentType: contentType,
             guessedMimeType: guessedMimeType,
             mimeType: mimeType,
+            isSniffingMimeType: isSniffingMimeType,
             openWithOptions: OpenWith.getAvailableViewers([mimeType, guessedMimeType])
         };
         var dialog = new ModalDialog({
@@ -116,7 +119,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
                     'attachment; filename*=UTF-8\'\'' + encodeURIComponent(filename));
         }
         if (desiredAction.rememberChoice) {
-            Prefs.setMimeAction(guessedMimeType, desiredAction);
+            Prefs.setMimeAction(guessedMimeType, isSniffingMimeType, desiredAction);
         }
         if (desiredAction.action === MimeActions.OPENWITH) {
             return OpenWith.openWith(desiredAction.openWith, details);

@@ -257,6 +257,9 @@ function exportReturnValue() {
             if (mime === 'original') {
                 action = MimeActions.OIB_SERVER_SENT;
                 mime = dialogArguments.contentType;
+            } else if (mime === 'sniffed') {
+                action = MimeActions.OIB_SERVER_SNIFF;
+                mime = dialogArguments.guessedMimeType;
             } else if (mime === 'other') {
                 action = MimeActions.OIB_MIME;
                 mime = $('mime-custom').value.trim();
@@ -289,11 +292,21 @@ function exportReturnValue() {
 function importReturnValue() {
     var returnValue = dialogArguments.desiredAction;
     if (!returnValue.action) {
+        if (dialogArguments.isSniffingMimeType) {
+            $('mime-type').value = 'sniffed';
+            return true;
+        }
+        $('sniffed-type-option').remove();
         return false;
     }
     // Use saved value
     var choice;
     switch (returnValue.action) {
+        case MimeActions.OIB_SERVER_SNIFF:
+            choice = 'openas';
+            // Sniffing is only valid if the sniffing option is enabled. Otherwise use server-sent.
+            $('mime-type').value = dialogArguments.isSniffingMimeType ? 'sniffed' : 'original';
+        break;
         case MimeActions.OIB_SERVER_SENT:
             choice = 'openas';
             $('mime-type').value = 'original';

@@ -15,6 +15,15 @@ function bindBooleanPref(prefName) {
 
 function renderMimeMappings(mimeMappings) {
     var table = $('mime-mappings');
+    renderMimeMappingsCommon(mimeMappings, table, false);
+}
+
+function renderSniffedMimeMappings(mimeMappings) {
+    var table = $('sniffed-mime-mappings');
+    renderMimeMappingsCommon(mimeMappings, table, true);
+}
+
+function renderMimeMappingsCommon(mimeMappings, table, isSniffingMimeType) {
     var mimeKeys = Object.keys(mimeMappings);
     if (mimeKeys.length === 0) {
         table.hidden = true;
@@ -31,7 +40,14 @@ function renderMimeMappings(mimeMappings) {
         var row = tbody.insertRow(-1);
         row.insertCell(0).textContent = originalMimeType;
 
-        var mimeAction = Prefs.getMimeAction(originalMimeType);
+        var mimeAction;
+        if (isSniffingMimeType) {
+            // Since this is just the options page, we don't know the actual server-sent MIME type.
+            // It is most likely "application/octet-stream", but let's just use "server-sent MIME".
+            mimeAction = Prefs.getMimeAction(originalMimeType, true, 'server-sent MIME type');
+        } else {
+            mimeAction = Prefs.getMimeAction(originalMimeType, false, originalMimeType);
+        }
         var actionMessage;
         var mimeType = mimeAction.mime;
         if (mimeType) {
@@ -60,7 +76,7 @@ function renderMimeMappings(mimeMappings) {
                 Prefs.removeMimeAction(originalMimeType);
             } else {
                 this.value = 'Restore default';
-                Prefs.setMimeAction(originalMimeType, mimeAction);
+                Prefs.setMimeAction(originalMimeType, isSniffingMimeType, mimeAction);
             }
         };
     });
@@ -122,6 +138,8 @@ bindBooleanPref('octet-sniff-mime');
 bindBooleanPref('contextmenu');
 
 Prefs.setPrefHandler('mime-mappings', renderMimeMappings);
+
+Prefs.setPrefHandler('sniffed-mime-mappings', renderSniffedMimeMappings);
 
 Prefs.setPrefHandler('external-viewers', renderViewerPreferences);
 
