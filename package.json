@@ -1,0 +1,22 @@
+{
+  "name": "open-in-browser",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Build configuration for open-in-browser extension.",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test-server": "./test/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rob--W/open-in-browser.git"
+  },
+  "author": "Rob Wu <rob@robwu.nl> (https://robwu.nl/)",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Rob--W/open-in-browser/issues"
+  },
+  "homepage": "https://github.com/Rob--W/open-in-browser#readme"
+}
