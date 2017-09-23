@@ -426,7 +426,7 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
  */
 function getFilenameFromURL(url) {
     url = url.split(/[?#]/, 1)[0];
-    var filename = url.match(/([^\/]+)[\/ ]*$/)[1];
+    var filename = url.match(/([^/]+)[/ ]*$/)[1];
     try {
         filename = decodeURIComponent(filename);
     } catch(e) {/* URIError */}

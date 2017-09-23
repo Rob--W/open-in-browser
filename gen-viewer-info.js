@@ -70,7 +70,7 @@ function getRelevantExtensionIds(outputObject) {
 
 // Used by outputJson.replace to expand the mime_types array to a regex.
 function mimeToRegExp(full_match, leadingWhitespace, separatorWhitespace, mimeTypes) {
-    mimeTypes = mimeTypes.replace(/[[^$.|?+(){}\\\/]/g, '\\$&'); // Escape special characters
+    mimeTypes = mimeTypes.replace(/[[^$.|?+(){}\\/]/g, '\\$&'); // Escape special characters
     mimeTypes = mimeTypes.replace(/\*/g, '.+');
     mimeTypes = mimeTypes.replace(/",\s*"/g, ')|(?:');
     mimeTypes = '(?:' + mimeTypes + ')';
