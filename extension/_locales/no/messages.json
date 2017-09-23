@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "Du har valt å opne:"
+		"message": "Du har valt å opna:"
 	},
 	"from": {
 		"message": "Frå:"
 	},
 	"actionQuestion": {
-		"message": "Kva skal Chrome gjere med denne fila?"
+		"message": "Kva skal brandShortName gjera med denne fila?"
 	},
 	"other": {
 		"message": "Andre …"

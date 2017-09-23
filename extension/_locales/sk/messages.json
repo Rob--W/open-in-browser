@@ -6,7 +6,7 @@
 		"message": "umiestnený na serveri:"
 	},
 	"actionQuestion": {
-		"message": "Čo má Chrome vykonať s týmto súborom?"
+		"message": "Čo má brandShortName vykonať s týmto súborom?"
 	},
 	"other": {
 		"message": "Iné…"

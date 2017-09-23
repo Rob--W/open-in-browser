@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "Ви обрали відкрити:"
+		"message": "Ви збираєтесь відкрити:"
 	},
 	"from": {
 		"message": "з"
 	},
 	"actionQuestion": {
-		"message": "Як Chrome повинен обробити цей файл?"
+		"message": "Як brandShortName повинен обробити цей файл?"
 	},
 	"other": {
 		"message": "Вибрати…"
@@ -18,7 +18,7 @@
 		"message": "Виконувати для всіх таких файлів автоматично."
 	},
 	"whichIs": {
-		"message": "що є"
+		"message": "який є:"
 	},
 	"button_accept": {
 		"message": "OК"

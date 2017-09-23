@@ -3,22 +3,22 @@
 		"message": "Você selecionou abrir:"
 	},
 	"from": {
-		"message": "Site:"
+		"message": "de:"
 	},
 	"actionQuestion": {
-		"message": "O que o Chrome deve fazer?"
+		"message": "O que o brandShortName deve fazer?"
 	},
 	"other": {
 		"message": "Outro aplicativo…"
 	},
 	"saveFile": {
-		"message": "Download"
+		"message": "Salvar arquivo"
 	},
 	"rememberChoice": {
-		"message": "Memorizar a decisão para este tipo de arquivo"
+		"message": "Fazer isso automaticamente nos arquivos como este de agora em diante."
 	},
 	"whichIs": {
-		"message": "Tipo:"
+		"message": "tipo:"
 	},
 	"button_accept": {
 		"message": "OK"

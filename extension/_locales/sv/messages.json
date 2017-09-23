@@ -6,7 +6,7 @@
 		"message": "från:"
 	},
 	"actionQuestion": {
-		"message": "Vad vill du att Chrome gör med denna fil?"
+		"message": "Vad vill du att brandShortName gör med denna fil?"
 	},
 	"other": {
 		"message": "Annat program…"

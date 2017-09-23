@@ -6,7 +6,7 @@
 		"message": "ಇಂದ:"
 	},
 	"actionQuestion": {
-		"message": "Chromeಈ ಕಡತದಿಂದ ಏನು ಮಾಡಬೇಕು?"
+		"message": "brandShortNameಈ ಕಡತದಿಂದ ಏನು ಮಾಡಬೇಕು?"
 	},
 	"other": {
 		"message": "ಇತರೆ…"
@@ -21,7 +21,7 @@
 		"message": "ಇದು ಒಂದು:"
 	},
 	"button_accept": {
-		"message": "ಸರಿ"
+		"message": "OK"
 	},
 	"button_cancel": {
 		"message": "ರದ್ದು ಮಾಡು"

@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "شما تصمیم به باز کردن این پرونده گرفته‌اید:"
+		"message": "شما انتخاب کردید که باز کنید:"
 	},
 	"from": {
 		"message": "از:"
 	},
 	"actionQuestion": {
-		"message": "Chrome با این پرونده چه‌کار کند؟"
+		"message": "brandShortName با این پرونده چه‌کار کند؟"
 	},
 	"other": {
 		"message": "غیره…"

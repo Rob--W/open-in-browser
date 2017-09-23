@@ -1,24 +1,24 @@
 {
 	"intro2": {
-		"message": "คุณเลือกเปิด"
+		"message": "คุณได้เลือกที่จะเปิด:"
 	},
 	"from": {
-		"message": "จาก :"
+		"message": "จาก:"
 	},
 	"actionQuestion": {
-		"message": "Chrome ควรทำอะไรกับแฟ้มนี้"
+		"message": "brandShortName ควรจะทำอะไรกับไฟล์นี้?"
 	},
 	"other": {
 		"message": "อื่น ๆ…"
 	},
 	"saveFile": {
-		"message": "บันทึกแฟ้ม"
+		"message": "บันทึกไฟล์"
 	},
 	"rememberChoice": {
-		"message": "จำค่าที่เลือกสำหรับแฟ้มชนิดนี้"
+		"message": "ทำสิ่งนี้กับไฟล์ชนิดนี้โดยอัตโนมัติในครั้งถัดไป"
 	},
 	"whichIs": {
-		"message": "ซึ่งเป็น :"
+		"message": "ซึ่งเป็น:"
 	},
 	"button_accept": {
 		"message": "ตกลง"
@@ -30,6 +30,6 @@
 		"message": "กำลังเปิด $1"
 	},
 	"preferences": {
-		"message": "ปรับแต่ง"
+		"message": "ค่ากำหนด"
 	}
 }

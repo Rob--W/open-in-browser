@@ -1,24 +1,24 @@
 {
 	"intro2": {
-		"message": "İndirmek istediğiniz dosya:"
+		"message": "Şunu açmayı seçtiniz:"
 	},
 	"from": {
-		"message": "Nereden:"
+		"message": "nereden:"
 	},
 	"actionQuestion": {
-		"message": "Chrome bu dosya ile ne yapsın?"
+		"message": "brandShortName bu dosya ile ne yapsın?"
 	},
 	"other": {
 		"message": "Diğer…"
 	},
 	"saveFile": {
-		"message": "Sabit diske kaydet"
+		"message": "Dosyayı kaydet"
 	},
 	"rememberChoice": {
-		"message": "Bu tür dosyalar indirilirken hep bu işlemi gerçekleştir"
+		"message": "Bu tür dosyalar indirilirken hep bu işlemi gerçekleştir."
 	},
 	"whichIs": {
-		"message": "Türü:"
+		"message": "türü:"
 	},
 	"button_accept": {
 		"message": "Tamam"

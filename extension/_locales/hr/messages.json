@@ -6,7 +6,7 @@
 		"message": "iz:"
 	},
 	"actionQuestion": {
-		"message": "Što bi Chrome trebao učiniti s ovom datotekom?"
+		"message": "Što bi brandShortName trebao učiniti s ovom datotekom?"
 	},
 	"other": {
 		"message": "Drugo..."

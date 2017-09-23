@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "Vous avez choisi d'ouvrir :"
+		"message": "Vous avez choisi d’ouvrir :"
 	},
 	"from": {
 		"message": "à partir de :"
 	},
 	"actionQuestion": {
-		"message": "Que doit faire Chrome avec ce fichier ?"
+		"message": "Que doit faire brandShortName avec ce fichier ?"
 	},
 	"other": {
 		"message": "Autre…"

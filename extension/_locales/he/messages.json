@@ -6,16 +6,16 @@
 		"message": "מאת:"
 	},
 	"actionQuestion": {
-		"message": "מה על Chrome לעשות עם הקובץ?"
+		"message": "מה על brandShortName לעשות עם הקובץ?"
 	},
 	"other": {
 		"message": "אחר..."
 	},
 	"saveFile": {
-		"message": "שמור קובץ"
+		"message": "שמירת קובץ"
 	},
 	"rememberChoice": {
-		"message": "בצע זאת באופן אוטומטי לקבצים מסוג זה להבא."
+		"message": "יש לבצע זאת באופן אוטומטי לקבצים מסוג זה להבא."
 	},
 	"whichIs": {
 		"message": "שהוא:"

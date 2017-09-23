@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "Изабрали сте да отворите"
+		"message": "Одабрали сте да отворите:"
 	},
 	"from": {
-		"message": "шаље:"
+		"message": "од:"
 	},
 	"actionQuestion": {
-		"message": "Како да Chrome обради ову датотеку?"
+		"message": "Како да brandShortName обради ову датотеку?"
 	},
 	"other": {
 		"message": "Друго…"
@@ -18,7 +18,7 @@
 		"message": "Користи овај избор за све датотеке овог типа."
 	},
 	"whichIs": {
-		"message": "врста:"
+		"message": "што је:"
 	},
 	"button_accept": {
 		"message": "У реду"

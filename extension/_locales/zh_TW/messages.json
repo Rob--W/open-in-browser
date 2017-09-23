@@ -3,10 +3,10 @@
 		"message": "您已決定開啟:"
 	},
 	"from": {
-		"message": "從"
+		"message": "從:"
 	},
 	"actionQuestion": {
-		"message": "Chrome 應該如何處理此檔案？"
+		"message": "brandShortName 應該如何處理此檔案？"
 	},
 	"other": {
 		"message": "其它…"

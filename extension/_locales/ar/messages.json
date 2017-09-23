@@ -6,7 +6,7 @@
 		"message": "مِن:"
 	},
 	"actionQuestion": {
-		"message": "ماذا على Chrome أن يفعل بهذا الملفّ؟"
+		"message": "ماذا على brandShortName أن يفعل بهذا الملفّ؟"
 	},
 	"other": {
 		"message": "أخرى…"
@@ -21,7 +21,7 @@
 		"message": "الذي هو:"
 	},
 	"button_accept": {
-		"message": "موافق"
+		"message": "حسنا"
 	},
 	"button_cancel": {
 		"message": "ألغِ"

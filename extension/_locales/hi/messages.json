@@ -6,7 +6,7 @@
 		"message": "से:"
 	},
 	"actionQuestion": {
-		"message": "इस फाइल के साथ Chrome को क्या करना चाहिए?"
+		"message": "इस फाइल के साथ brandShortName को क्या करना चाहिए?"
 	},
 	"other": {
 		"message": "अन्य…"
@@ -18,7 +18,7 @@
 		"message": "इस तरह की फाइलों के ऐसा अब से स्वचालित रूप से करें."
 	},
 	"whichIs": {
-		"message": "जो कि है:"
+		"message": "जो है:"
 	},
 	"button_accept": {
 		"message": "ठीक"

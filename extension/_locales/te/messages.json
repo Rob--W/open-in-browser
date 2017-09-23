@@ -3,22 +3,22 @@
 		"message": "నుండి:"
 	},
 	"actionQuestion": {
-		"message": "Chrome ఈ  ఫైల్ తో  ఏమి చేయాలి?"
+		"message": "brandShortName ఈ ఫైల్ తో ఏమి చేయాలి?"
 	},
 	"other": {
 		"message": "ఇతర..."
 	},
 	"rememberChoice": {
-		"message": "ఇక నుండి  ఇలాంటి  ఫైళ్ళకు దీనిని  స్వయంచాలకంగా   చేయుము."
+		"message": "ఇక నుండి ఇలాంటి ఫైళ్ళకు దీనిని స్వయంచాలకంగా చేయుము."
 	},
 	"whichIs": {
-		"message": "ఏది ఒక:"
+		"message": "ఏదైతే:"
 	},
 	"saveFile": {
-		"message": "ఫైల్ భద్రపరచు"
+		"message": "ఫైల్ ను భద్రపరచు"
 	},
 	"intro2": {
-		"message": "మీరు  తెరుచుటకు  ఎంపికచేసికొనినారు:"
+		"message": "మీరు తెరుచుటకు ఎంపికచేసికొనినారు:"
 	},
 	"button_accept": {
 		"message": "సరే"
@@ -27,9 +27,9 @@
 		"message": "రద్దుచేయి"
 	},
 	"opening_title": {
-		"message": "$1ను  తెరుస్తున్నది"
+		"message": "$1ను తెరుస్తున్నది"
 	},
 	"preferences": {
-		"message": "అభీష్టాలు"
+		"message": "అభిరుచులు"
 	}
 }

@@ -1,24 +1,24 @@
 {
 	"intro2": {
-		"message": "Anda telah memilih untuk buka"
+		"message": "Anda telah memilih untuk membuka:"
 	},
 	"from": {
 		"message": "daripada:"
 	},
 	"actionQuestion": {
-		"message": "Apa perlu Chrome lakukan dengan fail ini?"
+		"message": "Apa perlu brandShortName lakukan dengan fail ini?"
 	},
 	"other": {
 		"message": "Lain-lain..."
 	},
 	"saveFile": {
-		"message": "Simpan ke Cakera"
+		"message": "Simpan Fail"
 	},
 	"rememberChoice": {
 		"message": "Lakukan ini secara automatik untuk fail seperti ini mulai sekarang."
 	},
 	"whichIs": {
-		"message": "yang mana adalah:"
+		"message": "iaitu:"
 	},
 	"button_accept": {
 		"message": "OK"
@@ -27,7 +27,7 @@
 		"message": "Batal"
 	},
 	"opening_title": {
-		"message": "Membuka $1"
+		"message": "Buka $1"
 	},
 	"preferences": {
 		"message": "Keutamaan"

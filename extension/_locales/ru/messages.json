@@ -6,7 +6,7 @@
 		"message": "из"
 	},
 	"actionQuestion": {
-		"message": "Как Chrome следует обработать этот файл?"
+		"message": "Как brandShortName следует обработать этот файл?"
 	},
 	"other": {
 		"message": "Выбрать…"

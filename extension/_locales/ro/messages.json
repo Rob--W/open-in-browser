@@ -1,15 +1,15 @@
 {
 	"intro2": {
-		"message": "Ați ales să deschideți"
+		"message": "Ai ales să deschizi:"
 	},
 	"from": {
 		"message": "De la:"
 	},
 	"actionQuestion": {
-		"message": "Ce să facă Chrome cu acest fișier?"
+		"message": "Ce ar trebui brandShortName să facă cu acest fișier?"
 	},
 	"other": {
-		"message": "Altceva..."
+		"message": "Altceva…"
 	},
 	"saveFile": {
 		"message": "Salvează fișierul"

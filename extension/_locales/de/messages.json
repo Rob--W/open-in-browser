@@ -6,7 +6,7 @@
 		"message": "Von:"
 	},
 	"actionQuestion": {
-		"message": "Wie soll Chrome mit dieser Datei verfahren?"
+		"message": "Wie soll brandShortName mit dieser Datei verfahren?"
 	},
 	"other": {
 		"message": "Andere…"

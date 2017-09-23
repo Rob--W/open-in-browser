@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "Bạn đã chọn mở"
+		"message": "Bạn phải chọn để mở:"
 	},
 	"from": {
 		"message": "từ:"
 	},
 	"actionQuestion": {
-		"message": "Chrome nên làm gì với tập tin này?"
+		"message": "brandShortName nên làm gì với tập tin này?"
 	},
 	"other": {
 		"message": "Khác…"
@@ -18,13 +18,13 @@
 		"message": "Tự động xử lí tương tự đối với các tập tin kiểu này kể từ bây giờ trở đi."
 	},
 	"whichIs": {
-		"message": "là một:"
+		"message": "là:"
 	},
 	"button_accept": {
 		"message": "OK"
 	},
 	"button_cancel": {
-		"message": "Hủy bỏ"
+		"message": "Hủy"
 	},
 	"opening_title": {
 		"message": "Đang mở $1"

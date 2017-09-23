@@ -12,7 +12,7 @@
 		"message": "from:"
 	},
 	"actionQuestion": {
-		"message": "What should Chrome do with this file?"
+		"message": "What should brandShortName do with this file?"
 	},
 	"other": {
 		"message": "Other…"

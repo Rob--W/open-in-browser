@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "Zvolili jste otevírat:"
+		"message": "Otevíráte soubor:"
 	},
 	"from": {
 		"message": "z:"
 	},
 	"actionQuestion": {
-		"message": "Co má aplikace Chrome udělat s tímto souborem?"
+		"message": "Co má aplikace brandShortName udělat s tímto souborem?"
 	},
 	"other": {
 		"message": "Jiná…"

@@ -3,13 +3,13 @@
 		"message": "Αποθήκευση αρχείου"
 	},
 	"actionQuestion": {
-		"message": "Τι να κάνει ο Chrome  με αυτό το αρχείο;"
+		"message": "Τι να κάνει ο brandShortName  με αυτό το αρχείο;"
 	},
 	"from": {
 		"message": "από:"
 	},
 	"intro2": {
-		"message": "Επιλέξατε να ανοίξετε"
+		"message": "Επιλέξατε να ανοίξετε:"
 	},
 	"other": {
 		"message": "Άλλο..."
@@ -21,7 +21,7 @@
 		"message": "που είναι:"
 	},
 	"button_accept": {
-		"message": "OK"
+		"message": "ΟΚ"
 	},
 	"button_cancel": {
 		"message": "Ακύρωση"

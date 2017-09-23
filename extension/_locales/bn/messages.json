@@ -6,7 +6,7 @@
 		"message": "চিহ্নিত স্থান নির্বাচন করেছেন:"
 	},
 	"actionQuestion": {
-		"message": "Chrome-র দ্বারা এই ফাইলের কি ব্যবস্থা করা হবে?"
+		"message": "brandShortName-র দ্বারা এই ফাইলের কি ব্যবস্থা করা হবে?"
 	},
 	"other": {
 		"message": "অন্যান্য..."
@@ -30,6 +30,6 @@
 		"message": "$1 খোলা হচ্ছে"
 	},
 	"preferences": {
-		"message": "পছন্দ"
+		"message": "পছন্দসমূহ"
 	}
 }

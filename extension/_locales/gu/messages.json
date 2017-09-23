@@ -3,7 +3,7 @@
 		"message": "માંથી:"
 	},
 	"actionQuestion": {
-		"message": "આ ફાઇલ સાથે Chrome એ શું કરવું જોઇએ?"
+		"message": "આ ફાઇલ સાથે brandShortName એ શું કરવું જોઇએ?"
 	},
 	"other": {
 		"message": "અન્ય..."
@@ -15,16 +15,16 @@
 		"message": "હવે આ પ્રકારની ફાઇલો માટે આ આપમેળે કરો."
 	},
 	"whichIs": {
-		"message": "તે છે:"
+		"message": "જે છે :"
 	},
 	"intro2": {
 		"message": "તમે ખોલવાનું પસંદ કરેલ છે:"
 	},
 	"button_accept": {
-		"message": "\\u0AAC\\u0AB0\\u0ABE\\u0AAC\\u0AB0"
+		"message": "બરાબર"
 	},
 	"button_cancel": {
-		"message": "\\u0AB0\\u0AA6 \\u0A95\\u0AB0\\u0ACB"
+		"message": "રદ કરો"
 	},
 	"opening_title": {
 		"message": "$1 ખોલી રહ્યા છે"

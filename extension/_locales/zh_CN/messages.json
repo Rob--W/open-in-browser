@@ -6,7 +6,7 @@
 		"message": "来源："
 	},
 	"actionQuestion": {
-		"message": "您想要 Chrome 如何处理此文件？"
+		"message": "您想要 brandShortName 如何处理此文件？"
 	},
 	"other": {
 		"message": "其他…"
@@ -18,7 +18,7 @@
 		"message": "以后自动采用相同的动作处理此类文件。"
 	},
 	"whichIs": {
-		"message": "哪个是："
+		"message": "文件类型："
 	},
 	"button_accept": {
 		"message": "确定"

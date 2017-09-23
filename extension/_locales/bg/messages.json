@@ -6,16 +6,16 @@
 		"message": "от:"
 	},
 	"actionQuestion": {
-		"message": "Какво да направи Chrome с този файл?"
+		"message": "Какво да направи brandShortName с този файл?"
 	},
 	"other": {
 		"message": "Друго…"
 	},
 	"saveFile": {
-		"message": "Запис на файл"
+		"message": "Запазване на файла"
 	},
 	"rememberChoice": {
-		"message": "Запомняне на операцията за този тип файлове."
+		"message": "Запомняне на действието за този вид файлове."
 	},
 	"whichIs": {
 		"message": "който е:"

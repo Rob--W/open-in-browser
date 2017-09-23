@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "திறக்க தேர்வு செய்துள்ளீர்கள்"
+		"message": "நீங்கள் இதைத் தேர்வு செய்துள்ளீர்கள்:"
 	},
 	"from": {
-		"message": "இதிலிருந்து:"
+		"message": "வலைத்தளம்:"
 	},
 	"actionQuestion": {
-		"message": "Chrome இந்த கோப்பில் என்ன செய்ய வேண்டும்?"
+		"message": "brandShortName இந்த கோப்பில் என்ன செய்ய வேண்டும்?"
 	},
 	"other": {
 		"message": "மற்றவை..."
@@ -18,16 +18,16 @@
 		"message": "இது போன்ற கோப்புகளுக்கு தானாக இதை செய்யவும்."
 	},
 	"whichIs": {
-		"message": "எது:"
+		"message": "கோப்பு வகை:"
 	},
 	"button_accept": {
-		"message": "சரி"
+		"message": "OK"
 	},
 	"button_cancel": {
 		"message": "ரத்து செய்"
 	},
 	"opening_title": {
-		"message": "$1 ஐ திறக்கிறது"
+		"message": "$1 பதிவிறக்குகிறது"
 	},
 	"preferences": {
 		"message": "விருப்பங்கள்"

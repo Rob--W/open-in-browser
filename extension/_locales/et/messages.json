@@ -6,7 +6,7 @@
 		"message": "asukoht:"
 	},
 	"actionQuestion": {
-		"message": "Mida peaks Chrome selle failiga tegema?"
+		"message": "Mida peaks brandShortName selle failiga tegema?"
 	},
 	"other": {
 		"message": "Muu..."

@@ -1,21 +1,21 @@
 {
 	"intro2": {
-		"message": "Escolheu abrir:"
+		"message": "Optou por abrir:"
 	},
 	"from": {
 		"message": "de:"
 	},
 	"actionQuestion": {
-		"message": "O que deve o Chrome fazer com este ficheiro?"
+		"message": "O que deve o brandShortName fazer com este ficheiro?"
 	},
 	"other": {
-		"message": "Outro..."
+		"message": "Outro…"
 	},
 	"saveFile": {
-		"message": "Gravar Ficheiro"
+		"message": "Guardar ficheiro"
 	},
 	"rememberChoice": {
-		"message": "Repetir isto para ficheiros deste tipo daqui para a frente."
+		"message": "Memorizar opção para este tipo de ficheiro."
 	},
 	"whichIs": {
 		"message": "que é um:"
@@ -27,7 +27,7 @@
 		"message": "Cancelar"
 	},
 	"opening_title": {
-		"message": "A abrir $1"
+		"message": "Abrir $1"
 	},
 	"preferences": {
 		"message": "Preferências"

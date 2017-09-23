@@ -6,7 +6,7 @@
 		"message": "fra:"
 	},
 	"actionQuestion": {
-		"message": "Hvad skal Chrome gøre med denne fil ?"
+		"message": "Hvad skal brandShortName gøre med denne fil ?"
 	},
 	"other": {
 		"message": "Anden…"
@@ -30,6 +30,6 @@
 		"message": "Åbner $1"
 	},
 	"preferences": {
-		"message": "Præferencer"
+		"message": "Indstillinger"
 	}
 }

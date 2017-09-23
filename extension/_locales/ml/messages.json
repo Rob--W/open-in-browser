@@ -1,15 +1,15 @@
 {
 	"from": {
-		"message": "from:"
+		"message": "ഇവിടെ നിന്നും:"
 	},
 	"actionQuestion": {
-		"message": "Chrome ഈ ഫയല്‍ കൊണ്ട്‌ എന്തു ചെയ്യും?"
+		"message": "brandShortName ഈ ഫയല്‍ കൊണ്ട്‌ എന്തു ചെയ്യും?"
 	},
 	"other": {
 		"message": "Other..."
 	},
 	"saveFile": {
-		"message": "Save File"
+		"message": "ഫയല്‍ സൂക്ഷിക്കുക"
 	},
 	"rememberChoice": {
 		"message": "ഈ തരത്തില്‍ പെട്ട ഫയലുകള്‍ക്ക്‌ ഇനി മുതല്‍ തനിയെ ഇങ്ങനെ ചെയ്യുക"

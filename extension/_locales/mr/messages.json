@@ -3,22 +3,22 @@
 		"message": "पासून:"
 	},
 	"actionQuestion": {
-		"message": "Chrome नी या फाइलशी काय करावे?"
+		"message": "brandShortName नी या फाइलशी काय करावे?"
 	},
 	"other": {
 		"message": "इतर..."
 	},
 	"rememberChoice": {
-		"message": "आतापासून यापुढे असेच ह्या फाइल्सकरीता आपोआप करा."
+		"message": "आत्तापासून यापुढे ह्या फाइल्सकरिता असेच आपोआप करा."
 	},
 	"whichIs": {
-		"message": "जे:"
+		"message": "जे आहे:"
 	},
 	"saveFile": {
-		"message": "फाइल संचयीत करा"
+		"message": "फाइल साठवा"
 	},
 	"intro2": {
-		"message": "तुम्ही उघडायचे, असे निश्चित केले आहे:"
+		"message": "आपण उघडायचे, असे निश्चित केले आहे:"
 	},
 	"button_accept": {
 		"message": "ठिक आहे"
@@ -30,6 +30,6 @@
 		"message": "$1 उघडत आहे"
 	},
 	"preferences": {
-		"message": "प्राधन्यता"
+		"message": "प्राधान्यक्रम"
 	}
 }

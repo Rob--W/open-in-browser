@@ -1,12 +1,12 @@
 {
 	"intro2": {
-		"message": "Anda memutuskan untuk membuka"
+		"message": "Anda memutuskan untuk membuka:"
 	},
 	"from": {
 		"message": "dari:"
 	},
 	"actionQuestion": {
-		"message": "Apa yang sebaiknya Chrome lakukan dengan berkas ini?"
+		"message": "Apa yang sebaiknya brandShortName lakukan dengan berkas ini?"
 	},
 	"other": {
 		"message": "Lainnya…"
@@ -21,7 +21,7 @@
 		"message": "adalah sebuah:"
 	},
 	"button_accept": {
-		"message": "OK"
+		"message": "Oke"
 	},
 	"button_cancel": {
 		"message": "Batal"

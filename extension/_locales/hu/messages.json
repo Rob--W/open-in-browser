@@ -6,7 +6,7 @@
 		"message": "forrás:"
 	},
 	"actionQuestion": {
-		"message": "Mit tegyen a Chrome ezzel a fájllal?"
+		"message": "Mit tegyen a brandShortName ezzel a fájllal?"
 	},
 	"other": {
 		"message": "Másik…"
