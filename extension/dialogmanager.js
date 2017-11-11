@@ -48,8 +48,8 @@ class ModalDialog {
             let {tabs: [tab]} = await browser.windows.create({
                 type: 'popup',
                 url: this._url,
-                width: 10,
-                height: 10,
+                width: 335,
+                height: 150,
                 incognito: this._incognito,
             });
             tabId = tab.id;
