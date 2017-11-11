@@ -1,7 +1,7 @@
 /**
  * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
  */
-/* globals Prefs, MimeActions, mime_fromFilename, ModalDialog, OpenWith */
+/* globals Prefs, MimeActions, mime_fromFilename, ModalDialog, OpenWith, ContentHandlers */
 'use strict';
 
 var dialogURL = chrome.extension.getURL('dialog.html');
@@ -15,9 +15,10 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         // Ignore all non-OK HTTP response
         return;
     }
-    var contentType = getHeader(details.responseHeaders, 'content-type') || '';
-    var mimeType = contentType.split(';', 1)[0].trim().toLowerCase();
+    var originalCT = ContentHandlers.parseResponseContentType(
+        getHeader(details.responseHeaders, 'content-type') || '');
     var contentDisposition = getHeader(details.responseHeaders, 'content-disposition');
+    var {mimeType} = originalCT;
 
     if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
@@ -59,7 +60,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             desiredAction: desiredAction,
             url: details.url,
             filename: filename,
-            contentType: contentType,
+            contentType: originalCT.contentType,
             guessedMimeType: guessedMimeType,
             mimeType: mimeType,
             isSniffingMimeType: isSniffingMimeType,

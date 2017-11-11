@@ -11,6 +11,7 @@
             "external-viewers.js",
             "dialogmanager.js",
             "open-with.js",
+            "content-handlers-firefox.js",
             "background.js"
         ]
     },
