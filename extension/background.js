@@ -24,8 +24,9 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
         if (!shouldInterceptRequest(mimeType)) {
             if (Prefs.get('text-nosniff')) {
-                if (!mimeType || mimeType === 'text/plain') {
-                    setHeader(details.responseHeaders, 'X-Content-Type-Options', 'nosniff');
+                let unsniffableContentType = ContentHandlers.makeUnsniffableContentType(originalCT);
+                if (unsniffableContentType !== originalCT.contentType) {
+                    setHeader(details.responseHeaders, 'Content-Type', unsniffableContentType);
                     return {
                         responseHeaders: details.responseHeaders
                     };
@@ -101,8 +102,9 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     }
     if (desiredAction) {
         if (desiredAction.mime) {
-            setHeader(details.responseHeaders, 'Content-Type', desiredAction.mime);
-            setHeader(details.responseHeaders, 'X-Content-Type-Options', 'nosniff');
+            let desiredCT = ContentHandlers.parseResponseContentType(desiredAction.mime);
+            setHeader(details.responseHeaders, 'Content-Type',
+                ContentHandlers.makeUnsniffableContentType(desiredCT));
             setHeader(details.responseHeaders, 'Content-Disposition', 'inline');
         }
         if (desiredAction.action === MimeActions.DOWNLOAD) {
