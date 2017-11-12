@@ -1,6 +1,6 @@
 {
 	"intro2": {
-		"message": "Bạn phải chọn để mở:"
+		"message": "Bạn đã chọn mở"
 	},
 	"from": {
 		"message": "từ:"
@@ -18,13 +18,13 @@
 		"message": "Tự động xử lí tương tự đối với các tập tin kiểu này kể từ bây giờ trở đi."
 	},
 	"whichIs": {
-		"message": "là:"
+		"message": "là một:"
 	},
 	"button_accept": {
 		"message": "OK"
 	},
 	"button_cancel": {
-		"message": "Hủy"
+		"message": "Hủy bỏ"
 	},
 	"opening_title": {
 		"message": "Đang mở $1"
