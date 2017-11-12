@@ -15,6 +15,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         // Ignore all non-OK HTTP response
         return;
     }
+    var abortionObserver = createWebRequestAbortionObserver(details);
     var originalCT = ContentHandlers.parseResponseContentType(
         getHeader(details.responseHeaders, 'content-type') || '');
     var contentDisposition = getHeader(details.responseHeaders, 'content-disposition');
@@ -71,34 +72,9 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             url: dialogURL + '#' + encodeURIComponent(JSON.stringify(dialogArguments)),
             incognito: details.incognito,
         });
-        var isAborted = false; // Close dialog if user aborts request
-        var onErrorOccurred = function(errorDetails) {
-            if (errorDetails.requestId === details.requestId) {
-                isAborted = true;
-                dialog.close();
-            }
-        };
-        chrome.webRequest.onErrorOccurred.addListener(onErrorOccurred, {
-            urls: ['*://*/*'],
-            types: [details.type],
-            tabId: details.tabId
-        });
-        // Firefox does not generate a webRequest error when the user aborts the load.
-        // So use webNavigation.onErrorOccurred instead, which seems to emit an error
-        // with errorDetails.error = "Error code 2152398850", aka NS_BINDING_ABORTED.
-        var onNavigationErrorOccurred = function(errorDetails) {
-            if (errorDetails.tabId === details.tabId &&
-                errorDetails.frameId === details.frameId &&
-                errorDetails.url === details.url) {
-                isAborted = true;
-                dialog.close();
-            }
-        };
-        chrome.webNavigation.onErrorOccurred.addListener(onNavigationErrorOccurred);
+        abortionObserver.setupBeforeAsyncTask(() => { dialog.close(); });
         desiredAction = await dialog.show();
-        chrome.webRequest.onErrorOccurred.removeListener(onErrorOccurred);
-        chrome.webNavigation.onErrorOccurred.removeListener(onNavigationErrorOccurred);
-        if (isAborted) return;
+        if (!abortionObserver.continueAfterAsyncTask()) return;
     }
     if (desiredAction) {
         if (desiredAction.mime) {
@@ -308,4 +284,79 @@ function getFilenameFromURL(url) {
         filename = decodeURIComponent(filename);
     } catch(e) {/* URIError */}
     return filename;
+}
+
+/**
+ * Observe when a request is aborted. Mainly useful to detect whether a request is still alive after
+ * executing a potentially long asynchronous task.
+ * Usage:
+ *
+ * var abortionObserver = createWebRequestAbortionObserver(details);
+ * abortionObserver.setupBeforeAsyncTask();
+ * await someLongRunningTask();
+ * // If continueAfterAsyncTask returns false, then the request was aborted.
+ * if (!abortionObserver.continueAfterAsyncTask()) return;
+ *
+ * setupBeforeAsyncTask can be passed a function, which is called if the request was aborted
+ * before continueAfterAsyncTask is called.
+ *
+ * @param {object} details WebRequest event details.
+ * @return {object} An object with properties "aborted", "setupBeforeAsyncTask" and
+ *  "continueAfterAsyncTask". See the above example.
+ */
+function createWebRequestAbortionObserver(details) {
+    var callbackOnPrematureAbort = null;
+    var isAborted = false;
+    function onErrorOccurred(errorDetails) {
+        if (errorDetails.requestId === details.requestId) {
+            onAborted();
+        }
+    }
+    // Firefox does not generate a webRequest error when the user aborts the load.
+    // So use webNavigation.onErrorOccurred instead, which seems to emit an error
+    // with errorDetails.error = "Error code 2152398850", aka NS_BINDING_ABORTED.
+    function onNavigationErrorOccurred(errorDetails) {
+        if (errorDetails.tabId === details.tabId &&
+            errorDetails.frameId === details.frameId &&
+            errorDetails.url === details.url) {
+            onAborted();
+        }
+    }
+
+    function onAborted() {
+        isAborted = true;
+        stopListening();
+        if (callbackOnPrematureAbort) {
+            callbackOnPrematureAbort();
+            callbackOnPrematureAbort = null;
+        }
+    }
+
+    function stopListening() {
+        chrome.webRequest.onErrorOccurred.removeListener(onErrorOccurred);
+        chrome.webNavigation.onErrorOccurred.removeListener(onNavigationErrorOccurred);
+    }
+
+
+    function setupBeforeAsyncTask(onAborted) {
+        callbackOnPrematureAbort = onAborted;
+        chrome.webRequest.onErrorOccurred.addListener(onErrorOccurred, {
+            urls: ['*://*/*'],
+            types: [details.type],
+            tabId: details.tabId
+        });
+        chrome.webNavigation.onErrorOccurred.addListener(onNavigationErrorOccurred);
+    }
+
+    function continueAfterAsyncTask() {
+        callbackOnPrematureAbort = null;
+        stopListening();
+        return !isAborted;
+    }
+
+    return {
+        get aborted() { return isAborted; },
+        setupBeforeAsyncTask,
+        continueAfterAsyncTask,
+    };
 }
