@@ -89,7 +89,7 @@ var SOURCES = [{
         'intro2',
         'from',
         'actionQuestion',
-        //'openWith', // Future update
+        'openWith',
         'other',
         'saveFile',
         'rememberChoice',
@@ -122,6 +122,14 @@ var SOURCES = [{
     aliases: {
         'preferencesDefaultTitleMac.title': 'preferences'
     }
+}, {
+    source: '/chrome/mozapps/handling/handling.dtd',
+    properties: [
+        'chooseOtherApp'
+    ],
+    aliases: {
+        'ChooseOtherApp.description': 'chooseOtherApp',
+    },
 }];
 
 /**

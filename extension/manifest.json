@@ -8,9 +8,7 @@
         "scripts": [
             "mime-metadata.js",
             "prefs.js",
-            "external-viewers.js",
             "dialogmanager.js",
-            "open-with.js",
             "content-handlers-firefox.js",
             "background.js"
         ]

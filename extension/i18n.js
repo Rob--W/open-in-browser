@@ -42,6 +42,10 @@
                 domProp = pair[0].trim();
                 i18n_id = pair[1].trim();
             }
+            if (i18n_id === 'brandShortName') {
+                setBrandedTranslation(element, domProp, 'brandShortName');
+                continue;
+            }
             var translation = chrome.i18n.getMessage(i18n_id);
             if (translation) {
                 if (translation.includes('brandShortName')) {

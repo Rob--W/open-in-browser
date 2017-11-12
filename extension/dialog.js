@@ -12,9 +12,9 @@ var $ = document.getElementById.bind(document);
 
 var dialogArguments = JSON.parse(decodeURIComponent(window.location.hash.slice(1)));
 handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.guessedMimeType,
-        dialogArguments.mimeType, dialogArguments.openWithOptions);
+        dialogArguments.mimeType);
 
-function handleDetails(url, filename, guessedMimeType, mimeType, openWithOptions) {
+function handleDetails(url, filename, guessedMimeType, mimeType) {
     // Note: There is so much junk before the title that it is often unreadable,
     // at least until https://bugzil.la/1296365 is fixed.
     document.title = chrome.i18n.getMessage('opening_title', filename);
@@ -22,8 +22,6 @@ function handleDetails(url, filename, guessedMimeType, mimeType, openWithOptions
     renderMetadata(filename, guessedMimeType, mimeType);
 
     renderURL(url);
-
-    renderOpenWithOptions(openWithOptions);
 
     bindFormEvents();
 
@@ -175,28 +173,6 @@ function renderURL(/*string*/ url) {
     $('url-remainder').textContent = a.pathname + a.search + a.hash;
 }
 
-function renderOpenWithOptions(openWithOptions) {
-    var openWithOptionsLength = openWithOptions.length;
-    if (openWithOptionsLength === 0) {
-        $('open-with-container').hidden = true;
-        return;
-    }
-    var options = document.createDocumentFragment();
-    for (var i = 0; i < openWithOptionsLength; ++i) {
-        options.appendChild(new Option(openWithOptions[i].label, openWithOptions[i].identifier));
-    }
-    var openWithDropdown = $('open-with');
-    openWithDropdown.appendChild(options);
-
-    if (openWithOptionsLength === 1) {
-        // Just one option. Hide the dropdown and show the viewer's name instead.
-        openWithDropdown.selectedIndex = 0;
-        openWithDropdown.hidden = true;
-        var span = document.createElement('span');
-        span.textContent = openWithOptions[0].label;
-        openWithDropdown.parentNode.insertBefore(span, openWithDropdown);
-    }
-}
 function bindFormEvents() {
     var populateDatalist = function() {
         populateDatalist = null;
@@ -275,7 +251,6 @@ function exportReturnValue() {
         case 'openwith':
             window.returnValue = {
                 action: MimeActions.OPENWITH,
-                openWith: $('open-with').value,
                 rememberChoice: rememberChoice
             };
         break;
@@ -323,11 +298,6 @@ function importReturnValue() {
         break;
         case MimeActions.OPENWITH:
             choice = 'openwith';
-            $('open-with').value = returnValue.openWith;
-            if ($('open-with').selectedIndex === -1) {
-                console.warn('Unknown app "' + returnValue.openWith + '". Was it removed?');
-                return false;
-            }
         break;
         case MimeActions.DOWNLOAD:
             choice = 'save';

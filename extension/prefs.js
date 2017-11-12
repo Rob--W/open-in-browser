@@ -25,11 +25,6 @@ var prefs = {
     'mime-mappings': {},
     // Similar to mime-mappings; used if MIME-sniffing is enabled.
     'sniffed-mime-mappings': {},
-    'external-viewers': {
-    // Formats: (see open-with.js)
-    //    'google_docs': { "enabled": true },
-    //    'pdfjs': { "enabled": true, "extensionid": ''...' },
-    },
     // Whether to add the "X-Content-Type-Options: nosniff" header to text/plain requests
     'text-nosniff': true,
     // Whether to use the file extension for detecting type when mime=application/octet-stream
@@ -134,7 +129,6 @@ function getMimeAction(mimeType, isSniffingMimeType, serverSentMimeType) {
     case MimeActions.OPENWITH:
         return {
             action: actionType,
-            openWith: actionArgs
         };
     case MimeActions.DOWNLOAD:
         return {
@@ -156,7 +150,7 @@ function setMimeAction(mimeType, isSniffingMimeType, desiredAction) {
     var actionType = desiredAction.action;
     // The following assumes that the desiredAction object is always clean,
     // i.e. it doesn't contain any significant properties of a different action.
-    var actionArgs = desiredAction.openWith || desiredAction.mime || '';
+    var actionArgs = desiredAction.mime || '';
     if (actionType === MimeActions.OIB_SERVER_SENT ||
         actionType === MimeActions.OIB_SERVER_SNIFF) {
         // For these actions the MIME is inferred from the request.

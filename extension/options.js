@@ -1,4 +1,4 @@
-/* globals Prefs, MimeActions, EXTERNAL_VIEWERS */
+/* globals Prefs, MimeActions */
 'use strict';
 Prefs.init();
 var $ = document.getElementById.bind(document);
@@ -67,7 +67,8 @@ function renderMimeMappingsCommon(mimeMappings, table, isSniffingMimeType) {
         } else if (mimeAction.action === MimeActions.OIB_SERVER_SNIFF) {
             actionMessage = 'Open in browser with sniffed MIME';
         } else if (mimeAction.action === MimeActions.OPENWITH) {
-            actionMessage = 'Open with ' + EXTERNAL_VIEWERS[mimeAction.openWith].name;
+            // TODO: i18n.
+            actionMessage = 'Open with browser (Choose other Application)';
         } else if (mimeAction.action === MimeActions.DOWNLOAD) {
             actionMessage = 'Save file';
         }
@@ -90,38 +91,6 @@ function renderMimeMappingsCommon(mimeMappings, table, isSniffingMimeType) {
     table.hidden = false;
 }
 
-function renderViewerPreferences(externalViewersPref) {
-    var prefItems = document.createDocumentFragment();
-
-    var labelBase = document.createElement('label');
-    labelBase.className = 'pref';
-
-    var checkboxBase = document.createElement('input');
-    checkboxBase.type = 'checkbox';
-
-    Object.keys(EXTERNAL_VIEWERS).forEach(function(identifier) {
-        var viewer = EXTERNAL_VIEWERS[identifier];
-        var pref = externalViewersPref[identifier];
-        var isEnabled = !pref || pref.enabled;
-        var label = labelBase.cloneNode();
-        var checkbox = checkboxBase.cloneNode();
-        
-        checkbox.checked = isEnabled;
-        checkbox.onchange = function toggleViewer() {
-            if (!pref) pref = externalViewersPref[identifier] = {};
-            pref.enabled = this.checked;
-            Prefs.set('external-viewers', externalViewersPref);
-        };
-
-        var labelText = viewer.name;
-
-        label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(labelText));
-        prefItems.appendChild(label);
-    });
-    $('external-viewers').appendChild(prefItems);
-}
-
 bindBooleanPref('text-nosniff');
 
 bindBooleanPref('octet-sniff-mime');
@@ -129,6 +98,4 @@ bindBooleanPref('octet-sniff-mime');
 Prefs.setPrefHandler('mime-mappings', renderMimeMappings);
 
 Prefs.setPrefHandler('sniffed-mime-mappings', renderSniffedMimeMappings);
-
-Prefs.setPrefHandler('external-viewers', renderViewerPreferences);
 

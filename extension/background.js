@@ -1,7 +1,7 @@
 /**
  * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
  */
-/* globals Prefs, MimeActions, mime_fromFilename, ModalDialog, OpenWith, ContentHandlers */
+/* globals Prefs, MimeActions, mime_fromFilename, ModalDialog, ContentHandlers */
 'use strict';
 
 var dialogURL = chrome.extension.getURL('dialog.html');
@@ -73,7 +73,6 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             guessedMimeType: guessedMimeType,
             mimeType: mimeType,
             isSniffingMimeType: isSniffingMimeType,
-            openWithOptions: OpenWith.getAvailableViewers([mimeType, guessedMimeType])
         };
         var dialog = new ModalDialog({
             url: dialogURL + '#' + encodeURIComponent(JSON.stringify(dialogArguments)),
@@ -98,7 +97,8 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             Prefs.setMimeAction(guessedMimeType, isSniffingMimeType, desiredAction);
         }
         if (desiredAction.action === MimeActions.OPENWITH) {
-            return OpenWith.openWith(desiredAction.openWith, details);
+            // Don't modify the response headers and let the browser handle the request.
+            return;
         }
         return {
             responseHeaders: details.responseHeaders
