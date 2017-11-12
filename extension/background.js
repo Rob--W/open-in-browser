@@ -31,7 +31,8 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         }
         if (canDisplayInline) {
             if (Prefs.get('text-nosniff')) {
-                let unsniffableContentType = ContentHandlers.makeUnsniffableContentType(originalCT);
+                let unsniffableContentType =
+                    ContentHandlers.makeUnsniffableContentType(originalCT.contentType);
                 if (unsniffableContentType !== originalCT.contentType) {
                     setHeader(details.responseHeaders, 'Content-Type', unsniffableContentType);
                     return {
@@ -86,7 +87,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         if (desiredAction.mime) {
             let desiredCT = ContentHandlers.parseResponseContentType(desiredAction.mime);
             setHeader(details.responseHeaders, 'Content-Type',
-                ContentHandlers.makeUnsniffableContentType(desiredCT));
+                ContentHandlers.makeUnsniffableContentType(desiredCT.contentType));
             setHeader(details.responseHeaders, 'Content-Disposition', 'inline');
         }
         if (desiredAction.action === MimeActions.DOWNLOAD) {
