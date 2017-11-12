@@ -22,6 +22,7 @@ function mime_getFriendlyName(mime, /*optional*/ locale) {
 		if (!messages) {
 			var x = new XMLHttpRequest();
 			x.open("GET", "_locales/mimetypes/" + locale + ".json", false);
+			x.overrideMimeType("application/json");
 			x.send();
 			messages = _cachedMimeMessages[locale] = JSON.parse(x.responseText);
 		}

@@ -103,6 +103,7 @@ function afterProcessingAllInputFiles() {
     '\t\tif (!messages) {',
     '\t\t\tvar x = new XMLHttpRequest();',
     '\t\t\tx.open("GET", "' + localePathPrefix + '" + locale + "' + localePathSuffix + '", false);',
+    '\t\t\tx.overrideMimeType("application/json");',
     '\t\t\tx.send();',
     '\t\t\tmessages = _cachedMimeMessages[locale] = JSON.parse(x.responseText);',
     '\t\t}',
