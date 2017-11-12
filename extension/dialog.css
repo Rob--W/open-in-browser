@@ -79,6 +79,7 @@ body {
 .url-container:hover #url-protocol,
 .url-container:hover #url-remainder {
     color: InfoText;
+    opacity: 1;
 }
 #url {
     white-space: nowrap;
@@ -92,10 +93,11 @@ body {
 
 #url-protocol.https {
     color: green;
+    opacity: 1;
 }
 #url-protocol,
 #url-remainder {
-    color: ButtonShadow;
+    opacity: 0.5;
 }
 
 
