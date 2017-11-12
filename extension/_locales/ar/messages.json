@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "التفضيلات"
+	},
+	"openWith": {
+		"message": "افتح ب‍استخدام"
+	},
+	"chooseOtherApp": {
+		"message": "اختر تطبيقا آخر"
 	}
 }

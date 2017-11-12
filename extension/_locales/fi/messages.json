@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Asetukset"
+	},
+	"openWith": {
+		"message": "Avaa ohjelmalla"
+	},
+	"chooseOtherApp": {
+		"message": "Valitse toinen ohjelma"
 	}
 }

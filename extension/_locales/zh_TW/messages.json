@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "偏好設定"
+	},
+	"openWith": {
+		"message": "開啟方式:"
+	},
+	"chooseOtherApp": {
+		"message": "選擇其他應用程式"
 	}
 }

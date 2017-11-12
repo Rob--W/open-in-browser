@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Iestatījumi"
+	},
+	"openWith": {
+		"message": "Atvērt ar"
+	},
+	"chooseOtherApp": {
+		"message": "Izvēlieties programmu"
 	}
 }

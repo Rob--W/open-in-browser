@@ -31,5 +31,8 @@
 	},
 	"preferences": {
 		"message": "മുന്‍ഗണനകള്‍"
+	},
+	"openWith": {
+		"message": "തുറക്കേണ്ട പ്റയോഗം"
 	}
 }

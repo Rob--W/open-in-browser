@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "விருப்பங்கள்"
+	},
+	"openWith": {
+		"message": "பிற செயலிகள் மூலம் திற"
+	},
+	"chooseOtherApp": {
+		"message": "பிற பயன்பாட்டைத் தேர்ந்தெடு"
 	}
 }

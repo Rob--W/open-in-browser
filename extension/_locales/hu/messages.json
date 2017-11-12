@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Beállítások"
+	},
+	"openWith": {
+		"message": "Megnyitás"
+	},
+	"chooseOtherApp": {
+		"message": "Másik alkalmazás választása"
 	}
 }

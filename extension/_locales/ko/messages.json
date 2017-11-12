@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "환경 설정"
+	},
+	"openWith": {
+		"message": "열기:"
+	},
+	"chooseOtherApp": {
+		"message": "다른 어플리케이션 선택"
 	}
 }

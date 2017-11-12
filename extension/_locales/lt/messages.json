@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Nuostatos"
+	},
+	"openWith": {
+		"message": "atverti programa:"
+	},
+	"chooseOtherApp": {
+		"message": "Pasirinkite kitą programą"
 	}
 }

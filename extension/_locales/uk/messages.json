@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Налаштування"
+	},
+	"openWith": {
+		"message": "Відкрити за допомогою"
+	},
+	"chooseOtherApp": {
+		"message": "Вибір іншої програми"
 	}
 }

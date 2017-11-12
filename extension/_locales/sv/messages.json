@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Inställningar"
+	},
+	"openWith": {
+		"message": "Öppna med"
+	},
+	"chooseOtherApp": {
+		"message": "Välj andra program"
 	}
 }

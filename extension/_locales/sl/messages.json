@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Nastavitve"
+	},
+	"openWith": {
+		"message": "Odpri s programom"
+	},
+	"chooseOtherApp": {
+		"message": "Izberi drugo aplikacijo"
 	}
 }

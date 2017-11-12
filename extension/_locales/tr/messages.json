@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Tercihler"
+	},
+	"openWith": {
+		"message": "Birlikte aç"
+	},
+	"chooseOtherApp": {
+		"message": "Başka bir uygulama seç"
 	}
 }

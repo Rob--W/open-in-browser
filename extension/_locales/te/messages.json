@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "అభిరుచులు"
+	},
+	"openWith": {
+		"message": "దీనితో తెరువు"
+	},
+	"chooseOtherApp": {
+		"message": "ఇతర అప్లికేషన్ ఎంచుకొనుము"
 	}
 }

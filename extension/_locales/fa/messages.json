@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "ترجیحات"
+	},
+	"openWith": {
+		"message": "باز کردن با"
+	},
+	"chooseOtherApp": {
+		"message": "انتخاب برنامه دیگر"
 	}
 }

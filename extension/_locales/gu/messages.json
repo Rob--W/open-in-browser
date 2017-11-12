@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "પસંદગીઓ"
+	},
+	"openWith": {
+		"message": "આની સાથે ખોલો"
+	},
+	"chooseOtherApp": {
+		"message": "અન્ય એપ્લિકેશન પસંદ કરો"
 	}
 }

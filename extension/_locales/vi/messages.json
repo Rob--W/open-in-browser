@@ -31,5 +31,8 @@
 	},
 	"preferences": {
 		"message": "Tùy chỉnh"
+	},
+	"openWith": {
+		"message": "Mở Bằng"
 	}
 }

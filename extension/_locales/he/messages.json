@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "העדפות"
+	},
+	"openWith": {
+		"message": "פתח באמצעות"
+	},
+	"chooseOtherApp": {
+		"message": "בחירה ביישום אחר"
 	}
 }

@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Eelistused"
+	},
+	"openWith": {
+		"message": "Avama rakendusega"
+	},
+	"chooseOtherApp": {
+		"message": "Vali muu rakendus"
 	}
 }

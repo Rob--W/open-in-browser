@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "首选项"
+	},
+	"openWith": {
+		"message": "打开，通过"
+	},
+	"chooseOtherApp": {
+		"message": "选择其他应用程序"
 	}
 }

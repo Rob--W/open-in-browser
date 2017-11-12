@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Προτιμήσεις"
+	},
+	"openWith": {
+		"message": "Άνοιγμα με"
+	},
+	"chooseOtherApp": {
+		"message": "Επιλέξτε άλλη εφαρμογή"
 	}
 }

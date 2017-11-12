@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "ค่ากำหนด"
+	},
+	"openWith": {
+		"message": "เปิดด้วย"
+	},
+	"chooseOtherApp": {
+		"message": "เลือกแอปพลิเคชันอื่น"
 	}
 }

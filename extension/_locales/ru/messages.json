@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Настройки"
+	},
+	"openWith": {
+		"message": "Открыть в"
+	},
+	"chooseOtherApp": {
+		"message": "Выбор другого приложения"
 	}
 }

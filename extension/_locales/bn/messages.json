@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "পছন্দসমূহ"
+	},
+	"openWith": {
+		"message": "উল্লিখিত অ্যাপ্লিকেশনের সাথে খুলুন"
+	},
+	"chooseOtherApp": {
+		"message": "অন্য অ্যাপ্লিকেশন বাছুন"
 	}
 }

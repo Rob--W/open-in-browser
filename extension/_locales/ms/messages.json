@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Keutamaan"
+	},
+	"openWith": {
+		"message": "Buka dengan"
+	},
+	"chooseOtherApp": {
+		"message": "Pilih aplikasi lain"
 	}
 }

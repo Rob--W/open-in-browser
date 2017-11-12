@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Innstillingar"
+	},
+	"openWith": {
+		"message": "Opna med"
+	},
+	"chooseOtherApp": {
+		"message": "Vel eit anna program"
 	}
 }

@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Preferințe"
+	},
+	"openWith": {
+		"message": "Deschidere cu"
+	},
+	"chooseOtherApp": {
+		"message": "Alege o altă aplicație"
 	}
 }

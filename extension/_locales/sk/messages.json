@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Možnosti"
+	},
+	"openWith": {
+		"message": "Otvoriť pomocou"
+	},
+	"chooseOtherApp": {
+		"message": "Vybrať inú aplikáciu"
 	}
 }

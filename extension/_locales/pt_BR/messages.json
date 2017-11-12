@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Preferências"
+	},
+	"openWith": {
+		"message": "Abrir com o:"
+	},
+	"chooseOtherApp": {
+		"message": "Escolher outro aplicativo"
 	}
 }

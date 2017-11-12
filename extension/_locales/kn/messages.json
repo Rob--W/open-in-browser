@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "ಆದ್ಯತೆಗಳು"
+	},
+	"openWith": {
+		"message": "ಇದರೊಂದಿಗೆ ತೆರೆ"
+	},
+	"chooseOtherApp": {
+		"message": "ಬೇರೆ ಅನ್ವಯವನ್ನು ಆರಿಸು"
 	}
 }

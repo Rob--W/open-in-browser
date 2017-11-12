@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "प्राधान्यक्रम"
+	},
+	"openWith": {
+		"message": "यासह उघडा"
+	},
+	"chooseOtherApp": {
+		"message": "दुसरे ॲप्लिकेशन निवडा"
 	}
 }

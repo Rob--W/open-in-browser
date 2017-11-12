@@ -31,5 +31,11 @@
 	},
 	"preferences": {
 		"message": "Поставке"
+	},
+	"openWith": {
+		"message": "Отвори помоћу"
+	},
+	"chooseOtherApp": {
+		"message": "Избор друге апликације"
 	}
 }
