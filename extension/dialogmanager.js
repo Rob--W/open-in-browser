@@ -56,7 +56,7 @@ class ModalDialog {
             let createData = {
                 type: 'popup',
                 url: this._url,
-                width: 335,
+                width: 500, // = WIDTH in dialog.js
                 height: 150,
                 incognito: this._incognito,
             };
