@@ -93,8 +93,8 @@ function resizeDialog(/*boolean*/ moveDialog) {
         var updateInfo = {
             width: WIDTH,
             height: HEIGHT,
-            left: Math.floor((screen.availWidth - WIDTH) / 2),
-            top: Math.floor((screen.availHeight - HEIGHT) / 2),
+            left: screen.left + Math.floor((screen.availWidth - WIDTH) / 2),
+            top: screen.top + Math.floor((screen.availHeight - HEIGHT) / 2),
         };
         // Without an explicit top/left position, Firefox aligns popups on the center of the screen.
         // https://searchfox.org/mozilla-central/rev/fe75164c55321e011d9d13b6d05c1e00d0a640be/browser/components/extensions/ext-windows.js#154
