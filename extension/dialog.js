@@ -173,6 +173,8 @@ function getSuggestedMimeAction(/*string*/ mimeType) {
     default:
         if (mimeType.lastIndexOf('+xml') !== -1)
             return 'text/xml';
+        if ((mimeMetadata.aliases[mimeType] || mimeType) === 'application/pdf')
+            return 'application/pdf';
         return 'original'; // Open as server-sent MIME = most likely download
     }
 }
