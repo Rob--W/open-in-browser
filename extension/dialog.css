@@ -60,7 +60,6 @@ body {
     max-width: 100%;
 }
 .url-wrapper {
-    display: -webkit-flex;
     display: flex;
 }
 .url-container:hover .url-wrapper {
@@ -83,7 +82,6 @@ body {
 }
 #url {
     white-space: nowrap;
-    -webkit-flex: 1;
     flex: 1;
     direction: ltr;
     /* ltr=left, rtl=right*/
