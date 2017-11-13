@@ -271,7 +271,6 @@ function importReturnValue() {
             $('mime-type').value = 'sniffed';
             return true;
         }
-        $('sniffed-type-option').remove();
         return false;
     }
     // Use saved value
@@ -279,7 +278,8 @@ function importReturnValue() {
     switch (returnValue.action) {
         case MimeActions.OIB_SERVER_SNIFF:
             choice = 'openas';
-            // Sniffing is only valid if the sniffing option is enabled. Otherwise use server-sent.
+            // Use server-sent by default, unless the server-sent MIME type was determined to be
+            // unreliable.
             $('mime-type').value = dialogArguments.isSniffingMimeType ? 'sniffed' : 'original';
         break;
         case MimeActions.OIB_SERVER_SENT:

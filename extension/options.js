@@ -65,7 +65,7 @@ function renderMimeMappingsCommon(mimeMappings, table, isSniffingMimeType) {
         } else if (mimeAction.action === MimeActions.OIB_SERVER_SENT) {
             actionMessage = 'Open in browser with server-sent MIME';
         } else if (mimeAction.action === MimeActions.OIB_SERVER_SNIFF) {
-            actionMessage = 'Open in browser with sniffed MIME';
+            actionMessage = 'Open in browser with MIME from file extension';
         } else if (mimeAction.action === MimeActions.OPENWITH) {
             // TODO: i18n.
             actionMessage = 'Open with browser (Choose other Application)';
