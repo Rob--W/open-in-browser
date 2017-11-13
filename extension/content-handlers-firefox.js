@@ -26,16 +26,27 @@ ContentHandlers.parseResponseContentType = function(contentType) {
 };
 
 /**
+ * @param {string} contentType The value of the Content-Type response header.
+ * @param {string} [contentEncoding] The value of the Content-Encoding response header.
+ * @returns {boolean} Whether the browser would use content sniffing to determine
+ *   whether the content is text or binary (download).
+ */
+ContentHandlers.isSniffableTextPlain = function(contentType, contentEncoding) {
+    // Case-sensitive match for some text/plain type, and Content-Encoding should not be present:
+    // https://searchfox.org/mozilla-central/rev/091894faeac5b54b7e40b0a304c3d3268f7b645d/netwerk/streamconv/converters/nsUnknownDecoder.cpp#909-933
+    return !contentEncoding && (
+        contentType === 'text/plain' ||
+        contentType === 'text/plain; charset=ISO-8859-1' ||
+        contentType === 'text/plain; charset=iso-8859-1' ||
+        contentType === 'text/plain; charset=UTF-8');
+};
+
+/**
  * @param {string} contentType The value of the Content-Type response header
  * @return {string} An equivalent header where content-sniffing is disabled if possible.
  */
 ContentHandlers.makeUnsniffableContentType = function(contentType) {
-    // Case-sensitive match for some text/plain type:
-    // https://searchfox.org/mozilla-central/rev/091894faeac5b54b7e40b0a304c3d3268f7b645d/netwerk/streamconv/converters/nsUnknownDecoder.cpp#909-922
-    if (contentType === 'text/plain' ||
-        contentType === 'text/plain; charset=ISO-8859-1' ||
-        contentType === 'text/plain; charset=iso-8859-1' ||
-        contentType === 'text/plain; charset=UTF-8') {
+    if (ContentHandlers.isSniffableTextPlain(contentType)) {
         // Transform the first letter to uppercase to disable sniffing for text/plain.
         return 'T' + contentType.slice(1);
     }

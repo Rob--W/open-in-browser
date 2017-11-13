@@ -19,6 +19,8 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     var originalCT = ContentHandlers.parseResponseContentType(
         getHeader(details.responseHeaders, 'content-type') || '');
     var contentDisposition = getHeader(details.responseHeaders, 'content-disposition');
+    var isSniffingTextPlain = ContentHandlers.isSniffableTextPlain(originalCT.contentType,
+        getHeader(details.responseHeaders, 'content-encoding'));
     var {mimeType} = originalCT;
 
     if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
@@ -30,11 +32,10 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             if (!abortionObserver.continueAfterAsyncTask()) return;
         }
         if (canDisplayInline) {
-            if (Prefs.get('text-nosniff')) {
-                let unsniffableContentType =
-                    ContentHandlers.makeUnsniffableContentType(originalCT.contentType);
-                if (unsniffableContentType !== originalCT.contentType) {
-                    setHeader(details.responseHeaders, 'Content-Type', unsniffableContentType);
+            if (isSniffingTextPlain) {
+                if (Prefs.get('text-nosniff')) {
+                    setHeader(details.responseHeaders, 'Content-Type',
+                        ContentHandlers.makeUnsniffableContentType(originalCT.contentType));
                     return {
                         responseHeaders: details.responseHeaders
                     };
@@ -56,7 +57,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     var guessedMimeType = mimeType;
     var isSniffingMimeType = false;
     if (mimeType === 'application/octet-stream' && Prefs.get('octet-sniff-mime') ||
-        mimeType === 'text/plain' && !Prefs.get('text-nosniff')) {
+        isSniffingTextPlain && !Prefs.get('text-nosniff')) {
         // application/octet-stream is commonly used for anything, "to trigger a download"
         // text/plain is subject to Chrome's MIME-sniffer
         guessedMimeType = mime_fromFilename(filename) || mimeType;
