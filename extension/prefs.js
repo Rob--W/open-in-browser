@@ -25,8 +25,8 @@ var prefs = {
     'mime-mappings': {},
     // Similar to mime-mappings; used if MIME-sniffing is enabled.
     'sniffed-mime-mappings': {},
-    // Whether to add the "X-Content-Type-Options: nosniff" header to text/plain requests
-    'text-nosniff': true,
+    // Whether to disable content sniffing for text/plain responses.
+    'text-nosniff': false,
     // Whether to use the file extension for detecting type when mime=application/octet-stream
     'octet-sniff-mime': true,
 };
