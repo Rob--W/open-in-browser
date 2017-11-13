@@ -60,15 +60,9 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     if (!filename) {
         filename = getFilenameFromURL(details.url);
     }
-    var guessedMimeType = mimeType;
-    var isSniffingMimeType = false;
-    if (mimeType === 'application/octet-stream' && Prefs.get('octet-sniff-mime') ||
-        isSniffingTextPlain && !Prefs.get('text-nosniff')) {
-        // application/octet-stream is commonly used for anything, "to trigger a download"
-        // text/plain is subject to Chrome's MIME-sniffer
-        guessedMimeType = mime_fromFilename(filename) || mimeType;
-        isSniffingMimeType = true;
-    }
+    var guessedMimeType = mime_fromFilename(filename) || mimeType;
+    var isSniffingMimeType =
+        mimeType === 'application/octet-stream' && Prefs.get('octet-sniff-mime');
 
     var desiredAction = Prefs.getMimeAction(guessedMimeType, isSniffingMimeType, mimeType);
     if (!desiredAction.action) {
