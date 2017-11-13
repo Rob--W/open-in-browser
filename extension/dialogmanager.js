@@ -1,6 +1,8 @@
 'use strict';
 /* exported ModalDialog */
 
+var lastPopupSize;
+
 /**
  * ModalDialog. Usage:
  *
@@ -30,6 +32,12 @@ class ModalDialog {
                 // dialog has sent a message before windows.create returned.
                 returnValues.set(sender.tab.id, msg.returnValue);
             }
+            if (sender.tab.width && sender.tab.height) {
+                lastPopupSize = {
+                    width: sender.tab.width,
+                    height: sender.tab.height,
+                };
+            }
         };
         chrome.runtime.onMessage.addListener(onMessage);
 
@@ -45,13 +53,18 @@ class ModalDialog {
         });
 
         try {
-            let {tabs: [tab]} = await browser.windows.create({
+            let createData = {
                 type: 'popup',
                 url: this._url,
                 width: 335,
                 height: 150,
                 incognito: this._incognito,
-            });
+            };
+            if (lastPopupSize) {
+                createData.width = lastPopupSize.width;
+                createData.height = lastPopupSize.height;
+            }
+            let {tabs: [tab]} = await browser.windows.create(createData);
             tabId = tab.id;
         } catch (e) {
             console.error(`Failed to open dialog: ${e}`);
