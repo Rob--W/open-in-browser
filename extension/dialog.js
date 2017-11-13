@@ -90,12 +90,24 @@ function resizeDialog(/*boolean*/ moveDialog) {
     // Note: A side effect of resizing the window is that we work around a bug where
     // the window is initially painted blank. https://bugzil.la/1408446
     if (moveDialog === true) {
-        chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {
+        var updateInfo = {
             width: WIDTH,
             height: HEIGHT,
             left: Math.floor((screen.availWidth - WIDTH) / 2),
             top: Math.floor((screen.availHeight - HEIGHT) / 2),
-        }, function() {
+        };
+        // Without an explicit top/left position, Firefox aligns popups on the center of the screen.
+        // https://searchfox.org/mozilla-central/rev/fe75164c55321e011d9d13b6d05c1e00d0a640be/browser/components/extensions/ext-windows.js#154
+        // If our size estimate was good, then the position is close to the desired position.
+        if (Math.abs(window.screenX - updateInfo.left) < 10 &&
+            Math.abs(window.screenY - updateInfo.top) < 10) {
+            // If the size difference is small, then the exact position will also be close to the
+            // desired position, so do not move the dialog to allow the window manager to take care
+            // of choosing an appropriate position.
+            delete updateInfo.left;
+            delete updateInfo.top;
+        }
+        chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, updateInfo, function() {
             resizeDialog(false);
         });
     } else {
