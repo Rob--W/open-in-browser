@@ -11,15 +11,18 @@
 var $ = document.getElementById.bind(document);
 
 var dialogArguments = JSON.parse(decodeURIComponent(window.location.hash.slice(1)));
-handleDetails(dialogArguments.url, dialogArguments.filename, dialogArguments.guessedMimeType,
-        dialogArguments.mimeType);
+handleDetails(dialogArguments.url,
+    dialogArguments.filename,
+    dialogArguments.isSniffingMimeType,
+    dialogArguments.guessedMimeType,
+    dialogArguments.mimeType);
 
-function handleDetails(url, filename, guessedMimeType, mimeType) {
+function handleDetails(url, filename, isSniffingMimeType, guessedMimeType, mimeType) {
     // Note: There is so much junk before the title that it is often unreadable,
     // at least until https://bugzil.la/1296365 is fixed.
     document.title = chrome.i18n.getMessage('opening_title', filename);
 
-    renderMetadata(filename, guessedMimeType, mimeType);
+    renderMetadata(filename, isSniffingMimeType, guessedMimeType, mimeType);
 
     renderURL(url);
 
@@ -118,11 +121,12 @@ function resizeDialog(/*boolean*/ moveDialog) {
     }
 }
 
-function renderMetadata(/*string*/ filename, /*string*/ guessedMimeType, /*string*/ mimeType) {
+function renderMetadata(filename, isSniffingMimeType, guessedMimeType, mimeType) {
+    var effectiveMimeType = isSniffingMimeType ? guessedMimeType : mimeType;
     $('filename').textContent = filename;
     $('filename').title = filename;
 
-    $('content-type').textContent = mime_getFriendlyName(guessedMimeType) || guessedMimeType;
+    $('content-type').textContent = mime_getFriendlyName(effectiveMimeType) || effectiveMimeType;
 
     var mimeTooltip = 'Server-sent MIME: ' + mimeType;
     if (guessedMimeType !== mimeType) {
@@ -130,7 +134,7 @@ function renderMetadata(/*string*/ filename, /*string*/ guessedMimeType, /*strin
     }
     $('content-type').title = mimeTooltip;
 
-    var iconUrl = mime_getIcon(guessedMimeType) || mime_getIcon(mimeType);
+    var iconUrl = mime_getIcon(effectiveMimeType) || mime_getIcon(mimeType);
     if (iconUrl) {
         $('metadata-block').style.backgroundImage = 'url("' + iconUrl + '")';
     }
@@ -138,7 +142,7 @@ function renderMetadata(/*string*/ filename, /*string*/ guessedMimeType, /*strin
     if (importReturnValue()) {
         return;
     }
-    var suggestedMimeAction = getSuggestedMimeAction(guessedMimeType);
+    var suggestedMimeAction = getSuggestedMimeAction(effectiveMimeType);
     if (suggestedMimeAction) {
         $('mime-type').value = suggestedMimeAction;
         if ($('mime-type').selectedIndex === -1) {
