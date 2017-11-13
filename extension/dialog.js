@@ -134,10 +134,7 @@ function renderMetadata(filename, isSniffingMimeType, guessedMimeType, mimeType)
     }
     $('content-type').title = mimeTooltip;
 
-    var iconUrl = mime_getIcon(effectiveMimeType) || mime_getIcon(mimeType);
-    if (iconUrl) {
-        $('metadata-block').style.backgroundImage = 'url("' + iconUrl + '")';
-    }
+    $('metadata-block').style.backgroundImage = 'url("' + mime_getIcon(effectiveMimeType) + '")';
 
     if (importReturnValue()) {
         return;
