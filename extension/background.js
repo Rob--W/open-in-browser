@@ -40,6 +40,12 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
                         responseHeaders: details.responseHeaders
                     };
                 }
+                // TODO: Use webRequest.filterResponseData to peek in the response and detect
+                // whether the content is to be detected as text or binary.
+                // If binary, show the custom "Open in Browser" dialog.
+                // For implementation details, see
+                // https://github.com/Rob--W/open-in-browser/issues/5
+                return;
             }
             // Uncertain whether MIME-type triggers download. Exit now, to be on the safe side.
             return;
