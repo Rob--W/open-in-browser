@@ -67,6 +67,7 @@ function afterProcessingAllInputFiles() {
     Object.keys(i18n).forEach(function(locale) {
         var filename = path.join(extensionRoot, localePathPrefix + locale + localePathSuffix);
         // Pretty-print for better git diff
+        i18n[locale] = sortObjectValues(i18n[locale]);
         var messages = JSON.stringify(i18n[locale], null, '\t');
         mkdirSync(path.dirname(filename));
         fs.writeFileSync(filename, messages);
@@ -129,11 +130,27 @@ function afterProcessingAllInputFiles() {
     '/* eslint-disable max-len */',
     ];
     mimeMetadata = mimeMetadata.join('\n') + '\n';
-    metadata.allMimeTypes.sort();
     metadata.nonGenericIcons = iconNames;
     metadata.supportedLocales = Object.keys(i18n);
+
+    for (var [key, value] of Object.entries(metadata)) {
+        metadata[key] = sortObjectValues(value);
+    }
+
     mimeMetadata += 'var mimeMetadata = ' + JSON.stringify(metadata, null, '\t') + ';\n';
     fs.writeFileSync(outputFile, mimeMetadata);
+}
+
+function sortObjectValues(object) {
+    // Stably sort the values in the dictionary, lexicographically.
+    if (Array.isArray(object)) {
+        return object.sort();
+    }
+    var obj = {};
+    for (var k of Object.keys(object).sort()) {
+        obj[k] = object[k];
+    }
+    return obj;
 }
 
 var metadata = {
@@ -141,6 +158,8 @@ var metadata = {
     extensionToMime: {},
     aliases: {},
     allMimeTypes: [],
+    nonGenericIcons: [],
+    supportedLocales: [],
 };
 var i18n = {};
 
