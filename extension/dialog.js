@@ -87,6 +87,8 @@ function resizeDialog(/*boolean*/ moveDialog) {
     var HEIGHT = dialogMain.scrollHeight + verticalDialogPadding;
     dialogMain.style.minWidth = '';
 
+    // Note: A side effect of resizing the window is that we work around a bug where
+    // the window is initially painted blank. https://bugzil.la/1408446
     if (moveDialog === true) {
         chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {
             width: WIDTH,
