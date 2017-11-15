@@ -21,6 +21,9 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     var contentDisposition = getHeader(details.responseHeaders, 'content-disposition');
     var isSniffingTextPlain = ContentHandlers.isSniffableTextPlain(originalCT.contentType,
         getHeader(details.responseHeaders, 'content-encoding'));
+    var contentLength = getHeader(details.responseHeaders, 'content-length');
+    if (contentLength !== undefined) contentLength = parseInt(contentLength);
+    contentLength = contentLength >= 0 ? contentLength : -1;
     var {mimeType} = originalCT;
 
     if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
@@ -50,6 +53,11 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             // Uncertain whether MIME-type triggers download. Exit now, to be on the safe side.
             return;
         }
+        if (contentLength <= 0 && !mimeType) {
+            // No specified content type, so defaulting to content sniffing.
+            // There is however no content to sniff, so do not show a dialog.
+            return;
+        }
     }
 
     // Determine file name
@@ -60,10 +68,6 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     if (!filename) {
         filename = getFilenameFromURL(details.url);
     }
-
-    var contentLength = getHeader(details.responseHeaders, 'content-length');
-    if (contentLength !== undefined) contentLength = parseInt(contentLength);
-    contentLength = contentLength >= 0 ? contentLength : -1;
 
     var guessedMimeType = mime_fromFilename(filename) || mimeType;
     var isSniffingMimeType =
