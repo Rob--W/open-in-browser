@@ -11,13 +11,15 @@
 var $ = document.getElementById.bind(document);
 
 var dialogArguments = JSON.parse(decodeURIComponent(window.location.hash.slice(1)));
-handleDetails(dialogArguments.url,
-    dialogArguments.filename,
-    dialogArguments.isSniffingMimeType,
-    dialogArguments.guessedMimeType,
-    dialogArguments.mimeType);
+handleDetails(dialogArguments);
 
-function handleDetails(url, filename, isSniffingMimeType, guessedMimeType, mimeType) {
+function handleDetails({
+    url,
+    filename,
+    isSniffingMimeType,
+    guessedMimeType,
+    mimeType,
+}) {
     // Note: There is so much junk before the title that it is often unreadable,
     // at least until https://bugzil.la/1296365 is fixed.
     document.title = chrome.i18n.getMessage('opening_title', filename);
