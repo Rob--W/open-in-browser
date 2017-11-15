@@ -16,13 +16,28 @@ var ContentHandlers = {};
  * @returns {ParsedContentType} The parsed value of `contentType`.
  */
 ContentHandlers.parseResponseContentType = function(contentType) {
-    // TODO: Implement
+    let parsedContentType = {
+        contentType,
+        mimeType: '',
+        charset: '',
+    };
+    // JS implementation of net_ParseContentType:
     // https://searchfox.org/mozilla-central/rev/8a6a6bef7c54425970aa4fb039cc6463a19c0b7f/netwerk/base/nsURLHelper.cpp#978-1030
+    let curTypeStart = 0;
+    do {
+        // curTypeStart points to the start of the current media-type.  We want
+        // to look for its end.
+        let curTypeEnd = _findMediaDelimiter(contentType, curTypeStart, ',');
+        // At this point curTypeEnd points to the spot where the media-type
+        // starting at curTypeEnd ends.  Time to parse that!
+        _parseMediaType(
+            contentType.substring(curTypeStart, curTypeEnd),
+            parsedContentType);
+        // And let's move on to the next media-type
+        curTypeStart = curTypeEnd + 1;
+    } while (curTypeStart < contentType.length);
 
-    // For now, cater for the common case ("type/subtype"):
-    let mimeType = contentType.split(';', 1)[0].trim().toLowerCase();
-    let charset = '';
-    return {contentType, mimeType, charset};
+    return parsedContentType;
 };
 
 /**
@@ -146,6 +161,119 @@ startxref
         }, 1000);
         document.body.appendChild(o);
     });
+}
+
+// Find media delimiter; skipping over quoted strings if any.
+function _findMediaDelimiter(flatStr, searchStart, delimiter) {
+    // JS implementation of net_FindMediaDelimiter:
+    // https://searchfox.org/mozilla-central/rev/a662f122c37704456457a526af90db4e3c0fd10e/netwerk/base/nsURLHelper.cpp#798-831
+    for (;;) {
+        let curDelimPos = flatStr.indexOf(delimiter, searchStart);
+        if (curDelimPos === -1) curDelimPos = flatStr.length;
+        let strDelimPos = flatStr.indexOf('"', searchStart);
+        if (strDelimPos === -1 || strDelimPos >= curDelimPos) return curDelimPos;
+        // We hit the start of a quoted string.  Look for its end.
+        searchStart = _findStringEnd(flatStr, strDelimPos);
+        if (searchStart === flatStr.length) return searchStart;
+        ++searchStart;
+        // searchStart now points to the first char after the end of the
+        // string, so just go back to the top of the loop and look for
+        // |delimiter| again.
+    }
+}
+
+function _findPatternOrEnd(flatStr, searchStart, pattern) {
+    var flatStrLen = flatStr.length;
+    if (searchStart && searchStart < flatStrLen) {
+        flatStr = flatStr.slice(searchStart);
+    }
+    let i = flatStr.search(pattern);
+    return i === -1 ? flatStrLen : searchStart + i;
+}
+
+function _findStringEnd(flatStr, stringStart) {
+    // JS implementation of net_FindStringEnd:
+    // https://searchfox.org/mozilla-central/rev/a662f122c37704456457a526af90db4e3c0fd10e/netwerk/base/nsURLHelper.cpp#756-795
+    // Firefox's implementation allows for single quotes, but in practice only double-quotes are
+    // passed. This is because RFC 2616 only allows double quotes as delimiter.
+    console.assert(flatStr.charAt(stringStart) === '"', 'stringStart must be a double quote.');
+    for (let i = stringStart + 1; i < flatStr.length; ++i) {
+        if (flatStr[i] === '"') {
+            return i;
+        }
+        if (flatStr[i] === '\\') {
+            // Hit a backslash-escaped char.  Need to skip over it.
+            ++i;
+        }
+    }
+    return flatStr.length;
+}
+
+function _parseMediaType(flatStr, parsedContentType) {
+    // JS implementation of net_ParseMediaType:
+    // https://searchfox.org/mozilla-central/rev/a662f122c37704456457a526af90db4e3c0fd10e/netwerk/base/nsURLHelper.cpp#833-962
+    // The following parameters are implemented:
+    //   aMediaTypeStr -> flatStr
+    //   &aContentType -> parsedContentType.mimeType
+    //   &aContentCharset -> parsedContentType.charset
+    // All others (aHadCharset, aCharsetStart, aCharsetEnd, aStrict) are not.
+
+    // Skip HTTP_LWS.
+    let typeStart = _findPatternOrEnd(flatStr, 0, /[^ \t]/);
+    let typeEnd = _findPatternOrEnd(flatStr, typeStart, /[ \t;(]/);
+
+    let charsetValue = '';
+    let paramStart = flatStr.indexOf(';', typeEnd);
+    if (paramStart !== -1) {
+        let curParamStart = paramStart + 1;
+        do {
+            let curParamEnd = _findMediaDelimiter(flatStr, curParamStart, ';');
+            let charsetPattern = /[ \t]*charset=/iy;
+            charsetPattern.lastIndex = curParamStart;
+            if (charsetPattern.test(flatStr)) {
+                charsetValue = flatStr.slice(charsetPattern.lastIndex, curParamEnd);
+            }
+            curParamStart = curParamEnd + 1;
+        } while (curParamStart < flatStr.length);
+    }
+
+    let charsetNeedsQuotedStringUnescaping = false;
+    if (charsetValue) {
+        if (charsetValue.charAt(0) === '"') {
+            charsetNeedsQuotedStringUnescaping = true;
+            let end = _findStringEnd(charsetValue, 0);
+            charsetValue = charsetValue.slice(1, end);
+        } else {
+            let end = _findPatternOrEnd(charsetValue, 0, /[ \t;(]/);
+            charsetValue = charsetValue.slice(0, end);
+        }
+    }
+
+    // if the server sent "*/*", it is meaningless, so do not store it.
+    // also, if type is the same as aContentType, then just update the
+    // charset.  however, if charset is empty and aContentType hasn't
+    // changed, then don't wipe-out an existing aContentCharset.  We
+    // also want to reject a mime-type if it does not include a slash.
+    // some servers give junk after the charset parameter, which may
+    // include a comma, so this check makes us a bit more tolerant.
+
+    let mimeType = flatStr.slice(typeStart, typeEnd).toLowerCase();
+    if (mimeType && mimeType.includes('/') && mimeType !== '*/*') {
+        let eq = parsedContentType.mimeType !== '' &&
+            parsedContentType.mimeType === mimeType;
+        if (!eq) {
+            parsedContentType.mimeType = mimeType;
+        }
+        if (!eq && parsedContentType.charset || charsetValue) {
+            if (charsetNeedsQuotedStringUnescaping) {
+                // parameters using the "quoted-string" syntax need
+                // backslash-escapes to be unescaped (see RFC 2616 Section 2.2)
+                parsedContentType.charset = charsetValue.replace(/\\(.)/g, '$1');
+            } else {
+                parsedContentType.charset = charsetValue;
+            }
+        }
+    }
 }
 
 // Most of the following types are registered in Firefox to the "Gecko-Content-Viewers" category.
