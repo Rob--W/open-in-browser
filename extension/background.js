@@ -60,6 +60,11 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     if (!filename) {
         filename = getFilenameFromURL(details.url);
     }
+
+    var contentLength = getHeader(details.responseHeaders, 'content-length');
+    if (contentLength !== undefined) contentLength = parseInt(contentLength);
+    contentLength = contentLength >= 0 ? contentLength : -1;
+
     var guessedMimeType = mime_fromFilename(filename) || mimeType;
     var isSniffingMimeType =
         mimeType === 'application/octet-stream' && Prefs.get('octet-sniff-mime');
@@ -70,6 +75,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             desiredAction: desiredAction,
             url: details.url,
             filename: filename,
+            contentLength: contentLength,
             contentType: originalCT.contentType,
             guessedMimeType: guessedMimeType,
             mimeType: mimeType,

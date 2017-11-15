@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "பிற பயன்பாட்டைத் தேர்ந்தெடு"
+	},
+	"bytes": {
+		"message": "பைட்கள்"
+	},
+	"kilobyte": {
+		"message": "KB"
+	},
+	"megabyte": {
+		"message": "MB"
+	},
+	"gigabyte": {
+		"message": "GB"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

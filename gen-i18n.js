@@ -107,8 +107,17 @@ var SOURCES = [{
         'button-cancel'
     ]
 }, {
+    source: '/chrome/mozapps/downloads/downloads.properties',
+    properties: [
+        'bytes',
+        'kilobyte',
+        'megabyte',
+        'gigabyte',
+    ],
+}, {
     source: '/chrome/mozapps/downloads/unknownContentType.properties',
     properties: [
+        'orderedFileSizeWithType',
         'opening_title'
     ],
     aliases: {
@@ -132,6 +141,10 @@ var SOURCES = [{
     },
 }];
 
+var EXPECTED_DOLLARS = {
+    orderedFileSizeWithType: 3,
+};
+
 /**
  * @param json {object} Object to be fed to messages.json
  */
@@ -139,6 +152,7 @@ function POST_TRANSLATE_HOOK(json) {
     // extension/i18n.js will replace "brandShortName" with the browser name.
     replace('actionQuestion', '&brandShortName;', 'brandShortName');
     replace('opening_title', '%S', '$1');
+    replace('orderedFileSizeWithType', /%([1-3])\$S/g, '$$$1');
 
     function replace(key, searchTerm, replacer) {
         key = key.replace(/-/g, '_');
@@ -243,7 +257,14 @@ function transferTranslationToTarget(responseText, target, pattern, sourceDefini
         if (/\W/.test(identifier)) {
             console.warn('Illegal symbol in identifier: ' + identifier);
         }
-        if (value.indexOf('$') >= 0) {
+        var expectedDollars = EXPECTED_DOLLARS[identifier] || 0;
+        var actualDollars = value.split('$').length - 1;
+        if (expectedDollars === actualDollars) {
+            // Cool. Nothing to do.
+        } else if (expectedDollars) {
+            console.warn('Expected ' + expectedDollars + ' "$" in translation: ' + identifier +
+                '=' + value + ' (but found ' + actualDollars + ')');
+        } else {
             console.warn('Found "$" in translation: ' + identifier + '=' + value);
         }
         target[identifier] = {

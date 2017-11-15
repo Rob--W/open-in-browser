@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "בחירה ביישום אחר"
+	},
+	"bytes": {
+		"message": "בתים"
+	},
+	"kilobyte": {
+		"message": "ק״ב"
+	},
+	"megabyte": {
+		"message": "מ״ב"
+	},
+	"gigabyte": {
+		"message": "ג״ב"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

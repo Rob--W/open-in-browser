@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "अन्य अनुप्रयोग चुनें"
+	},
+	"bytes": {
+		"message": "बाइट्स"
+	},
+	"kilobyte": {
+		"message": "केबी"
+	},
+	"megabyte": {
+		"message": "एमबी"
+	},
+	"gigabyte": {
+		"message": "जीबी"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

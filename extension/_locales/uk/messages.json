@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "Вибір іншої програми"
+	},
+	"bytes": {
+		"message": "байт"
+	},
+	"kilobyte": {
+		"message": "Кб"
+	},
+	"megabyte": {
+		"message": "Мб"
+	},
+	"gigabyte": {
+		"message": "Гб"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

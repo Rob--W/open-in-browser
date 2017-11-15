@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "અન્ય એપ્લિકેશન પસંદ કરો"
+	},
+	"bytes": {
+		"message": "બાઈટો"
+	},
+	"kilobyte": {
+		"message": "KB"
+	},
+	"megabyte": {
+		"message": "MB"
+	},
+	"gigabyte": {
+		"message": "GB"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

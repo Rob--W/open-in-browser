@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "Vali muu rakendus"
+	},
+	"bytes": {
+		"message": "baiti"
+	},
+	"kilobyte": {
+		"message": "KiB"
+	},
+	"megabyte": {
+		"message": "MiB"
+	},
+	"gigabyte": {
+		"message": "GiB"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

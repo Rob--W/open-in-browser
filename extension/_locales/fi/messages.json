@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "Valitse toinen ohjelma"
+	},
+	"bytes": {
+		"message": "tavua"
+	},
+	"kilobyte": {
+		"message": "kt"
+	},
+	"megabyte": {
+		"message": "Mt"
+	},
+	"gigabyte": {
+		"message": "Gt"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 -tiedosto ($2 $3)"
 	}
 }

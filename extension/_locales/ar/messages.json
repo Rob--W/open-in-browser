@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "اختر تطبيقا آخر"
+	},
+	"bytes": {
+		"message": "بايتات"
+	},
+	"kilobyte": {
+		"message": "ك.بايت"
+	},
+	"megabyte": {
+		"message": "م.بايت"
+	},
+	"gigabyte": {
+		"message": "ج.بايت"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

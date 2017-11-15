@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "ಬೇರೆ ಅನ್ವಯವನ್ನು ಆರಿಸು"
+	},
+	"bytes": {
+		"message": "ಬೈಟ್‌ಗಳು"
+	},
+	"kilobyte": {
+		"message": "KB"
+	},
+	"megabyte": {
+		"message": "MB"
+	},
+	"gigabyte": {
+		"message": "GB"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

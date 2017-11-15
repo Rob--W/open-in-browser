@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "Choisir une autre application"
+	},
+	"bytes": {
+		"message": "octets"
+	},
+	"kilobyte": {
+		"message": "Ko"
+	},
+	"megabyte": {
+		"message": "Mo"
+	},
+	"gigabyte": {
+		"message": "Go"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

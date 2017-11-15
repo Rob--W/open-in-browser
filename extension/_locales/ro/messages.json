@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "Alege o altă aplicație"
+	},
+	"bytes": {
+		"message": "byți"
+	},
+	"kilobyte": {
+		"message": "KB"
+	},
+	"megabyte": {
+		"message": "MB"
+	},
+	"gigabyte": {
+		"message": "GB"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

@@ -34,5 +34,20 @@
 	},
 	"openWith": {
 		"message": "തുറക്കേണ്ട പ്റയോഗം"
+	},
+	"bytes": {
+		"message": "ബൈറ്റുകള്‍"
+	},
+	"kilobyte": {
+		"message": "കെ.ബി."
+	},
+	"megabyte": {
+		"message": "എം.ബി."
+	},
+	"gigabyte": {
+		"message": "ജി.ബി."
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

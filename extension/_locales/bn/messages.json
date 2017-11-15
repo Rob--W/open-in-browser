@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "অন্য অ্যাপ্লিকেশন বাছুন"
+	},
+	"bytes": {
+		"message": "বাইট"
+	},
+	"kilobyte": {
+		"message": "KB"
+	},
+	"megabyte": {
+		"message": "MB"
+	},
+	"gigabyte": {
+		"message": "গিগাবাইট"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

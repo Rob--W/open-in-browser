@@ -16,6 +16,7 @@ handleDetails(dialogArguments);
 function handleDetails({
     url,
     filename,
+    contentLength,
     isSniffingMimeType,
     guessedMimeType,
     mimeType,
@@ -24,7 +25,7 @@ function handleDetails({
     // at least until https://bugzil.la/1296365 is fixed.
     document.title = chrome.i18n.getMessage('opening_title', filename);
 
-    renderMetadata(filename, isSniffingMimeType, guessedMimeType, mimeType);
+    renderMetadata(filename, contentLength, isSniffingMimeType, guessedMimeType, mimeType);
 
     renderURL(url);
 
@@ -123,12 +124,15 @@ function resizeDialog(/*boolean*/ moveDialog) {
     }
 }
 
-function renderMetadata(filename, isSniffingMimeType, guessedMimeType, mimeType) {
+function renderMetadata(filename, contentLength, isSniffingMimeType, guessedMimeType, mimeType) {
     var effectiveMimeType = isSniffingMimeType ? guessedMimeType : mimeType;
     $('filename').textContent = filename;
     $('filename').title = filename;
 
-    $('content-type').textContent = mime_getFriendlyName(effectiveMimeType) || effectiveMimeType;
+    $('content-type').textContent =
+        formatTypeAndSize(
+            mime_getFriendlyName(effectiveMimeType) || effectiveMimeType,
+            contentLength);
 
     var mimeTooltip = 'Server-sent MIME: ' + mimeType;
     if (guessedMimeType !== mimeType) {
@@ -150,7 +154,37 @@ function renderMetadata(filename, isSniffingMimeType, guessedMimeType, mimeType)
             $('mime-type').value = 'original';
         }
     }
-    
+}
+
+/**
+ * @param {string} typeString The description of the file type.
+ * @param {number} bytes The number of bytes in the response, -1 if unknown.
+ * @returns {string} A localized, formatted string that shows the given information.
+ */
+function formatTypeAndSize(typeString, bytes) {
+    // Following the logic from
+    // https://searchfox.org/mozilla-central/rev/a662f122c37704456457a526af90db4e3c0fd10e/toolkit/mozapps/downloads/nsHelperAppDlg.js#629-639
+    if (bytes === -1) {
+        return typeString;
+    }
+    // https://searchfox.org/mozilla-central/rev/a662f122c37704456457a526af90db4e3c0fd10e/toolkit/mozapps/downloads/DownloadUtils.jsm#447-478
+    var unitIndex = 0;
+    var units = ['bytes', 'kilobyte', 'megabyte', 'gigabyte'];
+    while (bytes >= 999.5 && unitIndex < units.length - 1) {
+        bytes /= 1024;
+        unitIndex++;
+    }
+    var bytesString = 'Infinity';
+    if (isFinite(bytes)) {
+        var fractionDigits = bytes > 0 && bytes < 100 && unitIndex !== 0 ? 1 : 0;
+        var locale = Intl.NumberFormat().resolvedOptions().locale + '-u-nu-latn';
+        bytesString = Intl.NumberFormat(locale, {
+            maximumFractionDigits: fractionDigits,
+            minimumFractionDigits: fractionDigits,
+        }).format(bytes);
+    }
+    var unitString = chrome.i18n.getMessage(units[unitIndex]);
+    return chrome.i18n.getMessage('orderedFileSizeWithType', [typeString, bytesString, unitString]);
 }
 
 function getSuggestedMimeAction(/*string*/ mimeType) {

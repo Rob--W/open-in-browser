@@ -34,5 +34,20 @@
 	},
 	"openWith": {
 		"message": "Fungua na"
+	},
+	"bytes": {
+		"message": "baiti"
+	},
+	"kilobyte": {
+		"message": "KB"
+	},
+	"megabyte": {
+		"message": "MB"
+	},
+	"gigabyte": {
+		"message": "GB"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

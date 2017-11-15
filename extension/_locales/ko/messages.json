@@ -37,5 +37,20 @@
 	},
 	"chooseOtherApp": {
 		"message": "다른 어플리케이션 선택"
+	},
+	"bytes": {
+		"message": "바이트"
+	},
+	"kilobyte": {
+		"message": "KB"
+	},
+	"megabyte": {
+		"message": "MB"
+	},
+	"gigabyte": {
+		"message": "GB"
+	},
+	"orderedFileSizeWithType": {
+		"message": "$1 ($2 $3)"
 	}
 }

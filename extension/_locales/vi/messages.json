@@ -34,5 +34,17 @@
 	},
 	"openWith": {
 		"message": "Mở Bằng"
+	},
+	"bytes": {
+		"message": "byte"
+	},
+	"kilobyte": {
+		"message": "KB"
+	},
+	"megabyte": {
+		"message": "MB"
+	},
+	"gigabyte": {
+		"message": "GB"
 	}
 }
