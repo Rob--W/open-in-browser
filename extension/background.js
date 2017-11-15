@@ -58,6 +58,15 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             // There is however no content to sniff, so do not show a dialog.
             return;
         }
+        if (!mimeType && details.type === 'sub_frame') {
+            // No specified content type, so defaulting to content sniffing.
+            // Let the browser handle the content if it is a subframe navigation in an inactive tab.
+            // Content sniffing will be activated. If the tab is not active, do not show the
+            // dialog, in case it will just sniff to an inlineable type.
+            abortionObserver.setupBeforeAsyncTask(null);
+            let {active} = await browser.tabs.get(details.tabId).catch(() => ({active: false}));
+            if (!abortionObserver.continueAfterAsyncTask() || !active) return;
+        }
     }
 
     // Determine file name
