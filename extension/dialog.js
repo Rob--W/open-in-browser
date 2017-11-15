@@ -142,6 +142,12 @@ function renderMetadata(filename, contentLength, isSniffingMimeType, guessedMime
 
     $('metadata-block').style.backgroundImage = 'url("' + mime_getIcon(effectiveMimeType) + '")';
 
+    if (effectiveMimeType === '') {
+        // Hide the "Choose other Application" text, in case the content is sniffed to an inlineable
+        // type.
+        $('openwith-other-app-info').hidden = true;
+    }
+
     if (importReturnValue()) {
         return;
     }
@@ -321,10 +327,12 @@ function importReturnValue() {
     var returnValue = dialogArguments.desiredAction;
     if (!returnValue.action) {
         if (dialogArguments.isSniffingMimeType) {
-            $('mime-type').value = 'sniffed';
-            return true;
+            returnValue = {action: MimeActions.OIB_SERVER_SNIFF};
+        } else if (dialogArguments.mimeType === '') {
+            returnValue = {action: MimeActions.OPENWITH};
+        } else {
+            return false;
         }
-        return false;
     }
     // Use saved value
     var choice;
