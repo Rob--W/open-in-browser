@@ -195,7 +195,7 @@ function formatTypeAndSize(typeString, bytes) {
 
 function getSuggestedMimeAction(/*string*/ mimeType) {
     // The mime-to-icon mapping is quite accurate, so re-use the information.
-    var iconType = mimeMetadata.mimeToIcon[mimeType] || (mimeType.split('/', 1)[0] + '-x-generic');
+    var iconType = mime_getIcon(mimeType).replace('icons/', '').replace('.png', '');
 
     switch (iconType) {
     case 'text-html':
@@ -215,8 +215,6 @@ function getSuggestedMimeAction(/*string*/ mimeType) {
     default:
         if (mimeType.lastIndexOf('+xml') !== -1)
             return 'text/xml';
-        if ((mimeMetadata.aliases[mimeType] || mimeType) === 'application/pdf')
-            return 'application/pdf';
         return 'original'; // Open as server-sent MIME = most likely download
     }
 }
