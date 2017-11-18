@@ -110,7 +110,7 @@ function afterProcessingAllInputFiles() {
     '\t\t}',
     '\t\treturn messages[mime];',
     '\t}',
-    '\tlocale = navigator.language.replace("-", "_");',
+    '\tlocale = navigator.language.replace("-", "_") || "en";',
     '\tif (mimeMetadata.supportedLocales.indexOf(locale) === -1) locale = locale.split("_")[0];',
     '\treturn mime_getFriendlyName(mime, locale) || mime_getFriendlyName(mime, "en");',
     '}',

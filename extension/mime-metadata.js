@@ -28,7 +28,7 @@ function mime_getFriendlyName(mime, /*optional*/ locale) {
 		}
 		return messages[mime];
 	}
-	locale = navigator.language.replace("-", "_");
+	locale = navigator.language.replace("-", "_") || "en";
 	if (mimeMetadata.supportedLocales.indexOf(locale) === -1) locale = locale.split("_")[0];
 	return mime_getFriendlyName(mime, locale) || mime_getFriendlyName(mime, "en");
 }
