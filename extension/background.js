@@ -8,6 +8,10 @@ var dialogURL = chrome.extension.getURL('dialog.html');
 var r_contentDispositionAttachment = /^\s*attachment/;
 var r_contentDispositionFilename = /[; ]filename(\*?)=(["']?)(.+)\2/;
 
+var gForceDialog = 0;
+var gForceDialogAllFrames = false;
+var gForceDialogAllTabs = false;
+
 Prefs.init();
 
 chrome.webRequest.onHeadersReceived.addListener(async function(details) {
@@ -26,7 +30,28 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     contentLength = contentLength >= 0 ? contentLength : -1;
     var {mimeType} = originalCT;
 
-    if (!contentDisposition || !r_contentDispositionAttachment.test(contentDisposition)) {
+    var needsDialog = contentDisposition && r_contentDispositionAttachment.test(contentDisposition);
+    var forceDialog = false;
+    if (gForceDialog > 0) {
+        forceDialog = gForceDialogAllFrames || details.type === 'main_frame';
+        if (forceDialog && !gForceDialogAllTabs) {
+            abortionObserver.setupBeforeAsyncTask(null);
+            let {active} = await browser.tabs.get(details.tabId).catch(() => ({active: false}));
+            if (!abortionObserver.continueAfterAsyncTask()) return;
+            if (!active) forceDialog = false;
+        }
+        // Need to check "gForceDialog > 0" condition again because it is possible for multiple
+        // requests to be send while we were asynchronously determining the tab active state.
+        if (forceDialog && gForceDialog > 0) {
+            if (!--gForceDialog) {
+                browser.menus.update('MENU_OIB_ONCE', {checked: false});
+            }
+        } else {
+            forceDialog = false;
+        }
+    }
+
+    if (!needsDialog && !forceDialog) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
         let canDisplayInline = ContentHandlers.canDisplayInline(originalCT);
         if (typeof canDisplayInline !== 'boolean') {
@@ -131,6 +156,64 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     urls: ['*://*/*'],
     types: ['main_frame', 'sub_frame']
 }, ['blocking', 'responseHeaders']);
+
+browser.menus.create({
+    id: 'MENU_OIB_ONCE',
+    contexts: ['tools_menu'],
+    title: 'Enable for next request',
+    checked: false,
+    type: 'checkbox',
+    onclick(info) {
+        gForceDialog = info.checked ? 1 : 0;
+    },
+});
+
+browser.menus.create({
+    id: 'MENU_OIB_FOREVER',
+    contexts: ['tools_menu'],
+    title: 'Enable for all requests',
+    checked: false,
+    type: 'checkbox',
+    onclick(info) {
+        gForceDialog = info.checked ? Infinity : 0;
+        // If enabled forever, "enable for next request" does not make sense.
+        browser.menus.update('MENU_OIB_ONCE', {
+            enabled: !info.checked,
+            checked: false,
+        });
+    },
+});
+
+browser.menus.create({
+    id: 'MENU_OIB_ACTIVE_TABS',
+    contexts: ['tools_menu'],
+    title: 'Include requests from all tabs',
+    checked: false,
+    type: 'checkbox',
+    onclick(info) {
+        gForceDialogAllTabs = info.checked;
+    },
+});
+
+browser.menus.create({
+    id: 'MENU_OIB_ALL_FRAMES',
+    contexts: ['tools_menu'],
+    title: 'Include requests from frames',
+    checked: false,
+    type: 'checkbox',
+    onclick(info) {
+        gForceDialogAllFrames = info.checked;
+    },
+});
+
+browser.menus.create({
+    id: 'MENU_OIB_PREFS',
+    contexts: ['tools_menu'],
+    title: 'Preferences',
+    onclick() {
+        browser.runtime.openOptionsPage();
+    },
+});
 
 /**
  * Get the value of a header from the list of headers for a given name.

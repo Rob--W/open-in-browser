@@ -29,6 +29,7 @@
     },
     "permissions": [
         "history",
+        "menus",
         "tabs",
         "webNavigation",
         "webRequest",
