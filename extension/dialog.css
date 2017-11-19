@@ -15,7 +15,7 @@ html, body {
     direction: __MSG_@@bidi_dir__;
 }
 body {
-    font-size: 16px;
+    font-size: 1rem;
     font-family: 'Segoe UI', 'Lucida Grande', 'Ubuntu', sans-serif;
     background-color: ButtonFace;
     color: ButtonText;
@@ -111,7 +111,7 @@ label {
 }
 
 input, select {
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .mime-container {
