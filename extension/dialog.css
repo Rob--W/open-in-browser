@@ -11,12 +11,10 @@
 html, body {
     margin: 0;
     padding: 0;
-    line-height: 1.4em;
     direction: __MSG_@@bidi_dir__;
 }
 body {
-    font-size: 1rem;
-    font-family: 'Segoe UI', 'Lucida Grande', 'Ubuntu', sans-serif;
+    font: message-box;
     background-color: ButtonFace;
     color: ButtonText;
 }
@@ -25,8 +23,9 @@ body {
 }
 
 
+
 #metadata-block {
-    margin: 0.3em 0 0.7em;
+    margin: calc(0.5em + 4px) 0 0.7em;
     /* ltr=left, rtl=right*/
     padding-__MSG_@@bidi_start_edge__: 40px;
     background-image: url('icons/unknown.png');
@@ -52,6 +51,10 @@ body {
 }
 
 
+.whichisline {
+    margin-top: calc(0.5em + 1px);
+    margin-bottom: 3px;
+}
 
 .url-container {
     height: 1.4em; /* same as line-height */
@@ -110,8 +113,8 @@ label {
     display: block;
 }
 
-input, select {
-    font-size: 1rem;
+button, select {
+    font: menu;
 }
 
 .mime-container {
@@ -128,6 +131,7 @@ input, select {
 
 
 .button-container {
+    margin-top: 1.5em;
     text-align: center;
 }
 .btn-ok, .btn-cancel {
