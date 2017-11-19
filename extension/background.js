@@ -19,6 +19,11 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         // Ignore all non-OK HTTP response
         return;
     }
+    if (details.tabId === -1) {
+        // Ignore requests that did not originate from a tab, such as requests from
+        // Firefox's page thumnail component - https://github.com/Rob--W/open-in-browser/issues/20
+        return;
+    }
     var abortionObserver = createWebRequestAbortionObserver(details);
     var originalCT = ContentHandlers.parseResponseContentType(
         getHeader(details.responseHeaders, 'content-type') || '');
