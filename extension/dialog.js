@@ -266,6 +266,12 @@ function bindFormEvents() {
         window.returnValue = undefined;
         closeDialog();
     };
+
+    // Windows    : [Ok] [Cancel]
+    // Linux/macOS: [Cancel] [Ok]
+    if (!/Win/.test(navigator.platform)) {
+        $('cancel').after($('confirm'));
+    }
 }
 
 function bindPreferenceEvents() {
