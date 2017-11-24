@@ -98,6 +98,24 @@ handler for the given document.</p>
         </div>
     </label>
 </div>
+<div class="row">
+    <label class="pref">
+        <input type="checkbox" id="pref-override-download-type">
+        Never ask to confirm "Save File" action (<code>application/prs.oib-ask-once</code>)
+        <div class="explanation">
+            When you choose "Save File", Firefox will show another confirmation dialog before
+            a file is saved (to your Downloads directory or via a "Save As" dialog).
+            <br>
+            To skip the confirmation, enable this option and follow the following steps:
+            <ol>
+                <li>Visit <code>about:config</code></li>
+                <li>Search for <code>neverAsk</code></li>
+                <li>Modify <code>browser.helperApps.neverAsk.saveToDisk</code> by double-clicking on the row.</li>
+                <li>Set the value to <code>application/prs.oib-ask-once</code></li>
+            </ol>
+        </div>
+    </label>
+</div>
 
 <h2>Your saved MIME actions</h2>
 Each of your preferred actions will be shown below. You can set a preferred action by ticking "Do this automatically for files like this from now on." in the "Open in Browser" dialog.

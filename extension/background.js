@@ -140,6 +140,17 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             setHeader(details.responseHeaders, 'Content-Disposition', 'inline');
         }
         if (desiredAction.action === MimeActions.DOWNLOAD) {
+            if (Prefs.get('override-download-type')) {
+                // Override download type to a non-existent type, presumably part of the
+                // "browser.helperApps.neverAsk.saveToDisk" pref (as explained in options.html).
+                // This type is chosen as follows:
+                // 1. The type is short but explanatory, so that those who encounter the preference
+                //    in the future can remember what the pref is doing.
+                // 2. The type is not registered in an external MIME handler
+                //    (= I created a new MIME type that no other application should handle).
+                //    Relevant code: https://searchfox.org/mozilla-central/rev/a5d613086ab4d0578510aabe8653e58dc8d7e3e2/uriloader/exthandler/nsExternalHelperAppService.cpp#1685-1704
+                setHeader(details.responseHeaders, 'Content-Type', 'application/prs.oib-ask-once');
+            }
             setHeader(details.responseHeaders, 'Content-Disposition',
                     'attachment; filename*=UTF-8\'\'' + encodeURIComponent(filename));
         }

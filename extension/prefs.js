@@ -29,6 +29,8 @@ var prefs = {
     'text-nosniff': false,
     // Whether to use the file extension for detecting type when mime=application/octet-stream
     'octet-sniff-mime': true,
+    // Whether to override the Content-Type response header for the "Download" action.
+    'override-download-type': '',
 };
 var prefHandlers = {};
 function init() {

@@ -95,6 +95,8 @@ bindBooleanPref('text-nosniff');
 
 bindBooleanPref('octet-sniff-mime');
 
+bindBooleanPref('override-download-type');
+
 Prefs.setPrefHandler('mime-mappings', renderMimeMappings);
 
 Prefs.setPrefHandler('sniffed-mime-mappings', renderSniffedMimeMappings);
