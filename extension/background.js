@@ -151,8 +151,12 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
                 //    Relevant code: https://searchfox.org/mozilla-central/rev/a5d613086ab4d0578510aabe8653e58dc8d7e3e2/uriloader/exthandler/nsExternalHelperAppService.cpp#1685-1704
                 setHeader(details.responseHeaders, 'Content-Type', 'application/prs.oib-ask-once');
             }
-            setHeader(details.responseHeaders, 'Content-Disposition',
-                    'attachment; filename*=UTF-8\'\'' + encodeURIComponent(filename));
+            if (contentDisposition) {
+                setHeader(details.responseHeaders, 'Content-Disposition',
+                    contentDisposition.replace(/^[^;]*(;?)/, 'attachment$1'));
+            } else {
+                setHeader(details.responseHeaders, 'Content-Disposition', 'attachment');
+            }
         }
         if (desiredAction.rememberChoice) {
             Prefs.setMimeAction(guessedMimeType, isSniffingMimeType, desiredAction);
