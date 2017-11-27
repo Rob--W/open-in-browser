@@ -2,10 +2,10 @@
  * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
  */
 /* globals Prefs, MimeActions, mime_fromFilename, ModalDialog, ContentHandlers */
+/* globals getFilenameFromContentDispositionHeader */
 'use strict';
 
 var dialogURL = chrome.extension.getURL('dialog.html');
-var r_contentDispositionFilename = /[; ]filename(\*?)=(["']?)(.+)\2/;
 
 var gForceDialog = 0;
 var gForceDialogAllFrames = false;
@@ -267,26 +267,6 @@ function setHeader(headers, headerName, headerValue) {
         name: headerName,
         value: headerValue
     });
-}
-
-/**
- * Extract file name from Content-Disposition header
- *
- * @param {string} contentDisposition
- * @return {string} Filename, if found in the Content-Disposition header.
- */
-function getFilenameFromContentDispositionHeader(contentDisposition) {
-    contentDisposition = r_contentDispositionFilename.exec(contentDisposition);
-    if (contentDisposition) {
-        var filename = contentDisposition[3];
-        if (contentDisposition[1]) { // "*" in "filename*=" (RFC 5987)
-            filename = filename.replace(/^[^']+'[^']*'/, '');
-        }
-        try {
-            filename = decodeURIComponent(filename);
-        } catch (e) {/* URIError */}
-        return filename;
-    }
 }
 
 /**

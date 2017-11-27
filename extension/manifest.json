@@ -15,6 +15,7 @@
             "mime-metadata.js",
             "prefs.js",
             "dialogmanager.js",
+            "content-disposition.js",
             "content-handlers-firefox.js",
             "background.js"
         ]
