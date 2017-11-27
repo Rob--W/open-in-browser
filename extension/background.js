@@ -307,6 +307,13 @@ function createWebRequestAbortionObserver(details) {
     var isAborted = false;
     function onErrorOccurred(errorDetails) {
         if (errorDetails.requestId === details.requestId) {
+            if (errorDetails.error === 'NS_ERROR_NET_ON_RECEIVING_FROM') {
+                // This "error" is triggered even when the request has not been
+                // aborted. So ignore this "error".
+                // https://github.com/Rob--W/open-in-browser/issues/28
+                // https://bugzil.la/1420917
+                return;
+            }
             onAborted();
         }
     }
