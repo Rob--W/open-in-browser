@@ -117,9 +117,15 @@ function resizeDialog(/*boolean*/ moveDialog) {
             resizeDialog(false);
         });
     } else {
+        // Work-around for https://github.com/Rob--W/open-in-browser/issues/29
+        document.body.style.overflow = 'hidden';
         chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {
             width: WIDTH,
             height: HEIGHT,
+        }, function() {
+            setTimeout(function() {
+                document.body.style.overflow = '';
+            });
         });
     }
 }
