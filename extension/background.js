@@ -89,12 +89,12 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         }
         if (!mimeType && details.type === 'sub_frame') {
             // No specified content type, so defaulting to content sniffing.
-            // Let the browser handle the content if it is a subframe navigation in an inactive tab.
-            // Content sniffing will be activated. If the tab is not active, do not show the
-            // dialog, in case it will just sniff to an inlineable type.
-            abortionObserver.setupBeforeAsyncTask(null);
-            let {active} = await browser.tabs.get(details.tabId).catch(() => ({active: false}));
-            if (!abortionObserver.continueAfterAsyncTask() || !active) return;
+            // Do not show a dialog, in case the result would be sniffed to an inlineable type.
+            // It is probably more likely for a response to be sniffed as an inlineable type
+            // than a downloadable type. If the sniffer would normally trigger a Save As dialog,
+            // then it is most likely that the user intents to save the result. In this case,
+            // Firefox's default Save As dialog will meet the user's needs.
+            return;
         }
     }
 
