@@ -153,7 +153,7 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
         // encoding = q or b
         // encoded-text = any printable ASCII character other than ? or space.
         //                ... but Firefox permits ? and space.
-        return value.replace(/=\?([\w\-]*)\?([QqBb])\?((?:[^?]|\?(?!=))*)\?=/g,
+        return value.replace(/=\?([\w-]*)\?([QqBb])\?((?:[^?]|\?(?!=))*)\?=/g,
             function(_, charset, encoding, text) {
                 if (encoding === 'q' || encoding === 'Q') {
                     // RFC 2047 section 4.2.
