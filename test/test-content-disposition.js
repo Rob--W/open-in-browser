@@ -265,4 +265,12 @@ check("attachment; filename*=UTF-8''foo%; filename=bar", "bar");
   // Bug 783502 - xpcshell test netwerk/test/unit/test_MIME_params.js fails on AddressSanitizer
 check('attachment; filename="\\b\\a\\', "ba\\");
 
+// Extra tests, not covered by above tests.
+check("inline; FILENAME=file.txt", "file.txt");
+check("INLINE; FILENAME= \"an example.html\"", "an example.html"); // RFC 6266, section 5.
+check("inline; filename= \"tl;dr.txt\"", "tl;dr.txt");
+check("INLINE; FILENAME*= \"an example.html\"", "an example.html");
+check("inline; filename*= \"tl;dr.txt\"", "tl;dr.txt");
+check("inline; filename*0=\"tl;dr and \"; filename*1=more.txt", "tl;dr and more.txt");
+
 console.log('Finished all tests');

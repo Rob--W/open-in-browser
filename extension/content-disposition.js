@@ -14,7 +14,7 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
     let needsEncodingFixup = true;
 
     // filename*=ext-value ("ext-value" from RFC 5987, referenced by RFC 6266).
-    let tmp = /(?:^|;)\s*filename\*\s*=\s*([^;\s]+)/i.exec(contentDisposition);
+    let tmp = toParamRegExp('filename\\*', 'i').exec(contentDisposition);
     if (tmp) {
         tmp = tmp[1];
         let filename = rfc2616unquote(tmp);
@@ -35,7 +35,7 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
     }
 
     // filename=value (RFC 5987, section 4.1).
-    tmp = /(?:^|;)\s*filename\s*=\s*([^;\s]+)/.exec(contentDisposition);
+    tmp = toParamRegExp('filename', 'i').exec(contentDisposition);
     if (tmp) {
         tmp = tmp[1];
         let filename = rfc2616unquote(tmp);
@@ -44,6 +44,17 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
     }
     return '';
 
+    function toParamRegExp(attributePattern, flags) {
+        return new RegExp(
+            '(?:^|;)\\s*' + attributePattern + '\\s*=\\s*' +
+            // Captures: value = token | quoted-string
+            // (RFC 2616, section 3.6 and referenced by RFC 6266 4.1)
+            '(' +
+                '[^";\\s][^;\\s]*' +
+            '|' +
+                '"(?:[^"\\\\]|\\\\"?)+"?' +
+            ')', flags);
+    }
     function textdecode(encoding, value) {
         if (encoding) {
             try {
@@ -70,7 +81,7 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
         let matches = [], match;
         // Iterate over all filename*n= and filename*n*= with n being an integer
         // of at least zero. Any non-zero number must not start with '0'.
-        let iter = /(?:^|;)\s*filename\*((?!0\d)\d+)(\*?)\s*=\s*([^;\s]+)/ig;
+        let iter = toParamRegExp('filename\\*((?!0\\d)\\d+)(\\*?)', 'ig');
         while ((match = iter.exec(contentDisposition)) !== null) {
             let [, n, quot, part] = match;
             n = parseInt(n, 10);
