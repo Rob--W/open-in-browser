@@ -25,7 +25,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     }
     var abortionObserver = createWebRequestAbortionObserver(details);
     var originalCT = ContentHandlers.parseResponseContentType(
-        getHeader(details.responseHeaders, 'content-type') || '');
+        getHeader(details.responseHeaders, 'content-type'));
     var contentDisposition = getHeader(details.responseHeaders, 'content-disposition');
     var isSniffingTextPlain = ContentHandlers.isSniffableTextPlain(originalCT.contentType,
         getHeader(details.responseHeaders, 'content-encoding'));
@@ -236,17 +236,19 @@ browser.menus.create({
 
 /**
  * Get the value of a header from the list of headers for a given name.
+ *
  * @param {Array} headers responseHeaders of webRequest.onHeadersReceived
- * @return {undefined|{name: string, value: string}} The header, if found.
+ * @param {string} headerName The lowercase name of the header to look for.
+ * @return {string} The value of the header, if found. Empty string otherwise.
  */
 function getHeader(headers, headerName) {
-    headerName = headerName.toLowerCase();
-    for (var i = 0; i < headers.length; ++i) {
+    for (var i = headers.length - 1; i >= 0; --i) {
         var header = headers[i];
         if (header.name.toLowerCase() === headerName) {
             return header.value || header.binaryValue;
         }
     }
+    return '';
 }
 
 /**
