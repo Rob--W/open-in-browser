@@ -65,6 +65,10 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
                     needsEncodingFixup = false;
                 }
             } catch (e) {
+                if (e instanceof TypeError && encoding == 'utf-8') {
+                    // Try iso-8859-1 encoding.
+                    return textdecode('iso-8859-1', value);
+                }
                 // TextDecoder constructor threw - unrecognized encoding.
             }
         }
@@ -174,10 +178,10 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
                     return textdecode(charset, text);
                 } // else encoding is b or B - base64 (RFC 2047 section 4.1)
                 try {
-                    return atob(text);
+                    text = atob(text);
                 } catch (e) {
-                    return text;
                 }
+                return textdecode(charset, text);
             });
     }
 }
