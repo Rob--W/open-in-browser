@@ -163,6 +163,8 @@ var metadata = {
 };
 var i18n = {};
 
+var extensionToMimeWeight = {};
+
 
 // Parse XML files from the Shared MIME-info database
 // Duplicate entries are merged as follows:
@@ -218,11 +220,27 @@ function xml2mime(xmlFilename, /*function*/ done) {
                 metadata.mimeToIcon[mimeType] = icon;
             }
 
-            var extension = item.glob && item.glob[0].$.pattern;
-            if (/^\*(?:\.[a-z0-9+]+){1,2}$/i.test(extension)) {
-                extension = extension.slice(2).toLowerCase();
-                metadata.extensionToMime[extension] = mimeType;
+            var globs = item.glob;
+            if (!Array.isArray(globs)) {
+                globs = globs ? [globs] : [];
             }
+            globs.forEach(function(glob) {
+                var extension = glob.$.pattern;
+                if (!/^\*(?:\.[a-z0-9+]+){1,2}$/i.test(extension)) {
+                    return;
+                }
+                extension = extension.slice(2).toLowerCase();
+
+                var weight = parseInt(glob.$.weight, 10);
+                weight = isNaN(weight) ? 50 : weight;
+
+                var previousWeight = extensionToMimeWeight[extension];
+                if (weight < previousWeight) { // also false if previousWeight is undefined.
+                    return;
+                }
+                extensionToMimeWeight[extension] = weight;
+                metadata.extensionToMime[extension] = mimeType;
+            });
 
             var aliases = item.alias;
             if (aliases) {
