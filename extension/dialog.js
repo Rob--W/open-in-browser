@@ -232,8 +232,6 @@ function getSuggestedMimeAction(/*string*/ mimeType) {
     case 'image-x-generic':
         return 'image/png';
     default:
-        if (mimeType.lastIndexOf('+xml') !== -1)
-            return 'text/xml';
         if (mimeType.startsWith('text/'))
             return 'text/plain';
         return 'original'; // Open as server-sent MIME = most likely download
