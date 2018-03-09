@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 /**
- * (c) Rob Wu <rob@robwu.nl> (https://robwu.nl)
- *
+ * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/**
  * Generates i18n strings and MIME-mappings from the shared mime-info database.
  *
  * 1. Add extra MIME-types by copying files from /usr/share/mime/packages to shared-mime-info.

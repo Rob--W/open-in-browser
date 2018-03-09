@@ -1,6 +1,10 @@
 /**
  * (c) 2013 Rob Wu <rob@robwu.nl> (https://robwu.nl)
- *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/**
  * Simple i18n module
  * Finds all data-i18n attributes in the document, and updates the DOM properties.
  *
