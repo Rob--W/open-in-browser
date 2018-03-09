@@ -160,14 +160,14 @@ function renderMetadata(filename, contentLength, isSniffingMimeType, guessedMime
 
     // Default behavior, when the user has not overridden the default action.
 
+    if (dialogArguments.forceDownload) {
+        setDefaultChoice('save');
+    } else if (!isSniffingMimeType && !mimeType) {
+        setDefaultChoice('openwith');
+    }
+
     if (isSniffingMimeType) {
         $('mime-type').value = 'sniffed';
-        return;
-    }
-    if (!mimeType) {
-        var checkbox = document.querySelector('input[name="choice"][value="openwith"]');
-        checkbox.checked = true;
-        checkbox.focus();
         return;
     }
     var suggestedMimeAction = getSuggestedMimeAction(effectiveMimeType);
@@ -383,10 +383,13 @@ function importReturnValue() {
             choice = 'save';
         break;
     }
+    setDefaultChoice(choice);
+    return true;
+}
+function setDefaultChoice(choice) {
     var checkbox = document.querySelector('input[name="choice"][value="' + choice + '"]');
     checkbox.checked = true;
     checkbox.focus();
-    return true;
 }
 
 function closeDialog() {

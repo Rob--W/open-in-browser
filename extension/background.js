@@ -10,6 +10,7 @@ var dialogURL = chrome.extension.getURL('dialog.html');
 var gForceDialog = 0;
 var gForceDialogAllFrames = false;
 var gForceDialogAllTabs = false;
+var gLastActionIsDownload = null;
 
 Prefs.init();
 
@@ -122,6 +123,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             guessedMimeType: guessedMimeType,
             mimeType: mimeType,
             isSniffingMimeType: isSniffingMimeType,
+            forceDownload: gLastActionIsDownload === null ? !!needsDialog : gLastActionIsDownload,
         };
         var dialog = new ModalDialog({
             url: dialogURL + '#' + encodeURIComponent(JSON.stringify(dialogArguments)),
@@ -138,6 +140,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
                 ContentHandlers.makeUnsniffableContentType(desiredCT.contentType));
             setHeader(details.responseHeaders, 'Content-Disposition', 'inline');
         }
+        gLastActionIsDownload = desiredAction.action === MimeActions.DOWNLOAD;
         if (desiredAction.action === MimeActions.DOWNLOAD) {
             if (Prefs.get('override-download-type')) {
                 // Override download type to a non-existent type, presumably part of the
