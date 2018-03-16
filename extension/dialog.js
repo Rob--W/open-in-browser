@@ -262,6 +262,7 @@ function bindFormEvents() {
         $('mime-custom-completion').appendChild(options);
     };
     $('mime-type').onchange = function() {
+        document.querySelector('input[name="choice"][value="openas"]').checked = true;
         var isCustom = this.value === 'other';
         var mimeCustom = $('mime-custom');
         if (mimeCustom.hidden === isCustom) {
