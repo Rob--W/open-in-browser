@@ -71,6 +71,12 @@ table {
     text-decoration: line-through;
     color: #999;
 }
+.hidden {
+    display: none;
+    height: 0;
+    visibility: hidden;
+    width: 0;
+}
 </style>
 </head>
 <body>
@@ -80,6 +86,13 @@ This dialog is only activated if the server has marked a file as downloadable, i
 handler for the given document.</p>
 
 <h2>Preferences</h2>
+<div class="row">
+  <button id="export" type="button">Export</button>
+  <button id="import" type="button">Import</button>
+<div class="hidden">
+    <input id="importFilePicker" type="file" accept="text/plain">
+</div>
+</div>
 <div class="row">
     <label class="pref">
         <input type="checkbox" id="pref-text-nosniff">
