@@ -131,8 +131,15 @@ $('importFilePicker').onchange = function reallyImportPrefs() {
     }
     var fr = new FileReader();
     fr.onload = function loadPrefs() {
-        Prefs.importPrefs(fr.result);
-        window.location.reload(true);
+        try {
+            Prefs.importPrefs(fr.result);
+            window.location.reload(true);
+        } catch (e) {
+            window.alert(e.message);
+        }
+    };
+    fr.onerror = function onError() {
+        window.alert(fr.error.message);
     };
     fr.readAsText(file);
 }
