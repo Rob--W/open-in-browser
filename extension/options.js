@@ -115,7 +115,7 @@ $('export').onclick = function exportPrefs() {
     var a = document.createElement('a');
     a.href = settingsURL;
     a.setAttribute('download', 'oib-prefs.txt');
-    a.dispatchEvent(new MouseEvent('click'));
+    a.click();
 };
 
 $('import').onclick = function importPrefs() {
@@ -126,10 +126,7 @@ $('import').onclick = function importPrefs() {
 
 $('importFilePicker').onchange = function reallyImportPrefs() {
     var file = $('importFilePicker').files[0];
-    if ( file === undefined || file.name === '' ) {
-        return;
-    }
-    if ( file.type.indexOf('text') !== 0 ) {
+    if (!file) {
         return;
     }
     var fr = new FileReader();

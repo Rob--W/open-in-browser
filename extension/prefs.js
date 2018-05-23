@@ -181,8 +181,8 @@ function exportPrefs() {
 }
 function importPrefs(newPrefsString) {
     var newPrefs = JSON.parse(newPrefsString);
-    if (typeof newPrefs !== 'object') {
-        throw 'Invalid';
+    if (typeof newPrefs !== 'object'|| newPrefs === null) {
+        throw new Error('Invalid format; expected an object in JSON');
     }
     Object.keys(prefs).forEach(function(key) {
         if (newPrefs.hasOwnProperty(key)) {
