@@ -1,3 +1,9 @@
+/**
+ * (c) 2017 Rob Wu <rob@robwu.nl> (https://robwu.nl)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 'use strict';
 /* exported getFilenameFromContentDispositionHeader */
 
@@ -65,10 +71,6 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
                     needsEncodingFixup = false;
                 }
             } catch (e) {
-                if (e instanceof TypeError && encoding == 'utf-8') {
-                    // Try iso-8859-1 encoding.
-                    return textdecode('iso-8859-1', value);
-                }
                 // TextDecoder constructor threw - unrecognized encoding.
             }
         }
@@ -77,7 +79,11 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
     function fixupEncoding(value) {
         if (needsEncodingFixup && /[\x80-\xff]/.test(value)) {
             // Maybe multi-byte UTF-8.
-            return textdecode('utf-8', value);
+            value = textdecode('utf-8', value);
+            if (needsEncodingFixup) {
+                // Try iso-8859-1 encoding.
+                value = textdecode('iso-8859-1', value);
+            }
         }
         return value;
     }
