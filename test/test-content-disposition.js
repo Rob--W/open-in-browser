@@ -5,10 +5,32 @@
 /* eslint-disable max-len */
 'use strict';
 
+function logerror(caller, message) {
+  var stackline;
+  if (Error.captureStackTrace) {
+    // V8
+    let stackholder = {};
+    Error.captureStackTrace(stackholder, caller);
+    stackline = stackholder.stack.split('\n')[1];
+  } else {
+    // Firefox
+    let stacklines = new Error().stack.split('\n');
+    for (let i = 0; i < stacklines.length; ++i) {
+      if (stacklines[i].startsWith(`${caller.name}@`)) {
+        stackline = stacklines[i + 1];
+        break;
+      }
+    }
+  }
+  var loc = /[^/]+\.js:\d+/.exec(stackline);
+  loc = loc ? loc[0] : '(unknown location)';
+  console.error(`${loc} ${message}`);
+}
+
 function check(contentDisposition, filename) {
     var result = getFilenameFromContentDispositionHeader(contentDisposition);
     if (result !== filename) {
-        console.error(`Assertion failed: Input: ${contentDisposition}
+        logerror(check, `Assertion failed: Input: ${contentDisposition}
 Expected: ${JSON.stringify(filename)}
 Actual  : ${JSON.stringify(result)}`);
     }
