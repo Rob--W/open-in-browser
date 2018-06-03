@@ -107,3 +107,39 @@ Prefs.setPrefHandler('mime-mappings', renderMimeMappings);
 
 Prefs.setPrefHandler('sniffed-mime-mappings', renderSniffedMimeMappings);
 
+$('export').onclick = function exportPrefs() {
+    var settings = Prefs.exportPrefs();
+    var settingsURL = 'data:text/plain;charset=utf-8,' +
+                   encodeURIComponent(settings);
+
+    var a = document.createElement('a');
+    a.href = settingsURL;
+    a.setAttribute('download', 'oib-prefs.txt');
+    a.click();
+};
+
+$('import').onclick = function importPrefs() {
+    var input = $('importFilePicker');
+    input.value = '';
+    input.click();
+};
+
+$('importFilePicker').onchange = function reallyImportPrefs() {
+    var file = $('importFilePicker').files[0];
+    if (!file) {
+        return;
+    }
+    var fr = new FileReader();
+    fr.onload = function loadPrefs() {
+        try {
+            Prefs.importPrefs(fr.result);
+            window.location.reload(true);
+        } catch (e) {
+            window.alert(e.message);
+        }
+    };
+    fr.onerror = function onError() {
+        window.alert(fr.error.message);
+    };
+    fr.readAsText(file);
+}

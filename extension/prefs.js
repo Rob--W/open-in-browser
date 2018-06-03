@@ -19,6 +19,8 @@ var Prefs = {
     getMimeAction: getMimeAction,
     setMimeAction: setMimeAction,
     removeMimeAction: removeMimeAction,
+    exportPrefs: exportPrefs,
+    importPrefs: importPrefs
 };
 
 // Preferences, filled with default values
@@ -172,6 +174,21 @@ function removeMimeAction(mimeType, isSniffingMimeType) {
         delete prefs[mimeMapPrefName][mimeType];
         save(mimeMapPrefName);
     }
+}
+
+function exportPrefs() {
+    return JSON.stringify(prefs, null, 2);
+}
+function importPrefs(newPrefsString) {
+    var newPrefs = JSON.parse(newPrefsString);
+    if (typeof newPrefs !== 'object'|| newPrefs === null) {
+        throw new Error('Invalid format; expected an object in JSON');
+    }
+    Object.keys(prefs).forEach(function(key) {
+        if (newPrefs.hasOwnProperty(key)) {
+            setPref(key, newPrefs[key]);
+        }
+    });
 }
 
 // Exported
