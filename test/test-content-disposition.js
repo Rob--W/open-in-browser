@@ -66,6 +66,9 @@ check("attachment; filename*=\"A.ext\"; filename*0=\"B\"; filename*1=\"B.ext\"",
 console.log('Test from issue 26');
 check("attachment; filename=\xe5\x9c\x8b.pdf", "\u570b.pdf");
 
+console.log('Test from issue 35 (ISO-8859-1)');
+check("attachment; filename=okre\x9clenia.rtf", "okreœlenia.rtf");
+
 // From Firefox
 // https://searchfox.org/mozilla-central/rev/45a3df4e6b8f653b0103d18d97c34dd666706358/netwerk/test/unit/test_MIME_params.js
 // Changed as follows:
