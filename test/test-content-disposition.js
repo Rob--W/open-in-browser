@@ -5,7 +5,9 @@
 /* eslint-disable max-len */
 'use strict';
 
+var failcount = 0;
 function logerror(caller, message) {
+  ++failcount;
   var stackline;
   if (Error.captureStackTrace) {
     // V8
@@ -304,4 +306,4 @@ check("INLINE; FILENAME*= \"an example.html\"", "an example.html");
 check("inline; filename*= \"tl;dr.txt\"", "tl;dr.txt");
 check("inline; filename*0=\"tl;dr and \"; filename*1=more.txt", "tl;dr and more.txt");
 
-console.log('Finished all tests');
+console.log(`Finished all tests (${failcount} failures)`);
