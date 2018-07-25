@@ -251,7 +251,7 @@ function getHeader(headers, headerName) {
     for (var i = headers.length - 1; i >= 0; --i) {
         var header = headers[i];
         if (header.name.toLowerCase() === headerName) {
-            return header.value || header.binaryValue;
+            return header.value || header.binaryValue || '';
         }
     }
     return '';
