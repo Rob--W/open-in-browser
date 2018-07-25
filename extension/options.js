@@ -142,4 +142,14 @@ $('importFilePicker').onchange = function reallyImportPrefs() {
         window.alert(fr.error.message);
     };
     fr.readAsText(file);
+};
+
+if (!Prefs.initialized) {
+    let setInputsEnabled = (isEnabled) => {
+        for (let input of document.querySelectorAll('input, button')) {
+            input.disabled = !isEnabled;
+        }
+    };
+    setInputsEnabled(false);
+    Prefs.init().then(() => setInputsEnabled(true));
 }

@@ -10,9 +10,13 @@
 
 /**
  * Generic setter of preference
+ * Prefs.init() must be called before use. Prefs.setPrefHandler can be used
+ * before Prefs.initialized === true. All others methods should only be invoked
+ * once the Prefs.init() promise resolves.
  */
 var Prefs = {
     init: init,
+    initialized: false,
     setPrefHandler: setPrefHandler,
     get: getPref,
     set: setPref,
@@ -38,23 +42,46 @@ var prefs = {
     'override-download-type': '',
 };
 var prefHandlers = {};
-function init() {
-    Object.keys(prefs).forEach(function(key) {
-        if (localStorage.hasOwnProperty(key)) prefs[key] = JSON.parse(localStorage.getItem(key));
-    });
 
-    if (init.hasRun) return;
-    init.hasRun = true;
-    // Add storage event listener only once
-    window.addEventListener('storage', function(event) {
-        if (prefs.hasOwnProperty(event.key)) {
-            prefs[event.key] = JSON.parse(event.newValue);
-            var prefHandler = prefHandlers[event.key];
-            if (prefHandler) {
-                prefHandler(prefs[event.key]);
+var _initPromise;
+async function init() {
+    if (_initPromise) {
+        return _initPromise;
+    }
+    _initPromise = (async () => {
+        // Migrate
+        let localStorageKeys = Object.keys(localStorage).filter(key => prefs.hasOwnProperty(key));
+        if (localStorageKeys.length) {
+            let oldPrefs = {};
+            for (let key of localStorageKeys) {
+                oldPrefs[key] = JSON.parse(localStorage.getItem(key));
             }
+            await browser.storage.local.set(oldPrefs);
+            Object.assign(prefs, oldPrefs);
+            localStorage.clear();
+            console.log(`Migrated preferences: ${localStorageKeys.join(', ')}`);
         }
-    });
+
+        browser.storage.onChanged.addListener(function(changes) {
+            for (let [key, {newValue}] of Object.entries(changes)) {
+                if (!prefs.hasOwnProperty(key)) continue;
+                prefs[key] = newValue;
+                let prefHandler = prefHandlers[key];
+                if (prefHandler) {
+                    prefHandler(prefs[key]);
+                }
+            }
+
+        });
+        Object.assign(prefs, await browser.storage.local.get(prefs));
+        Prefs.initialized = true;
+    })();
+    try {
+        await _initPromise;
+    } catch (e) {
+        _initPromise = null;
+        console.error(`Failed to initialized Prefs: ${e}`);
+    }
 }
 
 /**
@@ -62,11 +89,14 @@ function init() {
  * @param {string} prefName
  * @param {function} This function will be called immediately, and on subsequent external changes.
  */
-function setPrefHandler(prefName, prefHandler) {
+async function setPrefHandler(prefName, prefHandler) {
     if (!prefs.hasOwnProperty(prefName)) {
         console.warn('Tried to define preference handler for unknown preference: ' + prefName);
     }
     prefHandlers[prefName] = prefHandler;
+    if (!Prefs.initialized) {
+        await Prefs.init();
+    }
     prefHandler(prefs[prefName]);
 }
 
@@ -76,16 +106,20 @@ function setPrefHandler(prefName, prefHandler) {
  * @private
  */
 function save(prefName) {
-    var value = JSON.stringify(prefs[prefName]);
-    localStorage.setItem(prefName, value);
+    console.assert(Prefs.initialized, 'Prefs should be initialized before saving');
+    browser.storage.local.set({
+        [prefName]: prefs[prefName],
+    });
 }
 // Generic preference setter
 function setPref(prefName, value) {
+    console.assert(Prefs.initialized, 'Prefs should be initialized before setting');
     prefs[prefName] = value;
     save(prefName);
 }
 // Generic preference getter
 function getPref(prefName) {
+    console.assert(Prefs.initialized, 'Prefs should be initialized before getting');
     return prefs[prefName];
 }
 

@@ -59,6 +59,12 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
         }
     }
 
+    if (!Prefs.initialized) {
+        abortionObserver.setupBeforeAsyncTask(null);
+        await Prefs.init();
+        if (!abortionObserver.continueAfterAsyncTask()) return;
+    }
+
     if (!needsDialog && !forceDialog) {
         // Content disposition != attachment. Let's take a look at the MIME-type.
         let canDisplayInline = ContentHandlers.canDisplayInline(originalCT);
