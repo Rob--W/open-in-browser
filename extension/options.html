@@ -104,19 +104,22 @@ handler for the given document.</p>
 <div class="row">
     <label class="pref">
         <input type="checkbox" id="pref-override-download-type">
-        Never ask to confirm "Save File" action (<code>application/prs.oib-ask-once</code>)
-        <div class="explanation">
+        Never ask to confirm "Save File" action (<a href="data:application/prs.oib-ask-once," target="downloadtarget"><code>application/prs.oib-ask-once</code></a>)
+        <div class="explanation" tabindex="0">
             When you choose "Save File", Firefox will show another confirmation dialog before
             a file is saved (to your Downloads directory or via a "Save As" dialog).
             <br>
             To skip the confirmation, enable this option and follow the following steps:
             <ol>
-                <li>Visit <code>about:config</code></li>
-                <li>Search for <code>neverAsk</code></li>
-                <li>Modify <code>browser.helperApps.neverAsk.saveToDisk</code> by double-clicking on the row.</li>
-                <li>Set the value to <code>application/prs.oib-ask-once</code></li>
+                <li>Click on the above <code>application/prs.oib-ask-once</code> link.</li>
+                <li>Select the "Save File" option.</li>
+                <li>Enable the "Do this automatically for files like this from now on." option.</li>
+                <li>Click on "OK".</li>
             </ol>
         </div>
+        <!-- There is a bug in Firefox that causes the document to become blank
+            when a download is triggered in the main document. This is a work-around: -->
+        <iframe name="downloadtarget" hidden></iframe>
     </label>
 </div>
 
