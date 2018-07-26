@@ -134,9 +134,22 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             isSniffingMimeType: isSniffingMimeType,
             forceDownload: gLastActionIsDownload === null ? !!needsDialog : gLastActionIsDownload,
         };
+        let incognito;
+        if ('cookieStoreId' in details) {
+            // cookieStoreId introduced to webRequest in https://bugzil.la/1391992
+            incognito = details.cookieStoreId === 'firefox-private';
+        } else {
+            abortionObserver.setupBeforeAsyncTask(null);
+            try {
+                incognito = (await browser.tabs.get(details.tabId)).incognito;
+            } catch (e) {
+                incognito = false;
+            }
+            if (!abortionObserver.continueAfterAsyncTask()) return;
+        }
         var dialog = new ModalDialog({
             url: dialogURL + '#' + encodeURIComponent(JSON.stringify(dialogArguments)),
-            incognito: details.incognito,
+            incognito: incognito,
         });
         abortionObserver.setupBeforeAsyncTask(() => { dialog.close(); });
         desiredAction = await dialog.show();
