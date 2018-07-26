@@ -21,7 +21,8 @@ var lastPopupSize;
  */
 class ModalDialog {
     constructor({url, incognito = false}) {
-        this._url = url;
+        // Normalize URL for fair comparisons with tab.url
+        this._url = new URL(url).href;
         this._incognito = incognito;
     }
     async show() {
@@ -85,6 +86,18 @@ class ModalDialog {
                 };
                 await tabRemovedPromise;
                 this._close = null;
+            }
+            if (!this._incognito && chrome.sessions) {
+                tabRemovedPromise.then(() => {
+                    chrome.sessions.getRecentlyClosed(sessions => {
+                        let session = sessions.find(session =>
+                            session.window &&
+                            session.window.tabs.length === 1 &&
+                            session.window.tabs[0].url === this._url);
+                        // Assume that session is not null.
+                        chrome.sessions.forgetClosedWindow(session.window.sessionId);
+                    });
+                });
             }
         } else {
             // Failed to open window.
