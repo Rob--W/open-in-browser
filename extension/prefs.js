@@ -39,7 +39,7 @@ var prefs = {
     // Whether to use the file extension for detecting type when mime=application/octet-stream
     'octet-sniff-mime': true,
     // Whether to override the Content-Type response header for the "Download" action.
-    'override-download-type': '',
+    'override-download-type': false,
 };
 var prefHandlers = {};
 
@@ -55,6 +55,11 @@ async function init() {
             let oldPrefs = {};
             for (let key of localStorageKeys) {
                 oldPrefs[key] = JSON.parse(localStorage.getItem(key));
+            }
+            if (oldPrefs.hasOwnProperty('override-download-type') &&
+                typeof oldPrefs['override-download-type'] !== 'boolean') {
+                // Fix-up bug: In the past I accidentally used a string instead of a boolean.
+                delete oldPrefs['override-download-type'];
             }
             await browser.storage.local.set(oldPrefs);
             Object.assign(prefs, oldPrefs);
