@@ -109,13 +109,14 @@ Prefs.setPrefHandler('sniffed-mime-mappings', renderSniffedMimeMappings);
 
 $('export').onclick = function exportPrefs() {
     var settings = Prefs.exportPrefs();
-    var settingsURL = 'data:text/plain;charset=utf-8,' +
-                   encodeURIComponent(settings);
+    var settingsURL = 'data:text/plain;charset=utf-8,' + encodeURIComponent(settings);
 
     var a = document.createElement('a');
     a.href = settingsURL;
-    a.setAttribute('download', 'oib-prefs.txt');
+    a.download = 'oib-prefs.txt';
+    document.body.appendChild(a);
     a.click();
+    a.remove();
 };
 
 $('import').onclick = function importPrefs() {
