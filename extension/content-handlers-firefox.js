@@ -81,6 +81,9 @@ ContentHandlers.makeUnsniffableContentType = function(contentType) {
 /** @type {null|Promise<boolean>|boolean} */
 var _pdfjsEnabled = null;
 
+/** @type {null|Promise<boolean>|boolean} */
+var _webpSupported = null;
+
 /**
  * @param {ParsedContentType} parsedCT
  * @returns {boolean|Promise<boolean>} Whether the given type can be displayed inline.
@@ -105,6 +108,16 @@ ContentHandlers.canDisplayInline = function(parsedCT) {
             });
         }
         return _pdfjsEnabled;
+    }
+
+    if (mimeType === 'image/webp') {
+        if (_webpSupported === null) {
+            _webpSupported = _checkWebPSupported();
+            _webpSupported.then(webpSupported => {
+                _webpSupported = webpSupported;
+            });
+        }
+        return _webpSupported;
     }
 
     // Media types
@@ -166,6 +179,23 @@ startxref
             }
         }, 1000);
         document.body.appendChild(o);
+    });
+}
+
+/**
+ * @returns {Promise<boolean>} Whether the browser can display WebP images inline.
+ */
+function _checkWebPSupported() {
+    const WEBP_URL = '/img/test.webp';
+
+    return new Promise(resolve => {
+        var i = new Image();
+        i.onload = i.onerror = function({type}) {
+            i.remove();
+            resolve(type === 'load');
+        };
+        i.src = WEBP_URL;
+        document.body.appendChild(i);
     });
 }
 
