@@ -38,7 +38,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     contentLength = contentLength >= 0 ? contentLength : -1;
     var {mimeType} = originalCT;
 
-    var needsDialog = contentDisposition && /^\s*attachment/i.test(contentDisposition);
+    var needsDialog = contentDisposition && !/^\s*inline/i.test(contentDisposition);
     var forceDialog = false;
     if (gForceDialog > 0) {
         forceDialog = gForceDialogAllFrames || details.type === 'main_frame';
