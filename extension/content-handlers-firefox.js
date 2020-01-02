@@ -79,6 +79,9 @@ ContentHandlers.makeUnsniffableContentType = function(contentType) {
 };
 
 /** @type {null|Promise<boolean>|boolean} */
+var _pdfjsEnabled = null;
+
+/** @type {null|Promise<boolean>|boolean} */
 var _webpSupported = null;
 
 /**
@@ -98,9 +101,13 @@ ContentHandlers.canDisplayInline = function(parsedCT) {
     }
 
     if (mimeType === 'application/pdf') {
-        // TODO: Detect whether PDF.js is enabled, and if not, return false.
-        // Unfortunately, there is no straightforward detection method.
-        return true;
+        if (_pdfjsEnabled === null) {
+            _pdfjsEnabled = _checkPDFJSEnabled();
+            _pdfjsEnabled.then(pdfjsEnabled => {
+                _pdfjsEnabled = pdfjsEnabled;
+            });
+        }
+        return _pdfjsEnabled;
     }
 
     if (mimeType === 'image/webp') {
@@ -132,6 +139,48 @@ ContentHandlers.canDisplayInline = function(parsedCT) {
 
     return false;
 };
+
+/**
+ * @returns {Promise<boolean>} Whether the browser can display PDF files inline.
+ */
+function _checkPDFJSEnabled() {
+    const PDF_DATA = `%PDF
+1 0 obj<</Type/Pages/Count 1/Kids[2 0 R]/MediaBox[0 0 1 1]>>endobj
+2 0 obj<</Type/Page/Parent 1 0 R>>endobj
+3 0 obj<</Type/Catalog/Pages 1 0 R>>endobj
+xref
+0 4
+0000000000 65535 f 
+0000000005 00000 n 
+0000000072 00000 n 
+0000000113 00000 n 
+trailer
+<</Root 3 0 R/Size 4>>
+startxref
+156
+%%EOF`;
+    return new Promise(resolve => {
+        var o = document.createElement('object');
+        o.type = 'application/pdf';
+        o.src = URL.createObjectURL(new Blob([PDF_DATA], {type: 'application/pdf'}));
+        o.onload = o.error = function({type}) {
+            o.onload = o.onerror = null;
+            URL.revokeObjectURL(o.src);
+            // Abort load to prevent PDF.js from continuing to parse and load the content.
+            o.data = '';
+            o.remove();
+            resolve(type === 'load');
+        };
+        setTimeout(function() {
+            // If somehow the PDF.js detection method fails to complete within reasonable time,
+            // assume that PDFs can be viewed inline (because this is the case by default).
+            if (o.onload) {
+                o.onload({type: 'load'});
+            }
+        }, 1000);
+        document.body.appendChild(o);
+    });
+}
 
 /**
  * @returns {Promise<boolean>} Whether the browser can display WebP images inline.
