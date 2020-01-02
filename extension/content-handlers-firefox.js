@@ -144,40 +144,73 @@ ContentHandlers.canDisplayInline = function(parsedCT) {
  * @returns {Promise<boolean>} Whether the browser can display PDF files inline.
  */
 function _checkPDFJSEnabled() {
-    const PDF_DATA = `%PDF
+    const PDF_DATA = `%PDF-1.0
 1 0 obj<</Type/Pages/Count 1/Kids[2 0 R]/MediaBox[0 0 1 1]>>endobj
 2 0 obj<</Type/Page/Parent 1 0 R>>endobj
 3 0 obj<</Type/Catalog/Pages 1 0 R>>endobj
 xref
 0 4
 0000000000 65535 f 
-0000000005 00000 n 
-0000000072 00000 n 
-0000000113 00000 n 
+0000000009 00000 n 
+0000000076 00000 n 
+0000000117 00000 n 
 trailer
 <</Root 3 0 R/Size 4>>
 startxref
-156
+160
 %%EOF`;
     return new Promise(resolve => {
         var o = document.createElement('object');
         o.type = 'application/pdf';
-        o.src = URL.createObjectURL(new Blob([PDF_DATA], {type: 'application/pdf'}));
-        o.onload = o.error = function({type}) {
+        o.data = URL.createObjectURL(new Blob([PDF_DATA], {type: 'application/pdf'}));
+        var fallback = document.createElement('div');
+        fallback.textContent = 'fallback';
+        o.appendChild(fallback);
+
+        o.onload = o.onerror = () => { checkPDFPluginStatus(); };
+        var pollCount = 0;
+        var pollTimer = setTimeout(checkPDFPluginStatus, 50, true);
+
+        function cleanup() {
             o.onload = o.onerror = null;
-            URL.revokeObjectURL(o.src);
+            clearTimeout(pollTimer);
+
             // Abort load to prevent PDF.js from continuing to parse and load the content.
             o.data = '';
             o.remove();
-            resolve(type === 'load');
-        };
-        setTimeout(function() {
+        }
+
+        function checkPDFPluginStatus(isPoll) {
+            // Fallback content shown = PDF plugin is disabled.
+            var hasFallback = fallback.offsetHeight;
+
+            // Plugin has layout, but fallback does not = PDF plugin is enabled.
+            var hasPdfPlugin = !hasFallback && o.offsetHeight;
+
+            console.log(hasFallback, hasPdfPlugin, isPoll);
+
+            if (hasFallback || hasPdfPlugin) {
+                resolve(!!hasPdfPlugin);
+                cleanup();
+                return;
+            }
+            if (!isPoll) {
+                // o.onload / o.onerror fired, but status is unknown. Return early.
+                // The poller ensures eventual resolution of the check.
+                return;
+            }
+            if (++pollCount < 20) {
+                // Status unknown, let's try again for up to one second.
+                pollTimer = setTimeout(checkPDFPluginStatus, 50, true);
+                return;
+            }
             // If somehow the PDF.js detection method fails to complete within reasonable time,
             // assume that PDFs can be viewed inline (because this is the case by default).
-            if (o.onload) {
-                o.onload({type: 'load'});
-            }
-        }, 1000);
+            console.warn('Unable to detect PDF support. Assuming that PDF is supported.');
+            resolve(true);
+            cleanup();
+        }
+
         document.body.appendChild(o);
     });
 }
