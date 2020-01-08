@@ -147,8 +147,8 @@ var MimeActions = {
 };
 // Get desired action
 function getMimeAction(mimeType, isSniffingMimeType, serverSentMimeType) {
-    // If isSniffingMimeType = false, then mimeType == serverSentMimeType.
-    // Otherwise the two will most likely differ.
+    // mimeType may differ from serverSentMimeType. If isSniffingMimeType
+    // is true, then we should prefer mimeType over serverSentMimeType.
     var desiredAction = prefs['mime-mappings'][serverSentMimeType] || '';
     if (isSniffingMimeType) {
         desiredAction = prefs['sniffed-mime-mappings'][mimeType] || desiredAction;

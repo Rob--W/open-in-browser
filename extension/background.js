@@ -186,7 +186,8 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             }
         }
         if (desiredAction.rememberChoice) {
-            Prefs.setMimeAction(guessedMimeType, isSniffingMimeType, desiredAction);
+            let effectiveMimeType = isSniffingMimeType ? guessedMimeType : mimeType;
+            Prefs.setMimeAction(effectiveMimeType, isSniffingMimeType, desiredAction);
         }
         if (desiredAction.action === MimeActions.OPENWITH) {
             // Don't modify the response headers and let the browser handle the request.
