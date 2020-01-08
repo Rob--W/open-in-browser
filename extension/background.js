@@ -38,7 +38,10 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
     contentLength = contentLength >= 0 ? contentLength : -1;
     var {mimeType} = originalCT;
 
-    var needsDialog = contentDisposition && !/^\s*inline/i.test(contentDisposition);
+    // Per RFC 6266, unknown/non-inline disposition values should be treated as "attachment".
+    // Firefox also treats "filename" as "attachment" to deal with broken sites,
+    // https://searchfox.org/mozilla-central/rev/4537228c0a18bc0ebba2eb7f5cbebb6ea9ab211c/netwerk/base/nsNetUtil.cpp#2621-2624
+    var needsDialog = contentDisposition && !/^\s*(inline|filename)/i.test(contentDisposition);
     var forceDialog = false;
     if (gForceDialog > 0) {
         forceDialog = gForceDialogAllFrames || details.type === 'main_frame';
