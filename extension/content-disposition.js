@@ -56,7 +56,7 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
             // Captures: value = token | quoted-string
             // (RFC 2616, section 3.6 and referenced by RFC 6266 4.1)
             '(' +
-                '[^";\\s][^;\\s]*' +
+                '(?!")[^;]+' +
             '|' +
                 '"(?:[^"\\\\]|\\\\"?)+"?' +
             ')', flags);
@@ -133,6 +133,10 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
                 parts[i] = parts[i].replace(/\\(.)/g, '$1');
             }
             value = parts.join('"');
+        } else {
+            value = value.replace(/[\r\n]/g, '');
+            // Exclude trailing whitespace that's matched by toParamRegExp.
+            value = value.replace(/\s+$/, '');
         }
         return value;
     }

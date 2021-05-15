@@ -293,13 +293,38 @@ check('attachment; filename=basic; filename*0="foo"; filename*1="\\b\\a\\', "foo
   // Bug 732369: Content-Disposition parser does not require presence of ";" between params
   // optimally, this would not even return the disposition type "attachment"  
 check("attachment; extension=bla filename=foo", "");
-check("attachment; filename=foo extension=bla", "foo");
+  // Bug 1440677 - spaces inside filenames ought to be quoted, but too many
+  // servers do the wrong thing and most browsers accept this, so we were
+  // forced to do the same for compat.
+check("attachment; filename=foo extension=bla", "foo extension=bla");
 check("attachment filename=foo", "");
   // Bug 777687: handling of broken %escapes
 nocheck("attachment; filename*=UTF-8''f%oo; filename=bar", "bar");
 nocheck("attachment; filename*=UTF-8''foo%; filename=bar", "bar");
   // Bug 783502 - xpcshell test netwerk/test/unit/test_MIME_params.js fails on AddressSanitizer
 check('attachment; filename="\\b\\a\\', "ba\\");
+  // Bug 1412213 - do continue to parse, behind an empty parameter
+check("attachment; ; filename=foo", "foo");
+  // Bug 1412213 - do continue to parse, behind a parameter w/o =
+check("attachment; badparameter; filename=foo", "foo");
+  // Bug 1440677 - spaces inside filenames ought to be quoted, but too many
+  // servers do the wrong thing and most browsers accept this, so we were
+  // forced to do the same for compat.
+check("attachment; filename=foo bar.html", "foo bar.html");
+  // Note: we keep the tab character, but later validation will replace with a space,
+  // as file systems do not like tab characters.
+check("attachment; filename=foo\tbar.html", "foo\tbar.html");
+  // Newlines get stripped completely (in practice, http header parsing may
+  // munge these into spaces before they get to us, but we should check we deal
+  // with them either way):
+check("attachment; filename=foo\nbar.html", "foobar.html");
+check("attachment; filename=foo\r\nbar.html", "foobar.html");
+check("attachment; filename=foo\rbar.html", "foobar.html");
+  // Trailing rubbish shouldn't matter:
+check("attachment; filename=foo bar; garbage", "foo bar");
+check("attachment; filename=foo bar; extension=blah", "foo bar");
+  // Check that whitespace processing can't crash.
+check("attachment; filename =      ", "");
 
 // Extra tests, not covered by above tests.
 check("inline; FILENAME=file.txt", "file.txt");
