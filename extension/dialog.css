@@ -20,6 +20,7 @@ body {
     font: message-box;
     background-color: ButtonFace;
     color: ButtonText;
+    color-scheme: light dark;
 }
 #dialog-main {
     padding: 15px 5px 5px 15px;
