@@ -163,7 +163,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             let desiredCT = ContentHandlers.parseResponseContentType(desiredAction.mime);
             setHeader(details.responseHeaders, 'Content-Type',
                 ContentHandlers.makeUnsniffableContentType(desiredCT.contentType));
-            setHeader(details.responseHeaders, 'Content-Disposition', 'inline');
+            setContentDispositionHeader(details.responseHeaders, 'inline');
         }
         gLastActionIsDownload = desiredAction.action === MimeActions.DOWNLOAD;
         if (desiredAction.action === MimeActions.DOWNLOAD) {
@@ -178,12 +178,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
                 //    Relevant code: https://searchfox.org/mozilla-central/rev/a5d613086ab4d0578510aabe8653e58dc8d7e3e2/uriloader/exthandler/nsExternalHelperAppService.cpp#1685-1704
                 setHeader(details.responseHeaders, 'Content-Type', 'application/prs.oib-ask-once');
             }
-            if (contentDisposition) {
-                setHeader(details.responseHeaders, 'Content-Disposition',
-                    contentDisposition.replace(/^[^;]*(;?)/, 'attachment$1'));
-            } else {
-                setHeader(details.responseHeaders, 'Content-Disposition', 'attachment');
-            }
+            setContentDispositionHeader(details.responseHeaders, 'attachment');
         }
         if (desiredAction.rememberChoice) {
             let effectiveMimeType = isSniffingMimeType ? guessedMimeType : mimeType;
@@ -299,6 +294,33 @@ function setHeader(headers, headerName, headerValue) {
     headers.push({
         name: headerName,
         value: headerValue
+    });
+}
+
+/**
+ * Adds or modifies the Content-Disposition header. If present,
+ * it modifies only the target part, leaving the filename intact.
+ *
+ * @param {chrome.webRequest.HttpHeader[]} headers `responseHeaders` of
+ *  `webRequest.onHeadersReceived`. The contents of the array may be modified.
+ * @param {'inline'|'attachment'} target The target part.
+ */
+function setContentDispositionHeader(headers, target) {
+    for (var i = headers.length - 1; i >= 0; --i) {
+        var header = headers[i];
+        if (header.name.toLowerCase() === 'content-disposition') {
+            if (header.value) {
+                header.value = header.value.replace(/^[^;]*/, target);
+            } else {
+                header.value = target;
+            }
+            return;
+        }
+    }
+    // If there was no Content-Disposition header...
+    headers.push({
+        name: 'Content-Disposition',
+        value: target
     });
 }
 
