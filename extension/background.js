@@ -163,7 +163,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
             let desiredCT = ContentHandlers.parseResponseContentType(desiredAction.mime);
             setHeader(details.responseHeaders, 'Content-Type',
                 ContentHandlers.makeUnsniffableContentType(desiredCT.contentType));
-            setHeader(details.responseHeaders, 'Content-Disposition', 'inline');
+            setContentDispositionHeader(details.responseHeaders, 'inline');
         }
         gLastActionIsDownload = desiredAction.action === MimeActions.DOWNLOAD;
         if (desiredAction.action === MimeActions.DOWNLOAD) {
@@ -178,12 +178,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function(details) {
                 //    Relevant code: https://searchfox.org/mozilla-central/rev/a5d613086ab4d0578510aabe8653e58dc8d7e3e2/uriloader/exthandler/nsExternalHelperAppService.cpp#1685-1704
                 setHeader(details.responseHeaders, 'Content-Type', 'application/prs.oib-ask-once');
             }
-            if (contentDisposition) {
-                setHeader(details.responseHeaders, 'Content-Disposition',
-                    contentDisposition.replace(/^[^;]*(;?)/, 'attachment$1'));
-            } else {
-                setHeader(details.responseHeaders, 'Content-Disposition', 'attachment');
-            }
+            setContentDispositionHeader(details.responseHeaders, 'attachment');
         }
         if (desiredAction.rememberChoice) {
             let effectiveMimeType = isSniffingMimeType ? guessedMimeType : mimeType;
@@ -266,7 +261,7 @@ browser.menus.create({
 /**
  * Get the value of a header from the list of headers for a given name.
  *
- * @param {Array} headers responseHeaders of webRequest.onHeadersReceived
+ * @param {chrome.webRequest.HttpHeader[]} headers responseHeaders of webRequest.onHeadersReceived
  * @param {string} headerName The lowercase name of the header to look for.
  * @return {string} The value of the header, if found. Empty string otherwise.
  */
@@ -283,8 +278,10 @@ function getHeader(headers, headerName) {
 /**
  * Adds or replaces a header
  *
- * @param {Array} headers responseHeaders of webRequest.onHeadersReceived
- *                        The contents of the array may be modified.
+ * @param {chrome.webRequest.HttpHeader[]} headers `responseHeaders` of
+ *  `webRequest.onHeadersReceived`. The contents of the array may be modified.
+ * @param {string} headerName The header to add or replace.
+ * @param {string} headerValue The new header value.
  */
 function setHeader(headers, headerName, headerValue) {
     var lowerCaseHeaderName = headerName.toLowerCase();
@@ -301,9 +298,36 @@ function setHeader(headers, headerName, headerValue) {
 }
 
 /**
+ * Adds or modifies the Content-Disposition header. If present,
+ * it modifies only the target part, leaving the filename intact.
+ *
+ * @param {chrome.webRequest.HttpHeader[]} headers `responseHeaders` of
+ *  `webRequest.onHeadersReceived`. The contents of the array may be modified.
+ * @param {'inline'|'attachment'} target The target part.
+ */
+function setContentDispositionHeader(headers, target) {
+    for (var i = headers.length - 1; i >= 0; --i) {
+        var header = headers[i];
+        if (header.name.toLowerCase() === 'content-disposition') {
+            if (header.value) {
+                header.value = header.value.replace(/^[^;]*/, target);
+            } else {
+                header.value = target;
+            }
+            return;
+        }
+    }
+    // If there was no Content-Disposition header...
+    headers.push({
+        name: 'Content-Disposition',
+        value: target
+    });
+}
+
+/**
  * Derive file name from URL
  *
- * @param {string} An URL
+ * @param {string} url A URL
  * @return {string} A file name
  */
 function getFilenameFromURL(url) {
@@ -329,11 +353,15 @@ function getFilenameFromURL(url) {
  * setupBeforeAsyncTask can be passed a function, which is called if the request was aborted
  * before continueAfterAsyncTask is called.
  *
- * @param {object} details WebRequest event details.
- * @return {object} An object with properties "aborted", "setupBeforeAsyncTask" and
- *  "continueAfterAsyncTask". See the above example.
+ * @param {chrome.webRequest.WebResponseHeadersDetails} details WebRequest event details.
+ * @return {{
+ *      aborted: boolean;
+ *      setupBeforeAsyncTask: (callback: (() => void)|null) => void;
+ *      continueAfterAsyncTask: () => boolean;
+ * }} See the above example.
  */
 function createWebRequestAbortionObserver(details) {
+    /** @type {(() => void)|null} */
     var callbackOnPrematureAbort = null;
     var isAborted = false;
     function onErrorOccurred(errorDetails) {
@@ -374,6 +402,9 @@ function createWebRequestAbortionObserver(details) {
     }
 
 
+    /**
+     * @param {(() => void)|null} onAborted
+     */
     function setupBeforeAsyncTask(onAborted) {
         callbackOnPrematureAbort = onAborted;
         chrome.webRequest.onErrorOccurred.addListener(onErrorOccurred, {
