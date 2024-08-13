@@ -97,6 +97,7 @@ body {
 
 #url-protocol.https {
     color: green;
+    color: light-dark(green, lime);
     opacity: 1;
 }
 #url-protocol,
@@ -152,6 +153,6 @@ button, select {
     text-align: __MSG_@@bidi_end_edge__;
 }
 .options-link-wrapper a {
-    color: blue;
+    color: LinkText;
     font-size: smaller;
 }

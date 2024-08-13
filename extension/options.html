@@ -9,6 +9,7 @@
 <head>
 <meta charset="utf-8">
 <title>Open in Browser</title>
+<meta name="color-scheme" content="light dark">
 <style>
 body {
     font-family: 'Segoe UI', 'Lucida Grande', 'Ubuntu', sans-serif;
@@ -25,6 +26,7 @@ h2 {
     font-size: 1.3em;
     margin: 0.6em 0;
     border-top: 1px dashed #888;
+    border-color: light-dark(#888, #777);
     padding-top: 0.2em;
 }
 .row {
@@ -37,6 +39,7 @@ h2 {
 .pref > .explanation {
     position: absolute;
     border: 1px solid #EEE;
+    border-color: light-dark(#EEE, #555);
     border-radius: 2px;
     box-shadow: 1px 1px 5px #000;
 
@@ -59,6 +62,7 @@ h2 {
 footer {
     margin-top: 1rem;
     border-top: 1px solid #CCC;
+    border-color: light-dark(#CCC, #666);
     padding: 1rem 0;
     
     font-size: 1rem;
@@ -69,7 +73,7 @@ table {
 }
 .restored-to-default {
     text-decoration: line-through;
-    color: #999;
+    color: GrayText;
 }
 </style>
 </head>
