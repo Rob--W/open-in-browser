@@ -88,11 +88,11 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
         return value;
     }
     function rfc2231getparam(contentDisposition) {
-        let matches = [], match;
+        let matches = [];
         // Iterate over all filename*n= and filename*n*= with n being an integer
         // of at least zero. Any non-zero number must not start with '0'.
         let iter = toParamRegExp('filename\\*((?!0\\d)\\d+)(\\*?)', 'ig');
-        while ((match = iter.exec(contentDisposition)) !== null) {
+        for (let match of contentDisposition.matchAll(iter)) {
             let [, n, quot, part] = match;
             n = parseInt(n, 10);
             if (n in matches) {
